@@ -1,4 +1,3 @@
-<!-- NRG v34.2 Public Ready — cleaned CSS, Safari guards, a11y/tooltips; built 2025-09-13 19:13 UTC -->
 <!-- 
   NRG v32.1 — Unified Build
   Surgery: merged Cleaned 2 + Themed Patched
@@ -12,8 +11,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>NRG v27 — Unified + Themes (Fixed)</title>
 <style>
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-
 /* ======== ULTRA-CONTRAST v3 THEME TOKENS ======== */
 [data-theme="light"]{
   --bg:#ffffff; --card:#ffffff; --card-br:#0b122099; --txt:#000000; --muted:#111827;
@@ -462,70 +459,51 @@ select, input[type="number"], input[type="text"], input[type="range"]{
 }
 
 
-#donut-center {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  text-align: center !important;
-  line-height: 1.2 !important;
-}
-#donut-meter, #donut-cost {
-  display: block;
-  font-weight: 900;
-  white-space: nowrap;
-}
-#donut-meter {
-  font-size: 26px;
-  color: var(--accent);
-  text-shadow: 0 0 6px var(--accent-2);
-}
+#donut-cost { color: inherit; display: block; }
+
+/* === UI Polish Tweaks v8.1 === */
 #donut-cost {
-  font-size: 18px;
-  color: var(--txt);
-  opacity: 0.9;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-2);
+  text-shadow: 0 0 4px var(--accent);
+}
+.theme-toolbar {
+  background: linear-gradient(90deg, var(--bg-1), var(--bg-2));
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+#mode-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--bg-2);
+  color: var(--text-1);
+  font-weight: 600;
 }
 
 
-/* === Donut Center Polish === */
-#donut-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.2;
-  padding: 4px;
+/* === UI Polish Pack === */
+.nrg-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-#donut-meter {
-  font-size: 24px !important; /* main kWh line */
-  font-weight: 900;
-  color: var(--accent);
-  text-shadow: 0 0 3px var(--accent-2); /* softer shadow */
+#mini-list .mini-row:nth-child(odd){
+  background: rgba(255,255,255,0.03);
 }
-#donut-cost {
-  font-size: 16px !important; /* secondary line */
-  margin-top: 4px;
-  color: var(--txt);
-  opacity: 0.9;
+.summary-cards .big {
+  font-size: 22px;
 }
-
-/* === AI Tips Polish === */
-.ai-tip {
-  border-left: 6px solid var(--accent);
-  padding: 12px;
+.tc-bar {
+  transition: width 0.6s ease-in-out;
 }
-.ai-tip .ai-save {
-  font-size: 16px;
-  font-weight: 900;
-  color: #22c55e; /* green highlight for savings */
+.summary-cards .card-mini {
+  transform: scale(1.05);
 }
-
-/* Borders by tag */
-.ai-tip.schedule { border-left-color: #3b82f6; }   /* blue */
-.ai-tip.hardware { border-left-color: #f59e0b; }   /* amber */
-.ai-tip.automation { border-left-color: #8b5cf6; } /* purple */
-.ai-tip.behavior { border-left-color: #ef4444; }   /* red */
+button:hover {
+  filter: brightness(1.1);
+}
 
 </style>
 
@@ -647,35 +625,68 @@ html[data-density="compact"]
 .tc-meta{ font:12px/1.2 system-ui; color:var(--muted); }
 
 </style>
-
-
 <style>
-#donut-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.2;
-}
-#donut-meter { font-size: 24px !important; /* shrink main kWh line */
-  font-weight: bold;
-}
-#donut-cost  { font-size: 16px !important; /* smaller secondary line */
-  margin-top: 2px;
-}
+
+/* === Compact Inputs + Top Contributors (v2) === */
+#add-form #add-watts{ width: 90px; }
+#add-form #add-hours{ width: 80px; }
+#add-form #add-duty{ width: 80px; }
+#add-form #add-qty{ width: 70px; }
+#mini-list .qe-w{ width: 80px; }
+#mini-list .qe-h{ width: 80px; }
+.nrg-stepper{ display:inline-flex; align-items:stretch; border:1px solid var(--input-br); border-radius:8px; overflow:hidden; background:var(--input-bg); }
+.nrg-stepper input{ border:none !important; width:70px; text-align:right; background:transparent; }
+.nrg-stepper button{ border:none; background:var(--card); color:var(--txt); padding:0 8px; cursor:pointer; }
+.nrg-stepper button:hover{ background:var(--accent-weak, rgba(255,255,255,0.06)); }
+.nrg-stepper button:focus{ outline:1px solid var(--accent); }
+#add-form .nrg-stepper{ width:auto; }
+#add-form #add-watts, 
+#add-form #add-hours{ display:none; }
+#top-contr{ margin-top:10px; background:var(--card); border:1px solid var(--card-br); border-radius:12px; padding:10px; }
+#top-contr h4{ margin:0 0 8px 0; font-size:14px; font-weight:800; }
+.tc-row{ display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; margin:4px 0; }
+.tc-bar{ height:8px; border-radius:999px; background:linear-gradient(90deg, var(--accent) 0%, var(--accent) var(--tcw,0%), rgba(255,255,255,0.1) var(--tcw,0%), rgba(255,255,255,0.1) 100%); }
+.tc-meta{ font:12px/1.2 system-ui; color:var(--muted); }
+
 </style>
 
 <style>
-
-/* Safari canvas sizing guard */
-@supports (-webkit-hyphens:none) {
-  .tr-charts canvas{ max-width:100% !important; }
-}
-
+/* v32 polish: working labels and toolbar tweaks */
+.device-label { font-weight: bold; margin-right: 4px; }
+.toolbar { display: flex; gap: 8px; align-items: center; }
 </style>
+
+
+<style>
+#code-dump-section,#code-dump{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
+</style>
+
 </head>
 <body>
+
+<!-- Welcome Modal -->
+<div id="intro-modal" style="
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+">
+  <div style="background: #1e1e2f; padding: 2rem; border-radius: 12px; max-width: 500px; text-align: center; color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+    <h1 style="margin-bottom: 1rem; font-size: 1.8rem;">⚡ Welcome to NRG</h1>
+    <p style="margin-bottom: 1.5rem; line-height: 1.5;">
+      NRG helps you track and simulate your home’s energy use.<br><br>
+      Add your devices, set usage hours, and instantly see your daily kWh, monthly projections, and estimated bill.<br><br>
+      Try out the AI Advisor for smart savings tips, or connect real smart plugs in Demo Mode.
+    </p>
+    <button id="intro-close" style="padding: 0.6rem 1.2rem; background: #00c853; border: none; border-radius: 8px; color: #fff; font-size: 1rem; cursor: pointer;">
+      Get Started
+    </button>
+  </div>
+</div>
+
   <div id="app" class="nrg-grid">
     <!-- TL -->
     <section id="pane-tl" class="nrg-card">
@@ -774,7 +785,7 @@ html[data-density="compact"]
 <section id="pane-ai" class="nrg-card" style="grid-column: 1 / -1; margin-top:10px;">
       <div class="section">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-          <h3 class="section-title">NRG AI Advisor (Preview)</h3><div class="small muted">Demo-only suggestions for now; final model coming in a later build.</div>
+          <h3 class="section-title">NRG AI Advisor (Preview)</h3>
           <div style="display:flex; gap:8px; align-items:end; flex-wrap:wrap;">
             <label class="qa-col"><span class="qa-label">Peak rate ($/kWh)</span>
               <input id="ai-peak" class="nrg-input" type="number" min="0" step="0.01" value="0.22" style="width:110px">
@@ -808,8 +819,8 @@ html[data-density="compact"]
   <button type="button" class="nrg-btn" id="btn-exp-donut">Export Donut PNG</button>
   <button type="button" class="nrg-btn" id="btn-exp-bar">Export Bar PNG</button>
   <button type="button" class="nrg-btn" id="btn-exp-csv">Export Table CSV</button>
-  <button type="button" class="nrg-btn" id="btn-save-prof" title="Coming soon">Save Profile</button>
-  <button type="button" class="nrg-btn" id="btn-load-prof" title="Coming soon">Load Profile</button>
+  <button type="button" class="nrg-btn" id="btn-save-prof">Save Profile</button>
+  <button type="button" class="nrg-btn" id="btn-load-prof">Load Profile</button>
   <div class="nrg-btn" style="display:flex;gap:6px;align-items:center;">
     View:
     <button type="button" class="nrg-btn" id="filter-all">All</button>
@@ -828,10 +839,8 @@ html[data-density="compact"]
           </label>
         </div>
         <div class="mobile-chart-toggle" style="display:none; gap:6px; margin-top:8px;"><button type="button" class="nrg-btn" id="show-donut">Donut</button><button type="button" class="nrg-btn" id="show-bar">Bar</button></div><div class="tr-charts">
-          <div class="donut-wrap" style="position:relative;"><canvas id="donut"></canvas><div id="donut-center">
-  <div id="donut-meter" class="digital">0.00 kWh</div>
-  <div id="donut-cost" class="digital"></div>
-</div></div>
+          <div class="donut-wrap" style="position:relative;"><canvas id="donut"></canvas><div id="donut-center"><div id="donut-meter" class="digital">0.00 kWh</div>
+  <div id="donut-cost" class="digital"></div></div></div>
           <div class="bargrid-wrap"><canvas id="breakdownBar"></canvas></div>
         </div>
       </div>
@@ -845,7 +854,30 @@ html[data-density="compact"]
     
 
 <div class="nrg-card" id="chart-advanced" style="margin-top:10px; padding:10px;">
-  
+  <details id="adv-toggle">
+    <summary class="qa-summary" aria-controls="adv-body" aria-expanded="false">Advanced Chart Controls</summary>
+    <div id="adv-body" class="qa-body" style="margin-top:10px; display:grid; gap:10px; grid-template-columns:1fr 1fr 1fr;">
+      <label>Bar Thickness
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input id="bar-thickness" type="range" min="0.1" max="1.0" step="0.05" value="0.8" aria-describedby="bar-thickness-val">
+          <span id="bar-thickness-val" class="small muted" style="min-width:46px;">0.80</span>
+        </div>
+      </label>
+      <label>Category Spacing
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input id="bar-spacing" type="range" min="0.1" max="1.0" step="0.05" value="0.9" aria-describedby="bar-spacing-val">
+          <span id="bar-spacing-val" class="small muted" style="min-width:46px;">0.90</span>
+        </div>
+      </label>
+      
+      <label>Donut Cutout (%)
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input id="donut-cutout" type="range" min="10" max="90" step="5" value="60" aria-describedby="donut-cutout-val">
+          <span id="donut-cutout-val" class="small muted" style="min-width:46px;">60%</span>
+        </div>
+      </label>
+    </div>
+  </details>
 </div>
 
 
@@ -859,7 +891,6 @@ html[data-density="compact"]
         </label>
       </div>
       <table id="comp-table">
-        <caption class="small muted" style="text-align:left;margin-bottom:6px;">Energy components breakdown (sortable in future versions)</caption>
         <thead>
           <tr>
             <th>Device</th>
@@ -908,17 +939,7 @@ html[data-density="compact"]
     
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script>
-
-function updateDonutCenter(totalKwh){
-  const el = document.getElementById('donut-meter');
-  if (el){
-    el.textContent = totalKwh.toFixed(2) + ' kWh';
-    el.style.opacity = '1';
-  }
-}
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js?v33">
 // === NRG v29 Preview: Smart Devices (Bridge stub + Demo mode) ===
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
@@ -940,8 +961,8 @@ function updateDonutCenter(totalKwh){
 
   function openModal(){ modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
   function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
-  if (openBtn) openBtn.addEventListener('click', openModal);
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
 
   function setStatus(msg){ statusEl.textContent = msg; }
 
@@ -1004,7 +1025,7 @@ function updateDonutCenter(totalKwh){
   ];
 
   // Bridge connection
-  if (btnConn) btnConn.addEventListener('click', ()=>{
+  btnConn?.addEventListener('click', ()=>{
     try{
       demo = false;
       if (ws){ try{ ws.close(); }catch{} }
@@ -1029,7 +1050,7 @@ function updateDonutCenter(totalKwh){
   });
 
   // Demo mode
-  if (btnDemo) btnDemo.addEventListener('click', ()=>{
+  btnDemo?.addEventListener('click', ()=>{
     demo = true; connected = false;
     setStatus('Demo Mode: using example devices on this page only.');
     renderDevices(DEMO_DEVICES);
@@ -1056,7 +1077,7 @@ function updateDonutCenter(totalKwh){
 
   function makeTip(title, save, body, tag){
     const div = document.createElement('div');
-    div.className = 'ai-tip ' + (tag || '');
+    div.className = 'ai-tip';
     div.innerHTML = `
       <div class="ai-head">
         <div><span class="ai-title">${title}</span>${tag?`<span class="ai-tag">${tag}</span>`:''}</div>
@@ -1227,8 +1248,7 @@ function updateDonutCenter(totalKwh){
           <div class="mini-meta">${meta2}</div>
           <button type="button" class="nrg-btn mini-btn" data-idx="${idx}" title="Remove">×</button>
         `;
-        const __btn = row.querySelector('button');
-                  if (__btn) __btn.addEventListener('click', (e)=>{
+        row.querySelector('button')?.addEventListener('click', (e)=>{
           const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
           if (i>=0 && i < (devices||[]).length){
             devices.splice(i,1);
@@ -1241,13 +1261,8 @@ function updateDonutCenter(totalKwh){
   }
 
   // Hook renderAll to also refresh the mini panel
-  if (typeof renderAll === 'function') {
-    const _renderAll = renderAll;
-    renderAll = function(){ _renderAll(); renderMini(); };
-  } else {
-    // Fallback: listen for a custom event to render mini panel
-    document.addEventListener('devicesUpdated', renderMini);
-  }
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderMini(); };
   // First render after load
   document.addEventListener('DOMContentLoaded', renderMini);
 })();
@@ -1357,88 +1372,28 @@ try{
 }catch(e){ /* noop */ }
 
 
-function renderDonutMeter(){
-  try {
-    const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
-    const daily = (devices||[]).reduce((s,d)=>{
-      const w = +d.watts||0;
-      const h = +d.hoursPerDay||0;
-      const duty = (+d.duty||100)/100;
-      const q = +d.quantity||1;
-      return s + (w*h*duty*q)/1000;
-    },0);
-    const el = document.getElementById('donut-meter');
-    if (el) el.textContent = daily.toFixed(2) + " kWh";
-  } catch(e){}
-}
-
-// Hook into renderAll to refresh donut meter each time
-const _renderAll_orig = renderAll;
-renderAll = function(){
-  _renderAll_orig();
-  renderDonutMeter();
-};
+// (old donut patch removed)
 
 
-// (old patch removed) ===
-(function(){
-  const meter = \1
-
-// PATCH: keep donut cost updated with system totals
-try {
-  const costEl = document.getElementById("donut-cost");
-  if (costEl) {
-    const rate = parseFloat(document.getElementById("grid-rate")?.value || "0.15") || 0.15;
-    const dailyCost = (typeof dailyKwh !== "undefined" ? dailyKwh : 0) * rate;
-    costEl.textContent = dailyCost > 0
-      ? "$" + dailyCost.toFixed(2) + " /day"
-      : "— /day";
-  }
-} catch(e){ console.warn("Donut cost renderAll patch failed", e); }
-
-  const cost  = document.getElementById("donut-cost");
-  if (!meter || !cost) return;
-
-  const _renderAll = renderAll;
-  renderAll = function(){
-    _renderAll();
-    try {
-      let totalKwh = (devices||[]).reduce((s,d)=> 
-        s + ((+d.watts||0) * (+d.hoursPerDay||0) * ((+d.duty||100)/100) * (+d.quantity||1)) / 1000, 0);
-      let rate = parseFloat(document.getElementById("grid-rate")?.value || "0.15") || 0.15;
-      let daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate();
-      let totalCost = totalKwh * daysInMonth * rate;
-      meter.textContent = totalKwh.toFixed(2) + " kWh";
-      cost.textContent  = "$" + totalCost.toFixed(2);
-    } catch(e){ console.warn("Donut update error", e); }
-  };
-})();
+// (old donut patch removed)
 
 
-// (old sync patch removed) (mirror summary cards) ===
-(function(){
-  const meter = document.getElementById("donut-meter");
-  const cost  = document.getElementById("donut-cost");
-  if (!meter || !cost) return;
-
-  function syncDonut(){
-    const daily = document.getElementById("sum-daily")?.textContent || "0";
-    const bill  = document.getElementById("sum-bill")?.textContent || "$0.00";
-    meter.textContent = daily + " kWh";
-    cost.textContent  = bill;
-  }
-
-  const _renderAll = renderAll;
-  renderAll = function(){
-    _renderAll();
-    syncDonut();
-  };
-
-  document.addEventListener("DOMContentLoaded", syncDonut);
-})();
+// (old donut patch removed)
 
 
-// === Donut True Totals Patch ===
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// === Donut + Mini Panel Unified Sync (v8) ===
 (function(){
   const meter = document.getElementById("donut-meter");
   const cost  = document.getElementById("donut-cost");
@@ -1448,14 +1403,24 @@ try {
   renderAll = function(){
     _renderAll();
     try {
-      const daily = document.getElementById("sum-daily")?.textContent || "0";
-      const bill  = document.getElementById("sum-bill")?.textContent || "$0.00";
-      meter.textContent = daily + " kWh";
-      cost.textContent  = bill;
+      const kwhNode  = document.getElementById("mini-kwh");
+      const billNode = document.getElementById("mini-bill");
+      if (kwhNode) meter.textContent = kwhNode.textContent + " kWh";
+      if (billNode) cost.textContent = billNode.textContent;
     } catch(e){
-      console.warn("Donut sync error:", e);
+      console.warn("Unified sync error:", e);
     }
   };
+
+  // Run once after full load with slight delay to ensure mini-panel is ready
+  window.addEventListener("load", () => setTimeout(() => {
+    try {
+      const kwhNode  = document.getElementById("mini-kwh");
+      const billNode = document.getElementById("mini-bill");
+      if (kwhNode) meter.textContent = kwhNode.textContent + " kWh";
+      if (billNode) cost.textContent = billNode.textContent;
+    } catch(e){}
+  }, 200));
 })();
 
 </script>
@@ -1597,7 +1562,7 @@ function updateCharts(){
       donutChart = new Chart(donutCtx, { type:'doughnut', data, options:{
         responsive:true,
         maintainAspectRatio:false,
-        animation:{duration:0,cutout:'60%',cutout:'60%'},plugins:{legend:{display:false}},maintainAspectRatio:false,animation:{duration:200}} });
+        animation:{duration:0},plugins:{legend:{display:false}},maintainAspectRatio:false,animation:{duration:200}} });
     } else { donutChart.data = data; donutChart.update(); }
   }
 
@@ -1621,7 +1586,7 @@ function updateCharts(){
   const id = (x)=>document.getElementById(x);
 
   // Reset tweaks to defaults
-  if (id('btn-reset')) id('btn-reset').addEventListener('click', ()=>{
+  id('btn-reset')?.addEventListener('click', ()=>{
     const defaults = {barPct:'0.50',catPct:'0.60',cutout:'62',split:'50',pad:'12',lbl:'0'};
     for(const [k,v] of Object.entries(defaults)){
       const el = id(k); if(el){ el.value = v; }
@@ -1634,17 +1599,17 @@ function updateCharts(){
   function downloadURI(uri, name){
     const a = document.createElement('a'); a.href = uri; a.download = name; a.click();
   }
-  if (id('btn-exp-donut')) id('btn-exp-donut').addEventListener('click', ()=>{
+  id('btn-exp-donut')?.addEventListener('click', ()=>{
     const cvs = document.getElementById('donut'); if(!cvs) return;
     downloadURI(cvs.toDataURL('image/png'), 'nrg-donut.png');
   });
-  if (id('btn-exp-bar')) id('btn-exp-bar').addEventListener('click', ()=>{
+  id('btn-exp-bar')?.addEventListener('click', ()=>{
     const cvs = document.getElementById('breakdownBar'); if(!cvs) return;
     downloadURI(cvs.toDataURL('image/png'), 'nrg-bar.png');
   });
 
   // Export table CSV
-  if (id('btn-exp-csv')) id('btn-exp-csv').addEventListener('click', ()=>{
+  id('btn-exp-csv')?.addEventListener('click', ()=>{
     const rows = [['Device','kWh','% share','$']];
     const parts = currentPartsFiltered();
     parts.labels.forEach((name,i)=>{
@@ -1659,7 +1624,7 @@ function updateCharts(){
   });
 
   // Save / Load Profile (devices list)
-  if (id('btn-save-prof')) id('btn-save-prof').addEventListener('click', ()=>{
+  id('btn-save-prof')?.addEventListener('click', ()=>{
     try{
       const blob = new Blob([JSON.stringify({devices}, null, 2)], {type:'application/json'});
       const url = URL.createObjectURL(blob);
@@ -1667,7 +1632,7 @@ function updateCharts(){
       setTimeout(()=>URL.revokeObjectURL(url), 2000);
     }catch(e){ console.error(e); }
   });
-  if (id('btn-load-prof')) id('btn-load-prof').addEventListener('click', ()=>{
+  id('btn-load-prof')?.addEventListener('click', ()=>{
     const inp = document.createElement('input'); inp.type='file'; inp.accept='application/json';
     inp.onchange = ()=>{
       const f = inp.files?.[0]; if(!f) return;
@@ -1686,9 +1651,9 @@ function updateCharts(){
 
   // Suite filter: All / Main / Suite
   let FILTER = 'all'; // 'all' | 'main' | 'suite'
-  if (id('filter-all')) id('filter-all').addEventListener('click', ()=>{ FILTER='all'; renderAll(); });
-  if (id('filter-main')) id('filter-main').addEventListener('click', ()=>{ FILTER='main'; renderAll(); });
-  if (id('filter-suite')) id('filter-suite').addEventListener('click', ()=>{ FILTER='suite'; renderAll(); });
+  id('filter-all')?.addEventListener('click', ()=>{ FILTER='all'; renderAll(); });
+  id('filter-main')?.addEventListener('click', ()=>{ FILTER='main'; renderAll(); });
+  id('filter-suite')?.addEventListener('click', ()=>{ FILTER='suite'; renderAll(); });
 
   // Wrap the parts calc with filter
   window.currentPartsFiltered = function(){
@@ -1947,8 +1912,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function openModal(){ modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
   function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
-  if (openBtn) openBtn.addEventListener('click', openModal);
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
 
   function setStatus(msg){ statusEl.textContent = msg; }
 
@@ -2011,7 +1976,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   ];
 
   // Bridge connection
-  if (btnConn) btnConn.addEventListener('click', ()=>{
+  btnConn?.addEventListener('click', ()=>{
     try{
       demo = false;
       if (ws){ try{ ws.close(); }catch{} }
@@ -2036,7 +2001,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 
   // Demo mode
-  if (btnDemo) btnDemo.addEventListener('click', ()=>{
+  btnDemo?.addEventListener('click', ()=>{
     demo = true; connected = false;
     setStatus('Demo Mode: using example devices on this page only.');
     renderDevices(DEMO_DEVICES);
@@ -2063,7 +2028,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function makeTip(title, save, body, tag){
     const div = document.createElement('div');
-    div.className = 'ai-tip ' + (tag || '');
+    div.className = 'ai-tip';
     div.innerHTML = `
       <div class="ai-head">
         <div><span class="ai-title">${title}</span>${tag?`<span class="ai-tag">${tag}</span>`:''}</div>
@@ -2234,8 +2199,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
           <div class="mini-meta">${meta2}</div>
           <button type="button" class="nrg-btn mini-btn" data-idx="${idx}" title="Remove">×</button>
         `;
-        const __btn = row.querySelector('button');
-                  if (__btn) __btn.addEventListener('click', (e)=>{
+        row.querySelector('button')?.addEventListener('click', (e)=>{
           const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
           if (i>=0 && i < (devices||[]).length){
             devices.splice(i,1);
@@ -2248,13 +2212,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   // Hook renderAll to also refresh the mini panel
-  if (typeof renderAll === 'function') {
-    const _renderAll = renderAll;
-    renderAll = function(){ _renderAll(); renderMini(); };
-  } else {
-    // Fallback: listen for a custom event to render mini panel
-    document.addEventListener('devicesUpdated', renderMini);
-  }
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderMini(); };
   // First render after load
   document.addEventListener('DOMContentLoaded', renderMini);
 })();
@@ -2935,9 +2894,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
       bs: bs ? bs.value : undefined,
       dc: dc ? dc.value : undefined
     }});
-    if (bt) bt.addEventListener('input', store);
-    if (bs) bs.addEventListener('input', store);
-    if (dc) dc.addEventListener('input', store);
+    bt?.addEventListener('input', store);
+    bs?.addEventListener('input', store);
+    dc?.addEventListener('input', store);
   });
 
   // -------- Legend percentages for the donut (doughnut) --------
@@ -3822,30 +3781,19 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
-(function(){
-  function updateDonutCenter(){
-    const meter = document.getElementById('donut-meter');
-    const costEl = document.getElementById('donut-cost');
-    if (!meter || !costEl) return;
-    const daily = (devices||[]).reduce((s,d)=>{
-      const w=+d.watts||0, h=+d.hoursPerDay||0;
-      const duty=(+d.duty||100)/100, q=+d.quantity||1;
-      return s+(w*h*duty*q)/1000;
-    },0);
-    meter.textContent = daily.toFixed(2) + " kWh/day";
-    const rateInput = document.getElementById('grid-rate');
-    const rate = rateInput ? parseFloat(rateInput.value)||0 : 0;
-    if(rate>0){
-      const cost = daily*rate;
-      costEl.textContent = "$" + cost.toFixed(2) + " /day";
-    } else {
-      costEl.textContent = "";
-    }
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("intro-modal");
+  const closeBtn = document.getElementById("intro-close");
+  if (localStorage.getItem("nrg-welcome") === "seen") {
+    modal.style.display = "none";
   }
-  const _renderAll = renderAll;
-  renderAll = function(){ _renderAll(); updateDonutCenter(); };
-  document.addEventListener('DOMContentLoaded', updateDonutCenter);
-})();
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+    localStorage.setItem("nrg-welcome", "seen");
+  });
+});
+</script>
 
 </body>
 </html>

@@ -1,30 +1,28 @@
-# NRG — Home Energy Simulator (PWA)
+# NRG
 
-⚡ **Welcome to NRG**  
-Apartment Adventures Timeline — *No meter? No problem. NRG puts the power back in your hands.*
+NRG is an interactive energy simulation and tracking dashboard.
 
-## About
-NRG is now installable as a Progressive Web App (PWA).  
-It works even if you never see your utility meter (common in apartments/condos).
+## Features
+- Add and manage household devices
+- View daily kWh, monthly usage, and estimated bill
+- Interactive charts: Donut + Bar breakdowns
+- AI Advisor placeholder for smart energy-saving tips
+- Polished UI with hover effects and smooth animations
 
-- Track energy usage (kWh) and costs in real-time.  
-- Add/remove devices and instantly see impacts.  
-- Explore multiple visual themes and layouts.  
-- AI-powered advisor preview for optimization tips.  
-- Export data as CSV/PNG for sharing or analysis.  
-- Installable on Chrome, Safari, and mobile devices.
+## New in this Version
+- **Welcome Screen**: First-time visitors see an introduction overlay with a "Get Started" button. This is only shown once per browser session (until cache/localStorage is cleared).
+- **UI Polish Pack**: Hover effects, zebra stripes on device list, animated chart transitions, and more for a smoother experience.
+
+## Deployment
+1. Upload `index 9_intro.html` to your GitHub repository (e.g., `gh-pages` branch).
+2. Keep `README.md` in the root of the repo for project documentation.
+3. On GitHub Pages, ensure your repository is configured to serve from the correct branch and path.
 
 ## Usage
-1. Clone/download this repo.  
-2. Open `index.html` in your browser (Chrome or Safari recommended).  
-3. To deploy on GitHub Pages:  
-   - Push these files to your repo.  
-   - Enable Pages in repo settings (root → main branch).  
-   - Visit your site URL!  
-4. Install on your device by clicking **Add to Home Screen** or **Install App**.
-
-## License
-MIT License — free for all to use, modify, and share.
+Open the deployed page in your browser.  
+- The welcome overlay appears once on first load.  
+- Add devices, adjust usage, and see live updates to your charts and estimates.  
 
 ---
-⚡ *This is a prototype. Expect updates and new features in future versions.*
+
+© WePower / EZ (Eazzy E)
