@@ -1,0 +1,3805 @@
+<!-- 
+  NRG v32.1 — Unified Build
+  Surgery: merged Cleaned 2 + Themed Patched
+  Result: Stable + Clean + GitHub-ready
+-->
+
+<!DOCTYPE html>
+<html class="comfort" lang="en" data-theme="sunburst">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NRG v27 — Unified + Themes (Fixed)</title>
+<style>
+/* ======== ULTRA-CONTRAST v3 THEME TOKENS ======== */
+[data-theme="light"]{
+  --bg:#ffffff; --card:#ffffff; --card-br:#0b122099; --txt:#000000; --muted:#111827;
+  --btn:#000000; --btn-t:#ffffff;
+  --accent:#000000; --accent-2:#e11d48;
+  --input-bg:#ffffff; --input-br:#0b1220aa; --table-head-bg:#e5e7eb;
+  --gridline:rgba(0,0,0,0.45);
+}
+[data-theme="dark"]{
+  --bg:#000000; --card:#121826; --card-br:#ffffff66; --txt:#ffffff; --muted:#e5e7eb;
+  --btn:#1f2937; --btn-t:#ffffff;
+  --accent:#22d3ee; --accent-2:#f59e0b;
+  --input-bg:#121826; --input-br:#ffffff80; --table-head-bg:#0b111e;
+  --gridline:rgba(255,255,255,0.35);
+}
+[data-theme="ocean"]{
+  --bg:#00101b; --card:#02243a; --card-br:#00e5ff99; --txt:#ffffff; --muted:#e6faff;
+  --btn:#02324f; --btn-t:#ffffff;
+  --accent:#00e5ff; --accent-2:#ffe566;
+  --input-bg:#02243a; --input-br:#00e5ffb3; --table-head-bg:#012033;
+  --gridline:rgba(255,255,255,0.35);
+}
+[data-theme="solar"]{
+  --bg:#ffae42; --card:#ffd580; --card-br:#000000aa; --txt:#000000; --muted:#111111;
+  --btn:#000000; --btn-t:#ffffff;
+  --accent:#ff7a00; --accent-2:#d97706;
+  --input-bg:#ffe5b4; --input-br:#000000aa; --table-head-bg:#ffc966;
+  --gridline:rgba(0,0,0,0.45);
+}
+[data-theme="sunburst"]{
+  --bg:#070916; --card:#17234b; --card-br:#ffd166aa; --txt:#ffffff; --muted:#e8edff;
+  --btn:#1b2a5a; --btn-t:#ffffff;
+  --accent:#ffd166; --accent-2:#ff4d7a;
+  --input-bg:#17234b; --input-br:#ffd166cc; --table-head-bg:#111a3a;
+  --gridline:rgba(255,255,255,0.35);
+}
+[data-theme="high-contrast"]{
+  --bg:#000000; --card:#000000; --card-br:#ffffff; --txt:#ffffff; --muted:#ffffff;
+  --btn:#ffffff; --btn-t:#000000;
+  --accent:#ffdd00; --accent-2:#00ffff;
+  --input-bg:#000000; --input-br:#ffffff; --table-head-bg:#000000;
+  --gridline:rgba(255,255,255,0.50);
+}
+
+/* ======== BASE ======== */
+*{box-sizing:border-box;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--txt)}
+html,body{height:100%;margin:0;background:var(--bg);overflow-x:hidden}
+.nrg-grid{display:grid;min-height:100vh;gap:10px;padding:10px;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;grid-template-areas:"tl tr" "bl br"}
+.nrg-card{background:var(--card);border:1px solid var(--card-br);border-radius:14px;padding:10px;min-width:0;min-height:0;box-shadow:0 0 0 1px #00000020,0 6px 20px #00000040}
+.section-title{margin:0 0 8px 0;font-size:16px;font-weight:800}
+.small{font-size:12px}.muted{color:var(--muted)}.big{font-size:20px;font-weight:800}
+#pane-tl{grid-area:tl;overflow:auto;position:relative} #pane-tr{grid-area:tr;overflow:hidden}
+#pane-bl{grid-area:bl;overflow-y:auto;overflow-x:hidden} #pane-br{grid-area:br;overflow-y:auto;overflow-x:hidden}
+.nrg-btn{background:var(--btn);color:var(--btn-t);border:1px solid var(--card-br);border-radius:10px;padding:8px 10px;cursor:pointer;transition:transform .05s ease, box-shadow .15s, background .15s}
+.nrg-btn:hover{outline:2px solid var(--accent); outline-offset:2px; transform: translateY(-1px); box-shadow:0 4px 12px #00000066}
+.nrg-btn:focus{outline:3px solid var(--accent-2); outline-offset:2px}
+.nrg-input, select, input{background:var(--input-bg);border:1px solid var(--input-br);padding:6px 8px;border-radius:8px;color:var(--txt)}
+
+/* Theme toolbar (sticky) */
+#theme-toolbar{position:relative;top:auto;z-index:auto;display:flex;gap:6px;flex-wrap:wrap;padding-bottom:6px;margin-bottom:8px;background:transparent}
+#theme-toolbar .nrg-btn{padding:6px 10px;font-size:12px;border-radius:999px}
+#theme-status{display:inline-block;margin-left:8px;font:12px/1 system-ui;opacity:.9}
+
+/* TL presets */
+#basic-seed .bf-grid{display:grid;gap:8px;align-items:end;grid-template-columns:1fr 1fr 1fr auto auto}
+#basic-seed select,#basic-seed input{width:100%}
+label.bf-suite{ margin-left: 12px; font-weight: 600; }
+label.bf-suite input{ margin-right: 6px; }
+
+/* TR charts */
+.tr-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.rate-box input{width:110px}
+.tr-charts{display:flex;gap:12px;align-items:stretch;min-height:220px}
+.tr-charts .donut-wrap{flex:0 0 46%;min-height:220px;border:1px solid var(--card-br);border-radius:10px;padding:6px}
+.tr-charts .bargrid-wrap{flex:1;min-height:220px;border:1px solid var(--card-br);border-radius:10px;padding:6px}
+.tr-charts canvas{width:100%;height:100%}
+
+/* Summary cards */
+.summary-cards{display:grid;gap:8px;grid-template-columns:repeat(3,1fr)}
+.card-mini{background:var(--input-bg);border:1px solid var(--input-br);border-radius:10px;padding:8px}
+.card-mini .big{color:var(--accent)}
+
+/* BL add custom */
+.add-head{position:sticky;top:0;display:grid;gap:8px;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;background:var(--card);
+  border-bottom:1px solid var(--card-br);padding:6px 0;margin-bottom:4px;color:var(--muted);font-weight:700;font-size:12px;z-index:1}
+.add-grid{display:grid;gap:8px;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;align-items:end}
+
+/* BR table */
+.table-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+#comp-table{width:100%;border-collapse:collapse}
+#comp-table th,#comp-table td{padding:6px 8px;border-bottom:1px solid var(--card-br)}
+#comp-table th{position:sticky;top:0;background:var(--table-head-bg);color:var(--muted)}
+#comp-table tfoot td{font-weight:800}
+.num{text-align:right}
+
+/* Responsive */
+@media (max-width:980px){
+  .nrg-grid{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"tl" "tr" "bl" "br";min-height:100vh}
+  #pane-tl,#pane-tr{overflow:visible}
+  .summary-cards{grid-template-columns:1fr}
+  #basic-seed .bf-grid{grid-template-columns:1fr 1fr}
+  .add-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  #basic-seed .bf-grid{grid-template-columns:1fr}
+  .add-grid{grid-template-columns:1fr}
+}
+
+/* Quick Add (Select + Add) */
+.qa-details{padding:10px}
+.qa-summary{list-style:none; cursor:pointer; background:var(--input-bg); border:1px solid var(--input-br); border-radius:8px; padding:8px 10px; font-weight:800}
+.qa-summary::-webkit-details-marker{display:none}
+.qa-details[open] .qa-summary{outline:2px solid var(--accent); outline-offset:2px}
+.qa-body{margin-top:8px}
+.qa-row{display:flex;gap:8px;flex-wrap:wrap}
+.qa-col{display:flex;flex-direction:column;gap:4px}
+.qa-label{font-size:12px;color:var(--muted)}
+.qa-actions{display:flex;justify-content:flex-end;margin:8px 0 4px 0}
+.qa-defaults{background:var(--input-bg); border:1px solid var(--input-br); border-radius:8px; padding:6px 8px}
+
+/* === UI Polish Pack === */
+
+/* Cross‑browser select/input normalization */
+select, input[type="number"], input[type="text"], input[type="range"]{
+  font: 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  min-height: 36px;
+}
+
+/* Zebra rows + stronger hover */
+#comp-table tbody tr:nth-child(odd){ background: rgba(255,255,255,0.03); }
+#comp-table tbody tr:hover{ background: rgba(255,255,255,0.08); }
+
+/* Compact density */
+:root.compact .nrg-card{ padding:8px; }
+:root.compact .section-title{ margin-bottom:6px; }
+:root.compact .tr-charts .donut-wrap, 
+:root.compact .tr-charts .bargrid-wrap{ padding:8px; }
+:root.compact #comp-table th, 
+:root.compact #comp-table td{ padding:4px 6px; }
+:root.compact .ctrl{ padding:6px; }
+:root.compact #theme-toolbar .nrg-btn{ padding:4px 8px; font-size:11px; }
+
+/* Chart wrappers breathing room (default) already present; emphasize consistent gutters */
+.tr-charts .donut-wrap, .tr-charts .bargrid-wrap{ margin-top:2px; }
+
+/* Mobile: show toggle buttons under 600px and stack charts */
+@media (max-width:600px){
+  .mobile-chart-toggle{ display:flex; }
+  .tr-charts{ flex-direction:column; }
+  .tr-charts .donut-wrap, .tr-charts .bargrid-wrap{ min-height:220px; }
+  .tr-charts .donut-wrap.hidden, .tr-charts .bargrid-wrap.hidden{ display:none; }
+}
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *{ scroll-behavior:auto !important; }
+}
+
+
+/* Extra polish: mono numbers for alignment */
+.num{ font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+
+/* Smart Devices modal styles */
+#sd-list .sd-item{ display:grid; grid-template-columns:1.6fr 1fr auto auto; gap:8px; align-items:center; border:1px solid var(--card-br); border-radius:10px; padding:8px; }
+#sd-list .sd-name{ font-weight:700; }
+#sd-list .sd-meta{ font-size:12px; color:var(--muted); }
+#sd-list .sd-btn{ min-width:88px; }
+
+
+/* AI tips styling */
+.ai-tip{ border:1px solid var(--card-br); border-radius:12px; padding:10px; background:var(--card); box-shadow:0 2px 10px rgba(0,0,0,.25); }
+.ai-tip .ai-head{ display:flex; justify-content:space-between; gap:8px; align-items:center; }
+.ai-tip .ai-title{ font-weight:800; }
+.ai-tip .ai-save{ font-weight:800; }
+.ai-tip .ai-body{ margin-top:6px; font-size:14px; }
+.ai-tag{ font-size:11px; padding:2px 6px; border:1px solid var(--card-br); border-radius:999px; margin-left:6px; }
+
+
+/* Mini devices list styling */
+#mini-list .mini-row{ display:grid; grid-template-columns:1.4fr 1fr 1fr auto; gap:8px; align-items:center;
+  border:1px solid var(--card-br); border-radius:10px; padding:8px; background:var(--card); }
+#mini-list .mini-name{ font-weight:700; }
+#mini-list .mini-meta{ font-size:12px; color:var(--muted); }
+#mini-list .mini-btn{ min-width:36px; }
+@media (max-width: 700px){
+  #mini-list .mini-row{ grid-template-columns:1fr auto; }
+  #mini-list .mini-meta{ display:none; }
+}
+
+
+/* Right pane flex layout to gracefully fill tall left column */
+#pane-tr{ display:flex; flex-direction:column; }
+#pane-tr > .section{ display:block; }
+#tr-filler{ flex:1 1 auto; overflow:auto; margin-top:10px; }
+#tr-filler .card{ background:var(--card); border:1px solid var(--card-br); border-radius:12px; padding:10px; height:100%; }
+#tr-filler h4{ margin:0 0 8px 0; }
+#tr-filler .mini{ font-size:12px; color:var(--muted); }
+#tr-filler ul{ margin:6px 0 0 18px; }
+
+
+/* Right pane grows: show Breakdown on right under AI Advisor */
+#pane-tr{ display:flex; flex-direction:column; }
+#pane-tr .right-breakdown{ flex:1 1 auto; overflow:auto; margin-top:10px; }
+#pane-tr .right-breakdown .card{ background:var(--card); border:1px solid var(--card-br); border-radius:12px; padding:10px; }
+#pane-tr .right-breakdown table{ width:100%; border-collapse:separate; border-spacing:0; }
+#pane-tr .right-breakdown th, 
+#pane-tr .right-breakdown td{ padding:8px 10px; border-bottom:1px solid var(--card-br); }
+#pane-tr .right-breakdown tbody tr:nth-child(odd){ background:rgba(255,255,255,0.03); }
+#pane-tr .right-breakdown .num{ font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; text-align:right; }
+
+
+/* Right pane flex: keep compact when no tips, expand when tips exist */
+#pane-tr{ display:flex; flex-direction:column; }
+#pane-ai{ display:flex; flex-direction:column; }
+#ai-tips{ flex:1 1 auto; overflow:auto; min-height:0; transition: max-height .2s ease; }
+#ai-tips.empty{ max-height:0px; overflow:hidden; padding-top:0; }
+#ai-tips:not(.empty){ max-height:60vh; } /* allow tips to occupy space without overgrowing */
+
+
+/* Keep right column tidy when charts + breakdown are stacked */
+#pane-tr .section{ overflow: visible; }
+#pane-tr .table-head{ margin-top:10px; }
+
+
+
+/* ==== DENSITY MODES: Comfort vs Compact (EXTRA STRONG) ==== */
+/* Use CSS variables for global scaling so every element responds */
+:root{ --dens-font:1.00; --dens-pad:10px; --dens-gap:10px; --dens-ctrl:36px; }
+:root.comfort, body.comfort{ --dens-font:1.18; --dens-pad:18px; --dens-gap:16px; --dens-ctrl:48px; }
+:root.compact, body.compact{ --dens-font:0.86; --dens-pad:6px;  --dens-gap:6px;  --dens-ctrl:26px; }
+
+/* Global hooks */
+.nrg-card{ padding: var(--dens-pad); }
+.section-title{ font-size: calc(16px * var(--dens-font)); margin-bottom: calc(8px * var(--dens-font)); }
+.summary-cards{ gap: var(--dens-gap); }
+.card-mini{ padding: calc(8px * var(--dens-font)); }
+#mini-list .mini-row{ padding: calc(8px * var(--dens-font)); gap: var(--dens-gap); }
+.qa-row{ gap: var(--dens-gap); }
+.qa-defaults{ padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font)); }
+
+/* Inputs / buttons */
+select, input[type="number"], input[type="text"], input[type="range"]{
+  min-height: var(--dens-ctrl);
+  font-size: calc(14px * var(--dens-font));
+  padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font));
+}
+.nrg-btn{ padding: calc(6px * var(--dens-font)) calc(12px * var(--dens-font)); font-size: calc(12px * var(--dens-font)); }
+
+/* Charts area */
+.tr-charts{ gap: var(--dens-gap); min-height: calc(220px * var(--dens-font)); }
+.tr-charts .donut-wrap,
+.tr-charts .bargrid-wrap{ padding: calc(6px * var(--dens-font)); min-height: calc(220px * var(--dens-font)); }
+
+/* Table cells */
+#comp-table th, #comp-table td{ padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font)); }
+
+/* Extra obvious cue on header tone */
+:root.comfort #theme-toolbar, body.comfort #theme-toolbar{ filter: saturate(1.15) brightness(1.05); }
+:root.compact #theme-toolbar, body.compact #theme-toolbar{ filter: saturate(0.85) brightness(0.93); }
+
+/* Mode badge near toggle */
+
+:root.comfort #mode-badge, body.comfort 
+:root.compact #mode-badge, body.compact 
+
+/* Comfort = relaxed spacing, larger typography, bigger controls */
+:root.comfort, body.comfort .nrg-card{ padding:16px; }
+:root.comfort, body.comfort .section-title{ font-size:18px; margin-bottom:10px; }
+:root.comfort, body.comfort .tr-charts{ gap:16px; min-height:280px; }
+:root.comfort, body.comfort .tr-charts .donut-wrap,
+:root.comfort, body.comfort .tr-charts .bargrid-wrap{ padding:12px; min-height:280px; }
+:root.comfort, body.comfort #comp-table th, 
+:root.comfort, body.comfort #comp-table td{ padding:10px 12px; }
+:root.comfort, body.comfort select, 
+:root.comfort, body.comfort input[type="number"], 
+:root.comfort, body.comfort input[type="text"], 
+:root.comfort, body.comfort input[type="range"]{ min-height:44px; font-size:16px; }
+:root.comfort, body.comfort .nrg-btn{ padding:10px 14px; font-size:15px; }
+:root.comfort, body.comfort .summary-cards{ gap:12px; }
+:root.comfort, body.comfort .card-mini{ padding:12px; }
+:root.comfort, body.comfort #mini-list .mini-row{ padding:12px; gap:12px; }
+:root.comfort, body.comfort .qa-row{ gap:12px; }
+:root.comfort, body.comfort .qa-defaults{ padding:10px 12px; }
+
+/* Compact = dense layout, small controls, minimal gaps */
+:root.compact, body.compact .nrg-card{ padding:6px; }
+:root.compact, body.compact .section-title{ margin-bottom:4px; font-size:14px; }
+:root.compact, body.compact .tr-charts{ gap:6px; min-height:200px; }
+:root.compact, body.compact .tr-charts .donut-wrap,
+:root.compact, body.compact .tr-charts .bargrid-wrap{ padding:6px; min-height:200px; }
+:root.compact, body.compact #comp-table th, 
+:root.compact, body.compact #comp-table td{ padding:3px 4px; }
+:root.compact, body.compact select, 
+:root.compact, body.compact input[type="number"], 
+:root.compact, body.compact input[type="text"], 
+:root.compact, body.compact input[type="range"]{ min-height:28px; font-size:12px; padding:4px 6px; }
+:root.compact, body.compact .nrg-btn{ padding:4px 8px; font-size:12px; }
+:root.compact, body.compact .summary-cards{ gap:6px; }
+:root.compact, body.compact .card-mini{ padding:6px; }
+:root.compact, body.compact #mini-list .mini-row{ padding:6px; gap:6px; }
+:root.compact, body.compact .qa-row{ gap:6px; }
+:root.compact, body.compact .qa-defaults{ padding:4px 6px; }
+
+
+
+:root.comfort #mode-badge, body.comfort 
+:root.compact #mode-badge, body.compact 
+
+
+/* ===== DENSITY: Comfort vs Compact (v31.3 ultra‑clear) ===== */
+:root{
+  --dens-font: 1.00;
+  --dens-pad: 10px;
+  --dens-gap: 10px;
+  --dens-ctrl: 36px;
+  --dens-radius: 10px;
+  --toolbar-scale: 1.00;
+}
+:root.comfort, body.comfort{
+  --dens-font: 1.18;   /* bigger text */
+  --dens-pad: 18px;    /* more card padding */
+  --dens-gap: 16px;    /* more gaps */
+  --dens-ctrl: 48px;   /* taller inputs/buttons */
+  --dens-radius: 14px; /* softer corners */
+  --toolbar-scale: 1.08; /* slightly larger toolbar */
+}
+:root.compact, body.compact{
+  --dens-font: 0.86;   /* smaller text */
+  --dens-pad: 6px;     /* tighter cards */
+  --dens-gap: 6px;     /* tight gaps */
+  --dens-ctrl: 26px;   /* slim controls */
+  --dens-radius: 8px;  /* crisper corners */
+  --toolbar-scale: 0.92; /* slightly smaller toolbar */
+}
+
+/* Global hooks so the whole UI responds */
+.nrg-card{ padding: var(--dens-pad) !important; border-radius: var(--dens-radius) !important; }
+.section-title{ font-size: calc(16px * var(--dens-font)) !important; margin-bottom: calc(8px * var(--dens-font)) !important; }
+.summary-cards{ gap: var(--dens-gap) !important; }
+.card-mini{ padding: calc(8px * var(--dens-font)) !important; border-radius: var(--dens-radius) !important; }
+#mini-list .mini-row{ padding: calc(8px * var(--dens-font)) !important; gap: var(--dens-gap) !important; border-radius: var(--dens-radius) !important; }
+.qa-row{ gap: var(--dens-gap) !important; }
+.qa-defaults{ padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font)) !important; }
+
+/* Inputs / buttons */
+select, input[type="number"], input[type="text"], input[type="range"]{
+  min-height: var(--dens-ctrl) !important;
+  font-size: calc(14px * var(--dens-font)) !important;
+  padding: calc(6px * var(--dens-font)) calc(10px * var(--dens-font)) !important;
+}
+.nrg-btn{ padding: calc(6px * var(--dens-font)) calc(12px * var(--dens-font)) !important; font-size: calc(12px * var(--dens-font)) !important; border-radius: var(--dens-radius) !important; }
+
+/* Charts area */
+.tr-charts{ gap: var(--dens-gap) !important; min-height: calc(220px * var(--dens-font)) !important; }
+.tr-charts .donut-wrap, .tr-charts .bargrid-wrap{ padding: calc(6px * var(--dens-font)) !important; min-height: calc(220px * var(--dens-font)) !important; border-radius: var(--dens-radius) !important; }
+
+/* Table cells */
+#comp-table th, #comp-table td{ padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font)) !important; }
+
+/* Header tone cue + size shift */
+#theme-toolbar{ }
+:root.comfort #theme-toolbar, body.comfort #theme-toolbar{ filter: saturate(1.15) brightness(1.05); }
+:root.compact #theme-toolbar, body.compact #theme-toolbar{ filter: saturate(0.85) brightness(0.92); }
+
+/* Mode badge (visual confirmation) */
+
+:root.comfort #mode-badge, body.comfort 
+:root.compact #mode-badge, body.compact 
+
+
+/* === Keep theme toolbar fully visible in all modes === */
+#pane-tl{ overflow: visible !important; }
+#theme-toolbar{ flex-wrap: wrap !important; max-width: 100% !important; }
+#theme-toolbar .nrg-btn{ flex: 0 1 auto; }
+#theme-status{ flex: 0 0 auto; }
+
+
+#theme-toolbar{border-bottom:1px dashed var(--card-br); padding-bottom:8px; margin-bottom:10px;}
+
+/* === Focus & Hover Fix Patch === */
+.nrg-btn:hover{
+  outline: none !important;
+  box-shadow: 0 4px 12px #00000066;
+  transform: translateY(-1px);
+}
+.nrg-btn:focus{
+  outline: none !important;
+}
+.nrg-btn:focus-visible{
+  outline: none !important;
+  box-shadow:
+    inset 0 0 0 2px var(--accent-2),
+    0 0 0 1px var(--card-br);
+}
+
+/* === Initial Focus Hint (no overlay) === */
+.nrg-btn.is-initial-focus{
+  box-shadow:
+    inset 0 0 0 2px var(--accent-2),
+    0 0 0 1px var(--card-br);
+}
+
+
+#donut-center {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+  min-width:80px;
+  min-height:40px;
+}
+#donut-meter {
+  font-size:26px;
+  font-weight:900;
+  color:var(--accent);
+  text-shadow:0 0 6px var(--accent-2);
+  opacity:1 !important;
+  transition:none !important;
+  position:relative;
+  display:inline-block;
+  will-change:auto;
+  backface-visibility:hidden;
+  transform:translateZ(0);
+}
+
+
+
+
+.donut-wrap {
+  position: relative !important;
+}
+#donut-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+  width: 100% !important;
+  pointer-events: none !important;
+}
+#donut-meter {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  line-height: 1.1 !important;
+}
+
+
+#donut-cost { color: inherit; display: block; }
+
+/* === UI Polish Tweaks v8.1 === */
+#donut-cost {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-2);
+  text-shadow: 0 0 4px var(--accent);
+}
+.theme-toolbar {
+  background: linear-gradient(90deg, var(--bg-1), var(--bg-2));
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+#mode-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--bg-2);
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+
+/* === UI Polish Pack === */
+.nrg-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+#mini-list .mini-row:nth-child(odd){
+  background: rgba(255,255,255,0.03);
+}
+.summary-cards .big {
+  font-size: 22px;
+}
+.tc-bar {
+  transition: width 0.6s ease-in-out;
+}
+.summary-cards .card-mini {
+  transform: scale(1.05);
+}
+button:hover {
+  filter: brightness(1.1);
+}
+
+</style>
+
+<style id="density-override">
+/* ===== Density Override (v31.4) — high specificity + !important ===== */
+html[data-density="comfort"], html.comfort, body.comfort { 
+  --dens-font: 1.20; --dens-pad: 20px; --dens-gap: 18px; --dens-ctrl: 50px; --dens-radius: 14px; --toolbar-scale: 1.08;
+}
+html[data-density="compact"], html.compact, body.compact  { 
+  --dens-font: 0.84; --dens-pad: 6px;  --dens-gap: 6px;  --dens-ctrl: 26px; --dens-radius: 8px;  --toolbar-scale: 0.92;
+}
+
+/* Apply to common components with strong selectors and !important */
+html[data-density] .nrg-card,
+html.comfort .nrg-card,
+html.compact .nrg-card{ padding: var(--dens-pad) !important; border-radius: var(--dens-radius) !important; }
+
+html[data-density] .section-title,
+html.comfort .section-title,
+html.compact .section-title{ font-size: calc(16px * var(--dens-font)) !important; margin-bottom: calc(8px * var(--dens-font)) !important; }
+
+html[data-density] .summary-cards,
+html.comfort .summary-cards,
+html.compact .summary-cards{ gap: var(--dens-gap) !important; }
+
+html[data-density] .card-mini,
+html.comfort .card-mini,
+html.compact .card-mini{ padding: calc(8px * var(--dens-font)) !important; border-radius: var(--dens-radius) !important; }
+
+html[data-density] #mini-list .mini-row,
+html.comfort #mini-list .mini-row,
+html.compact #mini-list .mini-row{ padding: calc(8px * var(--dens-font)) !important; gap: var(--dens-gap) !important; }
+
+html[data-density] .qa-row,
+html.comfort .qa-row,
+html.compact .qa-row{ gap: var(--dens-gap) !important; }
+
+html[data-density] .qa-defaults,
+html.comfort .qa-defaults,
+html.compact .qa-defaults{ padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font)) !important; }
+
+/* Inputs / buttons */
+html[data-density] select, 
+html[data-density] input[type="number"], 
+html[data-density] input[type="text"], 
+html[data-density] input[type="range"],
+html.comfort select, 
+html.comfort input[type="number"], 
+html.comfort input[type="text"], 
+html.comfort input[type="range"],
+html.compact select, 
+html.compact input[type="number"], 
+html.compact input[type="text"], 
+html.compact input[type="range"]{
+  min-height: var(--dens-ctrl) !important;
+  font-size: calc(14px * var(--dens-font)) !important;
+  padding: calc(6px * var(--dens-font)) calc(10px * var(--dens-font)) !important;
+}
+
+html[data-density] .nrg-btn,
+html.comfort .nrg-btn,
+html.compact .nrg-btn{ padding: calc(6px * var(--dens-font)) calc(12px * var(--dens-font)) !important; font-size: calc(12px * var(--dens-font)) !important; border-radius: var(--dens-radius) !important; }
+
+/* Charts */
+html[data-density] .tr-charts,
+html.comfort .tr-charts,
+html.compact .tr-charts{ gap: var(--dens-gap) !important; min-height: calc(220px * var(--dens-font)) !important; }
+
+html[data-density] .tr-charts .donut-wrap, 
+html[data-density] .tr-charts .bargrid-wrap,
+html.comfort .tr-charts .donut-wrap, 
+html.comfort .tr-charts .bargrid-wrap,
+html.compact .tr-charts .donut-wrap, 
+html.compact .tr-charts .bargrid-wrap{
+  padding: calc(6px * var(--dens-font)) !important; 
+  min-height: calc(220px * var(--dens-font)) !important; 
+  border-radius: var(--dens-radius) !important;
+}
+
+/* Table cells */
+html[data-density] #comp-table th, 
+html[data-density] #comp-table td,
+html.comfort #comp-table th, 
+html.comfort #comp-table td,
+html.compact #comp-table th, 
+html.compact #comp-table td{ padding: calc(6px * var(--dens-font)) calc(8px * var(--dens-font)) !important; }
+
+/* Header cue */
+/* removed comfort toolbar transform to avoid overflow */
+/* removed compact toolbar transform to avoid overflow */
+
+/* Mode badge styling (if present) */
+
+html[data-density="comfort"] 
+html[data-density="compact"] 
+</style>
+
+<style>
+
+/* === Compact Inputs + Top Contributors (v2) === */
+#add-form #add-watts{ width: 90px; }
+#add-form #add-hours{ width: 80px; }
+#add-form #add-duty{ width: 80px; }
+#add-form #add-qty{ width: 70px; }
+#mini-list .qe-w{ width: 80px; }
+#mini-list .qe-h{ width: 80px; }
+.nrg-stepper{ display:inline-flex; align-items:stretch; border:1px solid var(--input-br); border-radius:8px; overflow:hidden; background:var(--input-bg); }
+.nrg-stepper input{ border:none !important; width:70px; text-align:right; background:transparent; }
+.nrg-stepper button{ border:none; background:var(--card); color:var(--txt); padding:0 8px; cursor:pointer; }
+.nrg-stepper button:hover{ background:var(--accent-weak, rgba(255,255,255,0.06)); }
+.nrg-stepper button:focus{ outline:1px solid var(--accent); }
+#add-form .nrg-stepper{ width:auto; }
+#add-form #add-watts, 
+#add-form #add-hours{ display:none; }
+#top-contr{ margin-top:10px; background:var(--card); border:1px solid var(--card-br); border-radius:12px; padding:10px; }
+#top-contr h4{ margin:0 0 8px 0; font-size:14px; font-weight:800; }
+.tc-row{ display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; margin:4px 0; }
+.tc-bar{ height:8px; border-radius:999px; background:linear-gradient(90deg, var(--accent) 0%, var(--accent) var(--tcw,0%), rgba(255,255,255,0.1) var(--tcw,0%), rgba(255,255,255,0.1) 100%); }
+.tc-meta{ font:12px/1.2 system-ui; color:var(--muted); }
+
+</style>
+<style>
+
+/* === Compact Inputs + Top Contributors (v2) === */
+#add-form #add-watts{ width: 90px; }
+#add-form #add-hours{ width: 80px; }
+#add-form #add-duty{ width: 80px; }
+#add-form #add-qty{ width: 70px; }
+#mini-list .qe-w{ width: 80px; }
+#mini-list .qe-h{ width: 80px; }
+.nrg-stepper{ display:inline-flex; align-items:stretch; border:1px solid var(--input-br); border-radius:8px; overflow:hidden; background:var(--input-bg); }
+.nrg-stepper input{ border:none !important; width:70px; text-align:right; background:transparent; }
+.nrg-stepper button{ border:none; background:var(--card); color:var(--txt); padding:0 8px; cursor:pointer; }
+.nrg-stepper button:hover{ background:var(--accent-weak, rgba(255,255,255,0.06)); }
+.nrg-stepper button:focus{ outline:1px solid var(--accent); }
+#add-form .nrg-stepper{ width:auto; }
+#add-form #add-watts, 
+#add-form #add-hours{ display:none; }
+#top-contr{ margin-top:10px; background:var(--card); border:1px solid var(--card-br); border-radius:12px; padding:10px; }
+#top-contr h4{ margin:0 0 8px 0; font-size:14px; font-weight:800; }
+.tc-row{ display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; margin:4px 0; }
+.tc-bar{ height:8px; border-radius:999px; background:linear-gradient(90deg, var(--accent) 0%, var(--accent) var(--tcw,0%), rgba(255,255,255,0.1) var(--tcw,0%), rgba(255,255,255,0.1) 100%); }
+.tc-meta{ font:12px/1.2 system-ui; color:var(--muted); }
+
+</style>
+
+<style>
+/* v32 polish: working labels and toolbar tweaks */
+.device-label { font-weight: bold; margin-right: 4px; }
+.toolbar { display: flex; gap: 8px; align-items: center; }
+</style>
+
+
+<style>
+#code-dump-section,#code-dump{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
+</style>
+
+</head>
+<body>
+
+
+<!-- Welcome Modal -->
+<div id="intro-modal" style="
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+">
+  <div style="background: #1e1e2f; padding: 2rem; border-radius: 12px; max-width: 500px; text-align: center; color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+    <h1 style="margin-bottom: 1rem; font-size: 1.8rem;">⚡ Welcome to NRG</h1>
+    <p style="margin-bottom: 1.5rem; line-height: 1.5; text-align: left;">
+      NRG is your apartment-friendly home energy simulator. It helps you:<br><br>
+      • Add and manage household devices<br>
+      • Estimate your daily kWh, monthly usage, and cost<br>
+      • Instantly see your biggest energy consumers<br>
+      • Works with smart devices (smart plugs, switches, CT clamps, and more)<br><br>
+      No meter? No problem. NRG puts the power back in your hands.<br><br>
+      🔮 <em>AI Advisor coming soon in the next build.</em>
+    </p>
+    <button id="intro-close" style="padding: 0.6rem 1.2rem; background: #00c853; border: none; border-radius: 8px; color: #fff; font-size: 1rem; cursor: pointer;">
+      Get Started
+    </button>
+  </div>
+</div>
+
+
+  <div id="app" class="nrg-grid">
+    <!-- TL -->
+    <section id="pane-tl" class="nrg-card">
+      <div id="theme-toolbar" role="toolbar" aria-label="Theme">
+        <button type="button" class="nrg-btn theme-btn" data-theme="light">Light</button>
+        <button type="button" class="nrg-btn theme-btn" data-theme="dark">Dark</button>
+        <button type="button" class="nrg-btn theme-btn" data-theme="ocean">Ocean</button>
+        <button type="button" class="nrg-btn theme-btn" data-theme="solar">Solar</button>
+        <button type="button" class="nrg-btn theme-btn" data-theme="sunburst">Sunburst</button>
+        <button type="button" class="nrg-btn theme-btn" data-theme="high-contrast">High Contrast</button>
+        <span id="theme-status">Theme: sunburst</span><div style="flex:1"></div><button type="button" class="nrg-btn" id="btn-connect" title="Connect Smart Devices">Connect Smart Devices</button>
+      </div>
+
+      <div id="basic-seed" class="section section-tight">
+        <h3 class="section-title">Basic Function</h3>
+        <div class="bf-grid">
+          <label>Type
+            <select id="bf-type">
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="condo">Condo</option>
+              <option value="suite">Suite</option>
+              <option value="bachelor">Bachelor Apt</option>
+            </select>
+          </label>
+          <label>Bedrooms
+            <select id="bf-beds">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </label>
+          <button class="nrg-btn bf-apply" id="bf-apply">Apply</button>
+          <label class="bf-replace"><input type="checkbox" id="bf-replace" checked> Replace</label>
+          <label class="bf-suite"><input type="checkbox" id="bf-suite"> Add Suite Copy</label>
+        </div>
+        <div class="muted small">Choose home → Apply to seed defaults. Add more below.</div>
+
+        <!-- Quick Add -->
+        <div id="quick-add" class="nrg-card" style="margin-top:10px;">
+          <h4 class="section-title">Add Quick Device</h4>
+          <div class="qa-body">
+            <div class="qa-row" style="align-items:flex-end; gap:8px;">
+              <label class="qa-col" style="min-width:240px; flex:1;">
+                <span class="qa-label">Device</span>
+                <select id="qa-select" class="nrg-input">
+                  <option value="">— Select a device —</option>
+                  <option value="router">Router</option>
+                  <option value="modem">Cable Modem</option>
+                  <option value="wifi-extender">Wi‑Fi Extender</option>
+                  <option value="fridge">Fridge</option>
+                  <option value="tv">TV</option>
+                  <option value="console">Game Console</option>
+                  <option value="soundbar">Soundbar</option>
+                  <option value="settop">Set‑top Box</option>
+                  <option value="microwave">Microwave</option>
+                  <option value="kettle">Kettle</option>
+                  <option value="coffee">Coffee Maker</option>
+                  <option value="toaster">Toaster</option>
+                  <option value="fan">Fan</option>
+                  <option value="space-heater">Space Heater</option>
+                  <option value="dehumidifier">Dehumidifier</option>
+                  <option value="humidifier">Humidifier</option>
+                  <option value="washer">Washer</option>
+                  <option value="dryer">Dryer</option>
+                  <option value="laptop">Laptop</option>
+                  <option value="desktop">Desktop PC</option>
+                  <option value="printer">Printer</option>
+                  <option value="led-lamp">LED Lamp</option>
+                </select>
+              </label>
+              <button id="qa-add" class="nrg-btn" type="button" disabled>Add</button>
+            </div>
+            <div class="muted small">Pick a device, then press <b>Add</b>. For custom values, use <b>Add Custom Device</b> below.</div>
+          </div>
+        </div>
+      </div>
+    
+<!-- Devices Mini Panel -->
+<section id="pane-devices-mini" class="nrg-card" style="margin-top:10px;">
+  <div class="section">
+    <h3 class="section-title">Your Devices & Instant Stats</h3>
+    <div class="mini-stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px;">
+      <div class="card-mini"><div class="muted small">Total devices</div><div id="mini-count" class="big">0</div></div>
+      <div class="card-mini"><div class="muted small">Daily kWh</div><div id="mini-kwh" class="big">0.00</div></div>
+      <div class="card-mini"><div class="muted small">Est. Bill / month</div><div id="mini-bill" class="big">$0.00</div></div>
+    </div>
+    <div id="mini-list" class="mini-list" style="display:grid; gap:6px;"></div>
+    <div class="muted small">Tip: Use the × to remove a device quickly. Edits still happen in the table below.</div>
+  </div>
+</section>
+
+    </section>
+<section id="pane-ai" class="nrg-card" style="grid-column: 1 / -1; margin-top:10px;">
+      <div class="section">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+          <h3 class="section-title">NRG AI Advisor (Preview)</h3>
+          <div style="display:flex; gap:8px; align-items:end; flex-wrap:wrap;">
+            <label class="qa-col"><span class="qa-label">Peak rate ($/kWh)</span>
+              <input id="ai-peak" class="nrg-input" type="number" min="0" step="0.01" value="0.22" style="width:110px">
+            </label>
+            <label class="qa-col"><span class="qa-label">Off‑peak rate ($/kWh)</span>
+              <input id="ai-off" class="nrg-input" type="number" min="0" step="0.01" value="0.12" style="width:110px">
+            </label>
+            <label class="qa-col"><span class="qa-label">Off‑peak window (24h)</span>
+              <div style="display:flex; gap:6px;">
+                <input id="ai-start" class="nrg-input" type="number" min="0" max="23" step="1" value="22" style="width:70px">
+                <span style="align-self:center;">→</span>
+                <input id="ai-end" class="nrg-input" type="number" min="0" max="23" step="1" value="7" style="width:70px">
+              </div>
+            </label>
+            <button id="ai-run" type="button" class="nrg-btn">Generate Tips</button>
+          </div>
+        </div>
+        <div id="ai-tips" class="empty" style="margin-top:10px; display:grid; gap:8px;">
+          <div class="muted small">Set your time‑of‑use rates and click <b>Generate Tips</b>. Suggestions will appear here with estimated monthly savings.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TR -->
+    <section id="pane-tr" class="nrg-card">
+      <div class="section">
+        <div class="tr-head">
+
+<div class="extra-tools" style="display:flex;gap:6px;flex-wrap:wrap;">
+  <button type="button" class="nrg-btn" id="btn-reset">Reset Tweaks</button>
+  <button type="button" class="nrg-btn" id="btn-exp-donut">Export Donut PNG</button>
+  <button type="button" class="nrg-btn" id="btn-exp-bar">Export Bar PNG</button>
+  <button type="button" class="nrg-btn" id="btn-exp-csv">Export Table CSV</button>
+  <button type="button" class="nrg-btn" id="btn-save-prof">Save Profile</button>
+  <button type="button" class="nrg-btn" id="btn-load-prof">Load Profile</button>
+  <div class="nrg-btn" style="display:flex;gap:6px;align-items:center;">
+    View:
+    <button type="button" class="nrg-btn" id="filter-all">All</button>
+    <button type="button" class="nrg-btn" id="filter-main">Main</button>
+    <button type="button" class="nrg-btn" id="filter-suite">Suite</button>
+  </div>
+</div>
+
+          <div class="view-tools">
+            <button type="button" class="nrg-btn" id="density-toggle" aria-pressed="false" title="Toggle Compact/Comfort">Compact</button>
+            <span class="small muted" id="theme-status2" style="margin-left:6px;"></span>
+          <span id="mode-badge">comfort</span></div>
+          <h3 class="section-title">Energy Share</h3>
+          <label class="rate-box">Rate ($/kWh)
+            <input id="grid-rate" type="number" min="0" step="0.01" value="0.15"/>
+          </label>
+        </div>
+        <div class="mobile-chart-toggle" style="display:none; gap:6px; margin-top:8px;"><button type="button" class="nrg-btn" id="show-donut">Donut</button><button type="button" class="nrg-btn" id="show-bar">Bar</button></div><div class="tr-charts">
+          <div class="donut-wrap" style="position:relative;"><canvas id="donut"></canvas><div id="donut-center"><div id="donut-meter" class="digital">0.00 kWh</div>
+  <div id="donut-cost" class="digital"></div></div></div>
+          <div class="bargrid-wrap"><canvas id="breakdownBar"></canvas></div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="summary-cards">
+          <div class="card-mini"><div class="muted small">Daily kWh</div><div id="sum-daily" class="big">—</div></div>
+          <div class="card-mini"><div class="muted small">Monthly kWh (proj)</div><div id="sum-month" class="big">—</div></div>
+          <div class="card-mini"><div class="muted small">Est. Bill (proj)</div><div id="sum-bill" class="big">—</div></div>
+        </div>
+      </div>
+    
+
+<div class="nrg-card" id="chart-advanced" style="margin-top:10px; padding:10px;">
+  <details id="adv-toggle">
+    <summary class="qa-summary" aria-controls="adv-body" aria-expanded="false">Advanced Chart Controls</summary>
+    <div id="adv-body" class="qa-body" style="margin-top:10px; display:grid; gap:10px; grid-template-columns:1fr 1fr 1fr;">
+      <label>Bar Thickness
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input id="bar-thickness" type="range" min="0.1" max="1.0" step="0.05" value="0.8" aria-describedby="bar-thickness-val">
+          <span id="bar-thickness-val" class="small muted" style="min-width:46px;">0.80</span>
+        </div>
+      </label>
+      <label>Category Spacing
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input id="bar-spacing" type="range" min="0.1" max="1.0" step="0.05" value="0.9" aria-describedby="bar-spacing-val">
+          <span id="bar-spacing-val" class="small muted" style="min-width:46px;">0.90</span>
+        </div>
+      </label>
+      
+      <label>Donut Cutout (%)
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input id="donut-cutout" type="range" min="10" max="90" step="5" value="60" aria-describedby="donut-cutout-val">
+          <span id="donut-cutout-val" class="small muted" style="min-width:46px;">60%</span>
+        </div>
+      </label>
+    </div>
+  </details>
+</div>
+
+
+<div class="table-head">
+        <h3 class="section-title">Components Breakdown</h3>
+        <label class="toggle">Show:
+          <select id="show-mode">
+            <option value="sofar" selected>So-far</option>
+            <option value="projected">Projected</option>
+          </select>
+        </label>
+      </div>
+      <table id="comp-table">
+        <thead>
+          <tr>
+            <th>Device</th>
+            <th class="num">kWh</th>
+            <th class="num">% share</th>
+            <th class="num">$</th>
+          </tr>
+        </thead>
+        <tbody id="comp-rows"></tbody>
+        <tfoot>
+          <tr>
+            <td class="muted">Totals</td>
+            <td class="num" id="tot-kwh">—</td>
+            <td class="num">100%</td>
+            <td class="num" id="tot-cost">—</td>
+          </tr>
+        </tfoot>
+      </table>
+<div id="top-contr" class="nrg-card"><h4>Top Contributors (kWh)</h4><div id="tc-body"></div></div>
+
+
+    
+    <!-- AI Advisor -->
+    
+    
+</section>
+
+    <!-- BL -->
+    <section id="pane-bl" class="nrg-card">
+      <h3 class="section-title">Add Custom Device</h3>
+      <div class="add-head">
+        <div>Name</div><div>Watts</div><div>Hours/day</div><div>Duty %</div><div>Qty</div><div></div>
+      </div>
+      <form id="add-form" class="add-grid" onsubmit="return false;">
+        <input id="add-name"  type="text"   placeholder="e.g., Router" aria-label="Name"/>
+        <input id="add-watts" type="number" min="0" step="1" placeholder="Watts" aria-label="Watts"/>
+        <input id="add-hours" type="number" min="0" max="24" step="0.25" placeholder="Hours/day" aria-label="Hours/day"/>
+        <input id="add-duty"  type="number" min="0" max="100" step="1" value="100" aria-label="Duty %"/>
+        <input id="add-qty"   type="number" min="1" step="1" value="1" aria-label="Quantity"/>
+        <button id="add-btn" class="nrg-btn">Add</button>
+      </form>
+      <div class="muted small">Tip: Always-on devices (router/fridge) use 24h/day; fridge duty ≈ 35%.</div>
+    </section>
+
+    <!-- BR -->
+    
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js?v33">
+// === NRG v29 Preview: Smart Devices (Bridge stub + Demo mode) ===
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+
+  const qs = (s)=>document.querySelector(s);
+  const qsa= (s)=>Array.from(document.querySelectorAll(s));
+  const modal = qs('#sd-modal');
+  const openBtn = qs('#btn-connect');
+  const closeBtn= qs('#sd-close');
+  const urlInp = qs('#sd-url');
+  const statusEl= qs('#sd-status');
+  const listEl = qs('#sd-list');
+  const adpBtns = qsa('.sd-adp');
+  const btnConn = qs('#sd-connect');
+  const btnDemo = qs('#sd-demo');
+  let ws = null;
+  let connected = false;
+  let demo = false;
+
+  function openModal(){ modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
+  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+
+  function setStatus(msg){ statusEl.textContent = msg; }
+
+  function renderDevices(devs){
+    listEl.innerHTML = '';
+    devs.forEach(d=>{
+      const row = document.createElement('div');
+      row.className = 'sd-item';
+      row.innerHTML = `
+        <div class="sd-name">${d.name}</div>
+        <div class="sd-meta">${d.adapter} • ${d.ip || '—'} • ${d.watts!=null? (d.watts+' W'):'—'}</div>
+        <button class="nrg-btn sd-btn" data-id="${d.id}" data-action="toggle">${d.on ? 'Turn Off' : 'Turn On'}</button>
+        <button class="nrg-btn sd-btn" data-id="${d.id}" data-action="link">Link to Item…</button>
+      `;
+      listEl.appendChild(row);
+    });
+    qsa('.sd-btn').forEach(b=> b.addEventListener('click', handleDeviceAction));
+  }
+
+  function handleDeviceAction(e){
+    const btn = e.currentTarget;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-action');
+    if (action==='toggle'){
+      if (demo){
+        // flip demo state locally
+        const item = DEMO_DEVICES.find(x=>x.id===id);
+        if (item){ item.on = !item.on; renderDevices(DEMO_DEVICES); }
+      }else if (connected && ws && ws.readyState===1){
+        ws.send(JSON.stringify({type:'setState', id, on:'toggle'}));
+      }
+    } else if (action==='link'){
+      const name = prompt('Link this device to which NRG item name? (e.g., TV, Fridge)');
+      if (!name) return;
+      alert('Linked '+id+' → '+name+' (mapping stored locally)');
+      // TODO: persist mapping; for preview we only show confirmation
+    }
+  }
+
+  // Adapter discovery
+  adpBtns.forEach(b=> b.addEventListener('click', ()=>{
+    const adp = b.getAttribute('data-adp');
+    if (demo){
+      const devs = DEMO_DEVICES.filter(x=>x.adapter===adp);
+      renderDevices(devs);
+    }else if (connected && ws && ws.readyState===1){
+      ws.send(JSON.stringify({type:'discover', adapter: adp}));
+    }else{
+      alert('Connect to a Bridge or use Demo Mode.');
+    }
+  }));
+
+  // Demo devices
+  const DEMO_DEVICES = [
+    {id:'kasa:plug:tv',     adapter:'kasa',    name:'Living TV Plug', ip:'192.168.1.51', on:true,  watts: 78},
+    {id:'kasa:plug:router', adapter:'kasa',    name:'Router Plug',    ip:'192.168.1.52', on:true,  watts: 12},
+    {id:'shelly:sw:lamp',   adapter:'shelly',  name:'Bedroom Lamp',   ip:'192.168.1.61', on:false, watts:  0},
+    {id:'tasmota:fan',      adapter:'tasmota', name:'Box Fan',        ip:'192.168.1.71', on:true,  watts: 45},
+    {id:'hue:bulb:desk',    adapter:'hue',     name:'Desk Bulb',      ip:'—',            on:false, watts:  7}
+  ];
+
+  // Bridge connection
+  btnConn?.addEventListener('click', ()=>{
+    try{
+      demo = false;
+      if (ws){ try{ ws.close(); }catch{} }
+      const url = (urlInp.value||'').trim();
+      ws = new WebSocket(url);
+      setStatus('Connecting to '+url+'…');
+      ws.onopen = ()=>{ connected=true; setStatus('Connected to Bridge. Choose an adapter to discover.'); };
+      ws.onclose= ()=>{ connected=false; setStatus('Disconnected.'); };
+      ws.onerror= ()=>{ connected=false; setStatus('Error connecting. Check address or use Demo Mode.'); };
+      ws.onmessage = (ev)=>{
+        try{
+          const msg = JSON.parse(ev.data||'{}');
+          if (msg.type==='devices' && Array.isArray(msg.items)){ renderDevices(msg.items); }
+          if (msg.type==='state' && msg.id){
+            // update a single device state if present
+          }
+        }catch(e){}
+      };
+    }catch(e){
+      setStatus('Could not open Bridge: '+(e?.message||e));
+    }
+  });
+
+  // Demo mode
+  btnDemo?.addEventListener('click', ()=>{
+    demo = true; connected = false;
+    setStatus('Demo Mode: using example devices on this page only.');
+    renderDevices(DEMO_DEVICES);
+  });
+
+  });
+})();
+
+
+// === NRG AI Advisor (Preview): local heuristics for savings tips ===
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const tipsBox = $('ai-tips');
+  const runBtn  = $('ai-run');
+  if (!tipsBox || !runBtn) return;
+
+  function fmt$(x){ return '$' + (x||0).toFixed(2); }
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function deviceKwhMonth(d){
+    const dim = monthDays();
+    const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1;
+    return (w*h*duty*q/1000) * dim;
+  }
+
+  function makeTip(title, save, body, tag){
+    const div = document.createElement('div');
+    div.className = 'ai-tip';
+    div.innerHTML = `
+      <div class="ai-head">
+        <div><span class="ai-title">${title}</span>${tag?`<span class="ai-tag">${tag}</span>`:''}</div>
+        <div class="ai-save">${fmt$(save)} / mo</div>
+      </div>
+      <div class="ai-body">${body}</div>
+    `;
+    return div;
+  }
+
+  function inOffpeak(startH, endH, testH){
+    if (startH===endH) return true; // degenerate = full day
+    if (startH < endH){
+      return testH >= startH && testH < endH;
+    }else{
+      // window wraps midnight
+      return testH >= startH || testH < endH;
+    }
+  }
+
+  runBtn.addEventListener('click', ()=>{
+    const peak = parseFloat($('ai-peak').value||'0.22')||0.22;
+    const off  = parseFloat($('ai-off').value||'0.12')||0.12;
+    let start = parseInt($('ai-start').value||'22',10); if (isNaN(start)) start=22;
+    let end   = parseInt($('ai-end').value||'7',10); if (isNaN(end)) end=7;
+    const dim = monthDays();
+
+    if (!Array.isArray(devices) || devices.length===0){
+      tipsBox.innerHTML = '<div class="ai-tip"><div class="ai-body">Add some devices first, then click Generate Tips.</div></div>';
+      return;
+    }
+
+    const out = [];
+    const lower = Math.max(0, peak - off);
+
+    // 1) Laundry shift (Washer/Dryer) to off-peak
+    const wash = devices.find(d=> /washer/i.test(d.name||''));
+    const dry  = devices.find(d=> /dryer/i.test(d.name||''));
+    const laundry = [wash, dry].filter(Boolean);
+    if (laundry.length){
+      const kwh = laundry.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      // assume baseline run occurs at peak; savings = kwh * (peak - off)
+      const save = kwh * lower;
+      if (save > 0.5){
+        out.push(makeTip(
+          "Shift laundry to off‑peak ("+start+":00→"+end+":00)",
+          save,
+          `Washer/Dryer use ~${kwh.toFixed(1)} kWh / month. If you run cycles during your off‑peak window, you avoid the higher rate (Δ=${fmt$(lower)}/kWh).`,
+          "schedule"
+        ));
+      }
+    }
+
+    // 2) LED swap suggestion for high‑watt lamps
+    const candidates = devices.filter(d=> /(lamp|bulb)/i.test(d.name||'') && (+d.watts||0) >= 40);
+    if (candidates.length){
+      const kwhOld = candidates.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      // Assume LED @ 10 W, same hours
+      const ledCandidates = candidates.map(d=> ({...d, watts:10}));
+      const kwhNew = ledCandidates.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const saveKwh = Math.max(0, kwhOld - kwhNew);
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const save = saveKwh * rate;
+      if (save > 0.5){
+        out.push(makeTip(
+          "Swap high‑watt bulbs for LED",
+          save,
+          `Found ${candidates.length} lamp(s) over 40W. Replacing with 10W LEDs saves ~${saveKwh.toFixed(1)} kWh/month at your current rate (${fmt$(rate)}/kWh).`,
+          "hardware"
+        ));
+      }
+    }
+
+    // 3) Phantom loads (always‑on small devices)
+    const phantoms = devices.filter(d=> (+d.hoursPerDay)===24 && (+d.watts) >= 5 && (+d.watts) <= 20);
+    if (phantoms.length){
+      const kwh = phantoms.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const save = kwh * rate * 0.3; // assume 30% cut via smart plug schedules
+      if (save > 0.3){
+        out.push(makeTip(
+          "Tame phantom loads with schedules",
+          save,
+          `Detected ${phantoms.length} always‑on small device(s). Using smart plugs to cut ~30% runtime could save ~${(kwh*0.3).toFixed(1)} kWh/month.`,
+          "automation"
+        ));
+      }
+    }
+
+    // 4) Space heater trim
+    const heaters = devices.filter(d=> /space\s*heater/i.test(d.name||''));
+    if (heaters.length){
+      const kwh = heaters.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const save = kwh * rate * 0.15; // 15% runtime trim
+      if (save > 0.5){
+        out.push(makeTip(
+          "Trim space‑heater runtime by 15%",
+          save,
+          `Space heaters are costly. Trimming usage by ~15% reduces ~${(kwh*0.15).toFixed(1)} kWh/month without big comfort loss.`,
+          "behavior"
+        ));
+      }
+    }
+
+    // 5) AC schedule if present (basic)
+    const acs = devices.filter(d=> /(ac|air\s*conditioner)/i.test(d.name||''));
+    if (acs.length){
+      const kwh = acs.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const save = kwh * lower * 0.5; // assume half the runtime can be shifted
+      if (save > 0.5){
+        out.push(makeTip(
+          "Pre‑cool / shift AC to off‑peak",
+          save,
+          `With off‑peak window ${$('ai-start').value}:00→${$('ai-end').value}:00, shifting ~50% of cooling saves the rate difference (Δ=${fmt$(lower)}/kWh).`,
+          "schedule"
+        ));
+      }
+    }
+
+    // Render tips
+    tipsBox.innerHTML = '';
+    if (!out.length){
+      tipsBox.innerHTML = '<div class="ai-tip"><div class="ai-body">No obvious savings found with current inputs. Try adding Washer/Dryer, Lamps, or Smart Plugs.</div></div>';
+    }else{
+      out.forEach(t=> tipsBox.appendChild(t));
+    }
+  });
+})();
+
+
+// === Mini Devices Panel: stats + quick list ===
+(function(){
+  const miniCount = document.getElementById('mini-count');
+  const miniKwh   = document.getElementById('mini-kwh');
+  const miniBill  = document.getElementById('mini-bill');
+  const miniList  = document.getElementById('mini-list');
+
+  if (!miniList) return;
+
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function dKwh(d){ const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1; return (w*h*duty*q)/1000; }
+
+  function renderMini(){
+    try{
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const dim = monthDays();
+
+      const count = (devices||[]).length;
+      const daily = (devices||[]).reduce((s,d)=> s + dKwh(d), 0);
+      const monthK = daily * dim;
+      const bill   = monthK * rate;
+
+      if (miniCount) miniCount.textContent = String(count);
+      if (miniKwh)   miniKwh.textContent   = daily.toFixed(2);
+      if (miniBill)  miniBill.textContent  = '$' + bill.toFixed(2);
+
+      // Build list rows
+      miniList.innerHTML = '';
+      (devices||[]).forEach((d, idx)=>{
+        const row = document.createElement('div');
+        row.className = 'mini-row';
+        const meta1 = `${(+d.watts||0)} W • ${(+d.hoursPerDay||0)} h/day`;
+        const meta2 = `Duty ${(+d.duty||100)}% • Qty ${(+d.quantity||1)}`;
+        row.innerHTML = `
+          <div class="mini-name">${d.name||'Device'}</div>
+          <div class="mini-meta">${meta1}</div>
+          <div class="mini-meta">${meta2}</div>
+          <button type="button" class="nrg-btn mini-btn" data-idx="${idx}" title="Remove">×</button>
+        `;
+        row.querySelector('button')?.addEventListener('click', (e)=>{
+          const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
+          if (i>=0 && i < (devices||[]).length){
+            devices.splice(i,1);
+            renderAll(); // re-render everything including mini panel
+          }
+        });
+        miniList.appendChild(row);
+      });
+    }catch(e){ /* noop */ }
+  }
+
+  // Hook renderAll to also refresh the mini panel
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderMini(); };
+  // First render after load
+  document.addEventListener('DOMContentLoaded', renderMini);
+})();
+
+
+// === Auto Insights filler (fills right column gap) ===
+(function(){
+  const host = document.getElementById('insights-body');
+  if (!host) return;
+
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function dKwh(d){ const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1; return (w*h*duty*q)/1000; }
+
+  function renderInsights(){
+    const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+    const dim = monthDays();
+    const list = (devices||[]).map(d=>{
+      const kwhDay = dKwh(d);
+      const kwhMon = kwhDay * dim;
+      const cost   = kwhMon * rate;
+      return {name:d.name||'Device', kwhMon, cost};
+    });
+    list.sort((a,b)=> b.kwhMon - a.kwhMon);
+    const top = list.slice(0,5);
+
+    let html = '';
+    if (top.length){
+      html += '<div class="mini">Top contributors this month:</div><ul>';
+      top.forEach(x=>{
+        html += `<li><b>${x.name}</b> — ${x.kwhMon.toFixed(1)} kWh • $${x.cost.toFixed(2)}</li>`;
+      });
+      html += '</ul>';
+    }else{
+      html += '<div class="mini">Add devices to see insights here.</div>';
+    }
+
+    const totalKwh = list.reduce((s,x)=> s + x.kwhMon, 0);
+    const total$   = list.reduce((s,x)=> s + x.cost, 0);
+    html += `<div class="mini" style="margin-top:8px">Total (proj): ${totalKwh.toFixed(1)} kWh • $${total$.toFixed(2)}</div>`;
+
+    host.innerHTML = html;
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderInsights(); };
+  document.addEventListener('DOMContentLoaded', renderInsights);
+})();
+
+
+// === Right-side Breakdown: mirrors main breakdown and fills right column ===
+(function(){
+  const tbody = document.getElementById('right-comp-rows');
+  if (!tbody) return;
+
+  function buildParts(){
+    if (typeof currentPartsFiltered === 'function') return currentPartsFiltered();
+    if (typeof currentParts === 'function') return currentParts();
+    return {labels:[], kwhs:[], shares:[], costs:[], totalK:0, rate:0};
+  }
+
+  function renderRightBreakdown(){
+    const parts = buildParts();
+    tbody.innerHTML = '';
+    let total$ = 0;
+    (parts.labels||[]).forEach((name,i)=>{
+      const tr = document.createElement('tr');
+      const kwh = parts.kwhs[i]||0;
+      const pct = parts.shares[i]||0;
+      const cost= parts.costs[i]||0;
+      total$ += cost;
+      tr.innerHTML = `<td>${name}</td>
+                      <td class="num">${kwh.toFixed(2)}</td>
+                      <td class="num">${pct.toFixed(1)}%</td>
+                      <td class="num">$${cost.toFixed(2)}</td>`;
+      tbody.appendChild(tr);
+    });
+    const tk = document.getElementById('right-tot-kwh');
+    const tc = document.getElementById('right-tot-cost');
+    if (tk) tk.textContent = (parts.totalK||0).toFixed(2);
+    if (tc) tc.textContent = '$'+(total$||0).toFixed(2);
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderRightBreakdown(); };
+  document.addEventListener('DOMContentLoaded', renderRightBreakdown);
+})();
+
+
+// Toggle compact/expanded tips area based on content
+try{
+  const aiTipsBox = document.getElementById('ai-tips');
+  if (aiTipsBox && !aiTipsBox.dataset._nrgHooked){
+    aiTipsBox.dataset._nrgHooked = '1';
+    const _aiRender = (arrLen)=>{
+      if (!aiTipsBox) return;
+      if (arrLen && arrLen > 0){ aiTipsBox.classList.remove('empty'); }
+      else{ aiTipsBox.classList.add('empty'); }
+    };
+    // Hook into existing click handler by monkey-patching innerHTML setter if needed
+    const _set = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML').set;
+    Object.defineProperty(aiTipsBox, 'innerHTML', {
+      set(v){ _set.call(aiTipsBox, v); _aiRender((aiTipsBox.querySelectorAll('.ai-tip')||[]).length); }
+    });
+    // Initial render as empty
+    _aiRender(0);
+  }
+}catch(e){ /* noop */ }
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// (old donut patch removed)
+
+
+// === Donut + Mini Panel Unified Sync (v8) ===
+(function(){
+  const meter = document.getElementById("donut-meter");
+  const cost  = document.getElementById("donut-cost");
+  if (!meter || !cost) return;
+
+  const _renderAll = renderAll;
+  renderAll = function(){
+    _renderAll();
+    try {
+      const kwhNode  = document.getElementById("mini-kwh");
+      const billNode = document.getElementById("mini-bill");
+      if (kwhNode) meter.textContent = kwhNode.textContent + " kWh";
+      if (billNode) cost.textContent = billNode.textContent;
+    } catch(e){
+      console.warn("Unified sync error:", e);
+    }
+  };
+
+  // Run once after full load with slight delay to ensure mini-panel is ready
+  window.addEventListener("load", () => setTimeout(() => {
+    try {
+      const kwhNode  = document.getElementById("mini-kwh");
+      const billNode = document.getElementById("mini-bill");
+      if (kwhNode) meter.textContent = kwhNode.textContent + " kWh";
+      if (billNode) cost.textContent = billNode.textContent;
+    } catch(e){}
+  }, 200));
+})();
+
+</script>
+  <script>
+// === Quick Add mapping ===
+const QUICK_MAP = {
+  'router':        {name:'Router',        watts:12,   hoursPerDay:24, duty:100, quantity:1},
+  'modem':         {name:'Cable Modem',   watts:9,    hoursPerDay:24, duty:100, quantity:1},
+  'wifi-extender': {name:'Wi‑Fi Extender',watts:6,    hoursPerDay:24, duty:100, quantity:1},
+  'fridge':        {name:'Fridge',        watts:160,  hoursPerDay:24, duty:35,  quantity:1},
+  'tv':            {name:'TV',            watts:120,  hoursPerDay:3,  duty:100, quantity:1},
+  'console':       {name:'Game Console',  watts:90,   hoursPerDay:2,  duty:100, quantity:1},
+  'soundbar':      {name:'Soundbar',      watts:25,   hoursPerDay:3,  duty:100, quantity:1},
+  'settop':        {name:'Set‑top Box',   watts:15,   hoursPerDay:4,  duty:100, quantity:1},
+  'microwave':     {name:'Microwave',     watts:1100, hoursPerDay:0.3,duty:100, quantity:1},
+  'kettle':        {name:'Kettle',        watts:1800, hoursPerDay:0.2,duty:100, quantity:1},
+  'coffee':        {name:'Coffee Maker',  watts:900,  hoursPerDay:0.3,duty:100, quantity:1},
+  'toaster':       {name:'Toaster',       watts:1200, hoursPerDay:0.1,duty:100, quantity:1},
+  'fan':           {name:'Fan',           watts:45,   hoursPerDay:6,  duty:100, quantity:1},
+  'space-heater':  {name:'Space Heater',  watts:1500, hoursPerDay:1.5,duty:50,  quantity:1},
+  'dehumidifier':  {name:'Dehumidifier',  watts:300,  hoursPerDay:6,  duty:60,  quantity:1},
+  'humidifier':    {name:'Humidifier',    watts:35,   hoursPerDay:8,  duty:100, quantity:1},
+  'washer':        {name:'Washer',        watts:500,  hoursPerDay:0.5,duty:25,  quantity:1},
+  'dryer':         {name:'Dryer',         watts:2500, hoursPerDay:0.4,duty:50,  quantity:1},
+  'laptop':        {name:'Laptop',        watts:60,   hoursPerDay:5,  duty:60,  quantity:1},
+  'desktop':       {name:'Desktop PC',    watts:200,  hoursPerDay:4,  duty:100, quantity:1},
+  'printer':       {name:'Printer',       watts:30,   hoursPerDay:0.2,duty:10,  quantity:1},
+  'led-lamp':      {name:'LED Lamp',      watts:10,   hoursPerDay:5,  duty:100, quantity:1}
+};
+
+// === Theme persist ===
+(function(){
+  const btns = document.querySelectorAll('.theme-btn');
+  const root = document.documentElement;
+  const status = document.getElementById('theme-status');
+  const saved = localStorage.getItem('nrg-theme');
+  if(saved){ root.setAttribute('data-theme', saved); status.textContent = 'Theme: '+saved; }
+  btns.forEach(b=> b.addEventListener('click', (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    const t = b.getAttribute('data-theme');
+    root.setAttribute('data-theme', t);
+    localStorage.setItem('nrg-theme', t);
+    status.textContent = 'Theme: '+t;
+    renderAll();
+  }));
+})();
+
+// === State ===
+let devices = [];
+let donutChart = null;
+let barChart = null;
+
+// === Helpers ===
+function daysInMonth(d){ return new Date(d.getFullYear(), d.getMonth()+1, 0).getDate(); }
+function daysElapsedThisMonth(d){ const first = new Date(d.getFullYear(), d.getMonth(), 1);
+  return Math.max(0, Math.ceil((d-first)/(1000*60*60*24))); }
+function dailyKwh(d){ const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1;
+  return (w*h*duty*q)/1000; }
+function totalDaily(){ return devices.reduce((s,d)=>s+dailyKwh(d),0); }
+
+function themePalette(){
+  const t = document.documentElement.getAttribute('data-theme') || 'sunburst';
+  const MAP = {
+    light:['#000000','#111827','#374151','#dc2626','#2563eb','#000000','#111827','#374151','#000000'],
+    dark:['#22d3ee','#f59e0b','#60a5fa','#5eead4','#f97316','#a78bfa','#34d399','#eab308','#22d3ee'],
+    ocean:['#00e5ff','#ffe566','#7dd3fc','#a5f3fc','#22d3ee','#38bdf8','#67e8f9','#fef08a','#00e5ff'],
+    solar:['#ffd54a','#ff7a00','#fde047','#fb7185','#f97316','#facc15','#22c55e','#f59e0b','#ffd54a'],
+    sunburst:['#ffd166','#ff4d7a','#06d6a0','#118ab2','#ffd6a5','#9b5de5','#00bbf9','#f15bb5','#fee440'],
+    'high-contrast':['#ffffff','#ffdd00','#00ffff','#ff00ff','#00ff00','#ff8800','#00aaff','#ff0044','#ffffff']
+  };
+  const src = MAP[t] || MAP.sunburst;
+  return (len)=> Array.from({length:len}, (_,i)=> src[i % src.length]);
+}
+
+// === Renderers ===
+function renderAll(){
+  renderSummaryAndTable();
+  updateCharts();
+}
+
+function currentParts(){
+  const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+  const showMode = document.getElementById('show-mode')?.value || 'sofar';
+  const now = new Date(), dim = daysInMonth(now), elapsed = Math.min(daysElapsedThisMonth(now), dim);
+  const factor = (showMode==='projected') ? dim : elapsed;
+  const labels = devices.map(d=>d.name);
+  const kwhs   = devices.map(d=> dailyKwh(d) * factor);
+  const totalK = kwhs.reduce((a,b)=>a+b,0) || 1;
+  const shares = kwhs.map(x=> x/totalK*100);
+  const costs  = kwhs.map(k=> k*rate);
+  return {labels, kwhs, shares, costs, totalK, rate};
+}
+
+function renderSummaryAndTable(){
+  const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+  const now = new Date(), dim = daysInMonth(now);
+  const daily = totalDaily();
+  const monthProj = daily * dim;
+  const billProj = monthProj * rate;
+  const sd = document.getElementById('sum-daily');
+  const sm = document.getElementById('sum-month');
+  const sb = document.getElementById('sum-bill');
+  if (sd) sd.textContent = daily.toFixed(2);
+  if (sm) sm.textContent = monthProj.toFixed(0);
+  if (sb) sb.textContent = '$'+billProj.toFixed(2);
+
+  const tbody = document.getElementById('comp-rows');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  const parts = currentParts();
+  let tot$=0;
+  parts.labels.forEach((name,i)=>{
+    const tr = document.createElement('tr');
+    const kwh = parts.kwhs[i];
+    const pct = parts.shares[i];
+    const cost= parts.costs[i];
+    tot$ += cost;
+    tr.innerHTML = `<td>${name}</td>
+                    <td class="num">${kwh.toFixed(2)}</td>
+                    <td class="num">${pct.toFixed(1)}%</td>
+                    <td class="num">$${cost.toFixed(2)}</td>`;
+    tbody.appendChild(tr);
+  });
+  const tk = document.getElementById('tot-kwh');
+  const tc = document.getElementById('tot-cost');
+  if (tk) tk.textContent = parts.totalK.toFixed(2);
+  if (tc) tc.textContent = '$'+tot$.toFixed(2);
+}
+
+function updateCharts(){
+  const {labels, shares, kwhs} = currentParts();
+  const colors = themePalette()(labels.length);
+
+  // Donut
+  const donutCtx = document.getElementById('donut')?.getContext('2d');
+  if (donutCtx){
+    const data = { labels, datasets:[{ data: shares, backgroundColor: colors, borderColor:'#00000066', borderWidth:1 }] };
+    if (!donutChart){
+      donutChart = new Chart(donutCtx, { type:'doughnut', data, options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        animation:{duration:0},plugins:{legend:{display:false}},maintainAspectRatio:false,animation:{duration:200}} });
+    } else { donutChart.data = data; donutChart.update(); }
+  }
+
+  // Bar (kWh)
+  const barCtx = document.getElementById('breakdownBar')?.getContext('2d');
+  if (barCtx){
+    const data = { labels, datasets:[{ label:'kWh', data:kwhs, backgroundColor: colors, borderColor:'#00000066', borderWidth:1 }] };
+    if (!barChart){
+      barChart = new Chart(barCtx, { type:'bar', data, options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        animation:{duration:0},plugins:{legend:{display:false}},maintainAspectRatio:false,scales:{y:{beginAtZero:true}}} });
+    } else { barChart.data = data; barChart.update(); }
+  }
+}
+
+
+// === UI Polish: theme-aware chart colors, persistence, toggles ===
+// === Extras: Reset, Export PNG/CSV, Save/Load Profile, Suite Filter ===
+(function(){
+  const id = (x)=>document.getElementById(x);
+
+  // Reset tweaks to defaults
+  id('btn-reset')?.addEventListener('click', ()=>{
+    const defaults = {barPct:'0.50',catPct:'0.60',cutout:'62',split:'50',pad:'12',lbl:'0'};
+    for(const [k,v] of Object.entries(defaults)){
+      const el = id(k); if(el){ el.value = v; }
+    }
+    localStorage.removeItem('nrg-v28-adjust');
+    updateCharts();
+  });
+
+  // Export charts as PNG
+  function downloadURI(uri, name){
+    const a = document.createElement('a'); a.href = uri; a.download = name; a.click();
+  }
+  id('btn-exp-donut')?.addEventListener('click', ()=>{
+    const cvs = document.getElementById('donut'); if(!cvs) return;
+    downloadURI(cvs.toDataURL('image/png'), 'nrg-donut.png');
+  });
+  id('btn-exp-bar')?.addEventListener('click', ()=>{
+    const cvs = document.getElementById('breakdownBar'); if(!cvs) return;
+    downloadURI(cvs.toDataURL('image/png'), 'nrg-bar.png');
+  });
+
+  // Export table CSV
+  id('btn-exp-csv')?.addEventListener('click', ()=>{
+    const rows = [['Device','kWh','% share','$']];
+    const parts = currentPartsFiltered();
+    parts.labels.forEach((name,i)=>{
+      rows.push([name, parts.kwhs[i].toFixed(2), parts.shares[i].toFixed(1)+'%', parts.costs[i].toFixed(2)]);
+    });
+    rows.push(['TOTAL', parts.totalK.toFixed(2), '100%', (parts.costs.reduce((a,b)=>a+b,0)).toFixed(2)]);
+    const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    downloadURI(url, 'nrg-breakdown.csv');
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+  });
+
+  // Save / Load Profile (devices list)
+  id('btn-save-prof')?.addEventListener('click', ()=>{
+    try{
+      const blob = new Blob([JSON.stringify({devices}, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      downloadURI(url, 'nrg-profile.json');
+      setTimeout(()=>URL.revokeObjectURL(url), 2000);
+    }catch(e){ console.error(e); }
+  });
+  id('btn-load-prof')?.addEventListener('click', ()=>{
+    const inp = document.createElement('input'); inp.type='file'; inp.accept='application/json';
+    inp.onchange = ()=>{
+      const f = inp.files?.[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = ()=>{
+        try{
+          const data = JSON.parse(String(r.result||'{}'));
+          if(Array.isArray(data.devices)){ devices = data.devices; renderAll(); }
+          else if (Array.isArray(data)){ devices = data; renderAll(); }
+        }catch(e){ alert('Invalid profile JSON'); }
+      };
+      r.readAsText(f);
+    };
+    inp.click();
+  });
+
+  // Suite filter: All / Main / Suite
+  let FILTER = 'all'; // 'all' | 'main' | 'suite'
+  id('filter-all')?.addEventListener('click', ()=>{ FILTER='all'; renderAll(); });
+  id('filter-main')?.addEventListener('click', ()=>{ FILTER='main'; renderAll(); });
+  id('filter-suite')?.addEventListener('click', ()=>{ FILTER='suite'; renderAll(); });
+
+  // Wrap the parts calc with filter
+  window.currentPartsFiltered = function(){
+    const raw = currentParts();
+    if(FILTER==='all') return raw;
+    const isSuite = (name)=>/\(Suite\)\s*$/.test(name);
+    const keep = raw.labels.map((name,i)=> ({name,i})).filter(({name})=> FILTER==='suite' ? isSuite(name) : !isSuite(name));
+    const labels = keep.map(k=> raw.labels[k.i]);
+    const kwhs   = keep.map(k=> raw.kwhs[k.i]);
+    const costs  = keep.map(k=> raw.costs[k.i]);
+    const totalK = kwhs.reduce((a,b)=>a+b,0) || 1;
+    const shares = kwhs.map(x=> x/totalK*100);
+    return {labels,kwhs,shares,costs,totalK, rate: raw.rate};
+  };
+
+  // Patch renderers to use filtered parts
+  const _renderSummaryAndTable = renderSummaryAndTable;
+  renderSummaryAndTable = function(){
+    // reuse original for summary numbers
+    _renderSummaryAndTable();
+    // then replace table body with filtered data
+    const tbody = document.getElementById('comp-rows'); if (!tbody) return;
+    const parts = currentPartsFiltered();
+    tbody.innerHTML='';
+    let tot$=0;
+    parts.labels.forEach((name,i)=>{
+      const tr = document.createElement('tr');
+      const kwh = parts.kwhs[i];
+      const pct = parts.shares[i];
+      const cost= parts.costs[i];
+      tot$ += cost;
+      tr.innerHTML = `<td>${name}</td>
+                      <td class="num">${kwh.toFixed(2)}</td>
+                      <td class="num">${pct.toFixed(1)}%</td>
+                      <td class="num">$${cost.toFixed(2)}</td>`;
+      tbody.appendChild(tr);
+    });
+    const tk = document.getElementById('tot-kwh');
+    const tc = document.getElementById('tot-cost');
+    if (tk) tk.textContent = parts.totalK.toFixed(2);
+    if (tc) tc.textContent = '$'+tot$.toFixed(2);
+  };
+
+  const _updateCharts = updateCharts;
+  updateCharts = function(){
+    // Call original to build data structures
+    _updateCharts();
+    // Then, if charts exist, overwrite their datasets with filtered data and refresh
+    if (donutChart || barChart){
+      const p = currentPartsFiltered();
+      const colors = themePalette()(p.labels.length);
+      if (donutChart){
+        donutChart.data = { labels: p.labels, datasets:[{ data: p.shares, backgroundColor: colors, borderColor:'#00000033', borderWidth:1 }] };
+        donutChart.update();
+      }
+      if (barChart){
+        barChart.data = { labels: p.labels, datasets:[{ label:'kWh', data:p.kwhs, backgroundColor: colors, borderColor:'#00000033', borderWidth:1 }] };
+        barChart.update();
+      }
+    }
+  };
+
+})();
+
+function getThemeChartColors(){
+  const cs = getComputedStyle(document.documentElement);
+  // Use --muted for tick text; derive grid color from input border
+  const tick = cs.getPropertyValue('--muted').trim() || '#b3b3b3';
+  const inputBr = cs.getPropertyValue('--input-br').trim() || '#3a3a3a';
+  // make grid less intense
+  const grid = inputBr.replace(/([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/, '$1');
+  return { tickColor: tick, gridColor: inputBr || '#3a3a3a' };
+}
+
+// Persist and restore control sliders
+const NRG_STORE_KEY = 'nrg-v28-adjust';
+function saveAdjustments(){
+  const payload = {
+    barPct: document.getElementById('barPct')?.value,
+    catPct: document.getElementById('catPct')?.value,
+    cutout: document.getElementById('cutout')?.value,
+    split: document.getElementById('split')?.value,
+    pad: document.getElementById('pad')?.value,
+    lbl: document.getElementById('lbl')?.value,
+  };
+  localStorage.setItem(NRG_STORE_KEY, JSON.stringify(payload));
+}
+function loadAdjustments(){
+  try{
+    const raw = localStorage.getItem(NRG_STORE_KEY);
+    if(!raw) return;
+    const v = JSON.parse(raw);
+    for (const [k,val] of Object.entries(v)){
+      const el = document.getElementById(k);
+      if (el && typeof val !== 'undefined'){ el.value = val; }
+    }
+  }catch{}
+}
+
+// Density toggle
+(function(){
+  const btn = document.getElementById('density-toggle');
+  if(!btn) return;
+  const key='nrg-density';
+  const root = document.documentElement;
+  function apply(state){
+    const root = document.documentElement;
+    root.classList.toggle('compact', state==='compact');
+    root.classList.toggle('comfort', state==='comfort');
+    btn.setAttribute('aria-pressed', state==='compact' ? 'true' : 'false');
+    btn.textContent = state==='compact' ? 'Comfort' : 'Compact';
+    localStorage.setItem(key, state);
+    if (typeof renderAll==='function') { try{ renderAll(); }catch(e){} }
+  }
+  const saved = localStorage.getItem(key) || 'comfort';
+  apply(saved);
+  btn.addEventListener('click', ()=> apply(document.documentElement.classList.contains('compact') ? 'comfort' : 'compact'));
+})();
+
+// Mobile donut/bar toggle
+(function(){
+  const showDonut = document.getElementById('show-donut');
+  const showBar = document.getElementById('show-bar');
+  const dw = document.getElementById('donutWrap');
+  const bw = document.getElementById('barWrap');
+  if (showDonut && showBar && dw && bw){
+    showDonut.addEventListener('click', ()=>{ dw.classList.remove('hidden'); bw.classList.add('hidden'); });
+    showBar.addEventListener('click', ()=>{ bw.classList.remove('hidden'); dw.classList.add('hidden'); });
+  }
+})();
+
+// === Seeds ===
+function basicFunctionSeed(type, beds){
+  const b = parseInt(beds||'1',10)||1;
+  const list = [
+    {name:'Router',        watts:12,  hoursPerDay:24, duty:100, quantity:1},
+    {name:'Cable Modem',   watts:9,   hoursPerDay:24, duty:100, quantity:1},
+    {name:'Fridge',        watts:160, hoursPerDay:24, duty:35,  quantity:1}
+  ];
+  // Lamps ~ 1 per room + living
+  list.push({name:'LED Lamp', watts:10, hoursPerDay:5, duty:100, quantity:Math.max(2,b+1)});
+  // Extras by type
+  if (type==='house' || type==='townhouse'){
+    list.push({name:'Washer', watts:500, hoursPerDay:0.5, duty:25, quantity:1});
+    list.push({name:'Dryer',  watts:2500,hoursPerDay:0.4, duty:50, quantity:1});
+    list.push({name:'Dehumidifier', watts:300, hoursPerDay:6, duty:60, quantity:1});
+  }
+  if (type==='condo' || type==='apartment' || type==='suite' || type==='bachelor'){
+    list.push({name:'TV', watts:120, hoursPerDay:3, duty:100, quantity:1});
+    list.push({name:'Laptop', watts:60, hoursPerDay:5, duty:60, quantity:1});
+  }
+  return list;
+}
+
+// === Wiring ===
+function wire(){
+  // Apply preset
+  const apply = document.getElementById('bf-apply');
+  if (apply){
+    apply.addEventListener('click', ()=>{
+      const type = document.getElementById('bf-type').value;
+      const beds = document.getElementById('bf-beds').value;
+      const replace = document.getElementById('bf-replace').checked;
+      let list = basicFunctionSeed(type, beds);
+      if (!replace) list = (devices||[]).concat(list);
+      const addSuite = document.getElementById('bf-suite')?.checked;
+      if (addSuite){
+        const suiteList = basicFunctionSeed(type, beds).map(d=> ({...d, name: d.name+' (Suite)'}));
+        list = list.concat(suiteList);
+      }
+      devices = list;
+      renderAll();
+    });
+  }
+
+  // Add custom device
+  const addBtn = document.getElementById('add-btn');
+  if (addBtn){
+    addBtn.addEventListener('click', ()=>{
+      const name = (document.getElementById('add-name').value||'').trim() || 'Device';
+      const watts= parseFloat(document.getElementById('add-watts').value||'0')||0;
+      const hours= parseFloat(document.getElementById('add-hours').value||'0')||0;
+      const duty = parseFloat(document.getElementById('add-duty').value||'100')||100;
+      const qty  = parseInt(document.getElementById('add-qty').value||'1',10)||1;
+      devices.push({ name, watts, hoursPerDay:hours, duty, quantity:qty });
+      document.getElementById('add-form').reset();
+      document.getElementById('add-duty').value=100; document.getElementById('add-qty').value=1;
+      renderAll();
+    });
+  }
+
+  // Show mode toggle
+  const show = document.getElementById('show-mode');
+  if (show){ show.addEventListener('change', renderAll); }
+
+  // Rate input
+  const rate = document.getElementById('grid-rate');
+  if (rate){ rate.addEventListener('input', renderAll); }
+
+  // Quick Add
+  const qaSel = document.getElementById('qa-select');
+  const qaBtn = document.getElementById('qa-add');
+  function setQA(){ if (qaBtn) qaBtn.disabled = !(qaSel && qaSel.value && QUICK_MAP[qaSel.value]); }
+  if (qaSel){ qaSel.addEventListener('change', setQA); }
+  if (qaBtn){
+    qaBtn.addEventListener('click', ()=>{
+      const key = qaSel.value; if (!key || !QUICK_MAP[key]) return;
+      const d = QUICK_MAP[key];
+      devices.push({ name:d.name, watts:d.watts, hoursPerDay:d.hoursPerDay, duty:d.duty, quantity:d.quantity });
+      qaSel.value=''; setQA();
+      renderAll();
+    });
+  }
+  setQA();
+}
+
+
+// === Sliders for Adjustments ===
+function wireSliders(){
+  const bt = document.getElementById('bar-thickness');
+  const bs = document.getElementById('bar-spacing');
+  const dc = document.getElementById('donut-cutout');
+  if(bt) bt.addEventListener('input', ()=>{ if(barChart){ barChart.options.datasets = {bar:{barPercentage:parseFloat(bt.value), categoryPercentage:parseFloat(bs.value)}}; barChart.update(); }});
+  if(bs) bs.addEventListener('input', ()=>{ if(barChart){ barChart.options.datasets = {bar:{barPercentage:parseFloat(bt.value), categoryPercentage:parseFloat(bs.value)}}; barChart.update(); }});
+  if(dc) dc.addEventListener('input', ()=>{ if(donutChart){ donutChart.options.cutout = dc.value+'%'; donutChart.update(); }});
+}
+
+// === Init ===
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadAdjustments();
+  wire();
+  // Start with a light seed so the page isn't empty
+  devices = basicFunctionSeed('apartment', 1);
+  renderAll();
+  wireSliders();
+});
+  
+// === NRG v29 Preview: Smart Devices (Bridge stub + Demo mode) ===
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+
+  const qs = (s)=>document.querySelector(s);
+  const qsa= (s)=>Array.from(document.querySelectorAll(s));
+  const modal = qs('#sd-modal');
+  const openBtn = qs('#btn-connect');
+  const closeBtn= qs('#sd-close');
+  const urlInp = qs('#sd-url');
+  const statusEl= qs('#sd-status');
+  const listEl = qs('#sd-list');
+  const adpBtns = qsa('.sd-adp');
+  const btnConn = qs('#sd-connect');
+  const btnDemo = qs('#sd-demo');
+  let ws = null;
+  let connected = false;
+  let demo = false;
+
+  function openModal(){ modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
+  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+
+  function setStatus(msg){ statusEl.textContent = msg; }
+
+  function renderDevices(devs){
+    listEl.innerHTML = '';
+    devs.forEach(d=>{
+      const row = document.createElement('div');
+      row.className = 'sd-item';
+      row.innerHTML = `
+        <div class="sd-name">${d.name}</div>
+        <div class="sd-meta">${d.adapter} • ${d.ip || '—'} • ${d.watts!=null? (d.watts+' W'):'—'}</div>
+        <button class="nrg-btn sd-btn" data-id="${d.id}" data-action="toggle">${d.on ? 'Turn Off' : 'Turn On'}</button>
+        <button class="nrg-btn sd-btn" data-id="${d.id}" data-action="link">Link to Item…</button>
+      `;
+      listEl.appendChild(row);
+    });
+    qsa('.sd-btn').forEach(b=> b.addEventListener('click', handleDeviceAction));
+  }
+
+  function handleDeviceAction(e){
+    const btn = e.currentTarget;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-action');
+    if (action==='toggle'){
+      if (demo){
+        // flip demo state locally
+        const item = DEMO_DEVICES.find(x=>x.id===id);
+        if (item){ item.on = !item.on; renderDevices(DEMO_DEVICES); }
+      }else if (connected && ws && ws.readyState===1){
+        ws.send(JSON.stringify({type:'setState', id, on:'toggle'}));
+      }
+    } else if (action==='link'){
+      const name = prompt('Link this device to which NRG item name? (e.g., TV, Fridge)');
+      if (!name) return;
+      alert('Linked '+id+' → '+name+' (mapping stored locally)');
+      // TODO: persist mapping; for preview we only show confirmation
+    }
+  }
+
+  // Adapter discovery
+  adpBtns.forEach(b=> b.addEventListener('click', ()=>{
+    const adp = b.getAttribute('data-adp');
+    if (demo){
+      const devs = DEMO_DEVICES.filter(x=>x.adapter===adp);
+      renderDevices(devs);
+    }else if (connected && ws && ws.readyState===1){
+      ws.send(JSON.stringify({type:'discover', adapter: adp}));
+    }else{
+      alert('Connect to a Bridge or use Demo Mode.');
+    }
+  }));
+
+  // Demo devices
+  const DEMO_DEVICES = [
+    {id:'kasa:plug:tv',     adapter:'kasa',    name:'Living TV Plug', ip:'192.168.1.51', on:true,  watts: 78},
+    {id:'kasa:plug:router', adapter:'kasa',    name:'Router Plug',    ip:'192.168.1.52', on:true,  watts: 12},
+    {id:'shelly:sw:lamp',   adapter:'shelly',  name:'Bedroom Lamp',   ip:'192.168.1.61', on:false, watts:  0},
+    {id:'tasmota:fan',      adapter:'tasmota', name:'Box Fan',        ip:'192.168.1.71', on:true,  watts: 45},
+    {id:'hue:bulb:desk',    adapter:'hue',     name:'Desk Bulb',      ip:'—',            on:false, watts:  7}
+  ];
+
+  // Bridge connection
+  btnConn?.addEventListener('click', ()=>{
+    try{
+      demo = false;
+      if (ws){ try{ ws.close(); }catch{} }
+      const url = (urlInp.value||'').trim();
+      ws = new WebSocket(url);
+      setStatus('Connecting to '+url+'…');
+      ws.onopen = ()=>{ connected=true; setStatus('Connected to Bridge. Choose an adapter to discover.'); };
+      ws.onclose= ()=>{ connected=false; setStatus('Disconnected.'); };
+      ws.onerror= ()=>{ connected=false; setStatus('Error connecting. Check address or use Demo Mode.'); };
+      ws.onmessage = (ev)=>{
+        try{
+          const msg = JSON.parse(ev.data||'{}');
+          if (msg.type==='devices' && Array.isArray(msg.items)){ renderDevices(msg.items); }
+          if (msg.type==='state' && msg.id){
+            // update a single device state if present
+          }
+        }catch(e){}
+      };
+    }catch(e){
+      setStatus('Could not open Bridge: '+(e?.message||e));
+    }
+  });
+
+  // Demo mode
+  btnDemo?.addEventListener('click', ()=>{
+    demo = true; connected = false;
+    setStatus('Demo Mode: using example devices on this page only.');
+    renderDevices(DEMO_DEVICES);
+  });
+
+  });
+})();
+
+
+// === NRG AI Advisor (Preview): local heuristics for savings tips ===
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const tipsBox = $('ai-tips');
+  const runBtn  = $('ai-run');
+  if (!tipsBox || !runBtn) return;
+
+  function fmt$(x){ return '$' + (x||0).toFixed(2); }
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function deviceKwhMonth(d){
+    const dim = monthDays();
+    const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1;
+    return (w*h*duty*q/1000) * dim;
+  }
+
+  function makeTip(title, save, body, tag){
+    const div = document.createElement('div');
+    div.className = 'ai-tip';
+    div.innerHTML = `
+      <div class="ai-head">
+        <div><span class="ai-title">${title}</span>${tag?`<span class="ai-tag">${tag}</span>`:''}</div>
+        <div class="ai-save">${fmt$(save)} / mo</div>
+      </div>
+      <div class="ai-body">${body}</div>
+    `;
+    return div;
+  }
+
+  function inOffpeak(startH, endH, testH){
+    if (startH===endH) return true; // degenerate = full day
+    if (startH < endH){
+      return testH >= startH && testH < endH;
+    }else{
+      // window wraps midnight
+      return testH >= startH || testH < endH;
+    }
+  }
+
+  runBtn.addEventListener('click', ()=>{
+    const peak = parseFloat($('ai-peak').value||'0.22')||0.22;
+    const off  = parseFloat($('ai-off').value||'0.12')||0.12;
+    let start = parseInt($('ai-start').value||'22',10); if (isNaN(start)) start=22;
+    let end   = parseInt($('ai-end').value||'7',10); if (isNaN(end)) end=7;
+    const dim = monthDays();
+
+    if (!Array.isArray(devices) || devices.length===0){
+      tipsBox.innerHTML = '<div class="ai-tip"><div class="ai-body">Add some devices first, then click Generate Tips.</div></div>';
+      return;
+    }
+
+    const out = [];
+    const lower = Math.max(0, peak - off);
+
+    // 1) Laundry shift (Washer/Dryer) to off-peak
+    const wash = devices.find(d=> /washer/i.test(d.name||''));
+    const dry  = devices.find(d=> /dryer/i.test(d.name||''));
+    const laundry = [wash, dry].filter(Boolean);
+    if (laundry.length){
+      const kwh = laundry.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      // assume baseline run occurs at peak; savings = kwh * (peak - off)
+      const save = kwh * lower;
+      if (save > 0.5){
+        out.push(makeTip(
+          "Shift laundry to off‑peak ("+start+":00→"+end+":00)",
+          save,
+          `Washer/Dryer use ~${kwh.toFixed(1)} kWh / month. If you run cycles during your off‑peak window, you avoid the higher rate (Δ=${fmt$(lower)}/kWh).`,
+          "schedule"
+        ));
+      }
+    }
+
+    // 2) LED swap suggestion for high‑watt lamps
+    const candidates = devices.filter(d=> /(lamp|bulb)/i.test(d.name||'') && (+d.watts||0) >= 40);
+    if (candidates.length){
+      const kwhOld = candidates.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      // Assume LED @ 10 W, same hours
+      const ledCandidates = candidates.map(d=> ({...d, watts:10}));
+      const kwhNew = ledCandidates.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const saveKwh = Math.max(0, kwhOld - kwhNew);
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const save = saveKwh * rate;
+      if (save > 0.5){
+        out.push(makeTip(
+          "Swap high‑watt bulbs for LED",
+          save,
+          `Found ${candidates.length} lamp(s) over 40W. Replacing with 10W LEDs saves ~${saveKwh.toFixed(1)} kWh/month at your current rate (${fmt$(rate)}/kWh).`,
+          "hardware"
+        ));
+      }
+    }
+
+    // 3) Phantom loads (always‑on small devices)
+    const phantoms = devices.filter(d=> (+d.hoursPerDay)===24 && (+d.watts) >= 5 && (+d.watts) <= 20);
+    if (phantoms.length){
+      const kwh = phantoms.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const save = kwh * rate * 0.3; // assume 30% cut via smart plug schedules
+      if (save > 0.3){
+        out.push(makeTip(
+          "Tame phantom loads with schedules",
+          save,
+          `Detected ${phantoms.length} always‑on small device(s). Using smart plugs to cut ~30% runtime could save ~${(kwh*0.3).toFixed(1)} kWh/month.`,
+          "automation"
+        ));
+      }
+    }
+
+    // 4) Space heater trim
+    const heaters = devices.filter(d=> /space\s*heater/i.test(d.name||''));
+    if (heaters.length){
+      const kwh = heaters.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const save = kwh * rate * 0.15; // 15% runtime trim
+      if (save > 0.5){
+        out.push(makeTip(
+          "Trim space‑heater runtime by 15%",
+          save,
+          `Space heaters are costly. Trimming usage by ~15% reduces ~${(kwh*0.15).toFixed(1)} kWh/month without big comfort loss.`,
+          "behavior"
+        ));
+      }
+    }
+
+    // 5) AC schedule if present (basic)
+    const acs = devices.filter(d=> /(ac|air\s*conditioner)/i.test(d.name||''));
+    if (acs.length){
+      const kwh = acs.reduce((s,d)=> s + deviceKwhMonth(d), 0);
+      const save = kwh * lower * 0.5; // assume half the runtime can be shifted
+      if (save > 0.5){
+        out.push(makeTip(
+          "Pre‑cool / shift AC to off‑peak",
+          save,
+          `With off‑peak window ${$('ai-start').value}:00→${$('ai-end').value}:00, shifting ~50% of cooling saves the rate difference (Δ=${fmt$(lower)}/kWh).`,
+          "schedule"
+        ));
+      }
+    }
+
+    // Render tips
+    tipsBox.innerHTML = '';
+    if (!out.length){
+      tipsBox.innerHTML = '<div class="ai-tip"><div class="ai-body">No obvious savings found with current inputs. Try adding Washer/Dryer, Lamps, or Smart Plugs.</div></div>';
+    }else{
+      out.forEach(t=> tipsBox.appendChild(t));
+    }
+  });
+})();
+
+
+// === Mini Devices Panel: stats + quick list ===
+(function(){
+  const miniCount = document.getElementById('mini-count');
+  const miniKwh   = document.getElementById('mini-kwh');
+  const miniBill  = document.getElementById('mini-bill');
+  const miniList  = document.getElementById('mini-list');
+
+  if (!miniList) return;
+
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function dKwh(d){ const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1; return (w*h*duty*q)/1000; }
+
+  function renderMini(){
+    try{
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const dim = monthDays();
+
+      const count = (devices||[]).length;
+      const daily = (devices||[]).reduce((s,d)=> s + dKwh(d), 0);
+      const monthK = daily * dim;
+      const bill   = monthK * rate;
+
+      if (miniCount) miniCount.textContent = String(count);
+      if (miniKwh)   miniKwh.textContent   = daily.toFixed(2);
+      if (miniBill)  miniBill.textContent  = '$' + bill.toFixed(2);
+
+      // Build list rows
+      miniList.innerHTML = '';
+      (devices||[]).forEach((d, idx)=>{
+        const row = document.createElement('div');
+        row.className = 'mini-row';
+        const meta1 = `${(+d.watts||0)} W • ${(+d.hoursPerDay||0)} h/day`;
+        const meta2 = `Duty ${(+d.duty||100)}% • Qty ${(+d.quantity||1)}`;
+        row.innerHTML = `
+          <div class="mini-name">${d.name||'Device'}</div>
+          <div class="mini-meta">${meta1}</div>
+          <div class="mini-meta">${meta2}</div>
+          <button type="button" class="nrg-btn mini-btn" data-idx="${idx}" title="Remove">×</button>
+        `;
+        row.querySelector('button')?.addEventListener('click', (e)=>{
+          const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
+          if (i>=0 && i < (devices||[]).length){
+            devices.splice(i,1);
+            renderAll(); // re-render everything including mini panel
+          }
+        });
+        miniList.appendChild(row);
+      });
+    }catch(e){ /* noop */ }
+  }
+
+  // Hook renderAll to also refresh the mini panel
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderMini(); };
+  // First render after load
+  document.addEventListener('DOMContentLoaded', renderMini);
+})();
+
+
+// === Auto Insights filler (fills right column gap) ===
+(function(){
+  const host = document.getElementById('insights-body');
+  if (!host) return;
+
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function dKwh(d){ const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1; return (w*h*duty*q)/1000; }
+
+  function renderInsights(){
+    const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+    const dim = monthDays();
+    const list = (devices||[]).map(d=>{
+      const kwhDay = dKwh(d);
+      const kwhMon = kwhDay * dim;
+      const cost   = kwhMon * rate;
+      return {name:d.name||'Device', kwhMon, cost};
+    });
+    list.sort((a,b)=> b.kwhMon - a.kwhMon);
+    const top = list.slice(0,5);
+
+    let html = '';
+    if (top.length){
+      html += '<div class="mini">Top contributors this month:</div><ul>';
+      top.forEach(x=>{
+        html += `<li><b>${x.name}</b> — ${x.kwhMon.toFixed(1)} kWh • $${x.cost.toFixed(2)}</li>`;
+      });
+      html += '</ul>';
+    }else{
+      html += '<div class="mini">Add devices to see insights here.</div>';
+    }
+
+    const totalKwh = list.reduce((s,x)=> s + x.kwhMon, 0);
+    const total$   = list.reduce((s,x)=> s + x.cost, 0);
+    html += `<div class="mini" style="margin-top:8px">Total (proj): ${totalKwh.toFixed(1)} kWh • $${total$.toFixed(2)}</div>`;
+
+    host.innerHTML = html;
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderInsights(); };
+  document.addEventListener('DOMContentLoaded', renderInsights);
+})();
+
+
+// === Right-side Breakdown: mirrors main breakdown and fills right column ===
+(function(){
+  const tbody = document.getElementById('right-comp-rows');
+  if (!tbody) return;
+
+  function buildParts(){
+    if (typeof currentPartsFiltered === 'function') return currentPartsFiltered();
+    if (typeof currentParts === 'function') return currentParts();
+    return {labels:[], kwhs:[], shares:[], costs:[], totalK:0, rate:0};
+  }
+
+  function renderRightBreakdown(){
+    const parts = buildParts();
+    tbody.innerHTML = '';
+    let total$ = 0;
+    (parts.labels||[]).forEach((name,i)=>{
+      const tr = document.createElement('tr');
+      const kwh = parts.kwhs[i]||0;
+      const pct = parts.shares[i]||0;
+      const cost= parts.costs[i]||0;
+      total$ += cost;
+      tr.innerHTML = `<td>${name}</td>
+                      <td class="num">${kwh.toFixed(2)}</td>
+                      <td class="num">${pct.toFixed(1)}%</td>
+                      <td class="num">$${cost.toFixed(2)}</td>`;
+      tbody.appendChild(tr);
+    });
+    const tk = document.getElementById('right-tot-kwh');
+    const tc = document.getElementById('right-tot-cost');
+    if (tk) tk.textContent = (parts.totalK||0).toFixed(2);
+    if (tc) tc.textContent = '$'+(total$||0).toFixed(2);
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); renderRightBreakdown(); };
+  document.addEventListener('DOMContentLoaded', renderRightBreakdown);
+})();
+
+</script>
+
+<!-- Smart Devices Modal -->
+<div id="sd-modal" aria-hidden="true" style="
+  position:fixed; inset:0; display:none; align-items:center; justify-content:center; 
+  background:rgba(0,0,0,.5); z-index:200;">
+  <div class="nrg-card" role="dialog" aria-labelledby="sd-title" style="width:min(720px,92vw); max-height:86vh; overflow:auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <h3 id="sd-title" class="section-title">Connect Smart Devices</h3>
+      <button type="button" class="nrg-btn" id="sd-close">Close</button>
+    </div>
+    <div class="muted small" style="margin-bottom:8px;">
+      This is a preview of NRG v29 local device integration. Use a local Bridge (<code>ws://localhost:8787</code>) or try Demo Mode.
+    </div>
+
+    <div style="display:grid; gap:10px; grid-template-columns:1.2fr auto;">
+      <label>Bridge address
+        <input id="sd-url" class="nrg-input" type="text" value="ws://localhost:8787" placeholder="ws://host:port">
+      </label>
+      <div style="display:flex; gap:8px; align-items:flex-end;">
+        <button type="button" class="nrg-btn" id="sd-connect">Connect</button>
+        <button type="button" class="nrg-btn" id="sd-demo">Demo Mode</button>
+      </div>
+    </div>
+
+    <div id="sd-status" class="small muted" style="margin-top:6px;">Not connected.</div>
+
+    <hr style="border:none; border-top:1px solid var(--card-br); margin:10px 0;">
+
+    <div id="sd-adapters" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+      <button class="nrg-btn sd-adp" data-adp="tasmota">Tasmota</button>
+      <button class="nrg-btn sd-adp" data-adp="shelly">Shelly</button>
+      <button class="nrg-btn sd-adp" data-adp="kasa">Kasa</button>
+      <button class="nrg-btn sd-adp" data-adp="hue">Hue</button>
+    </div>
+
+    <div id="sd-devices" class="nrg-card" style="padding:8px;">
+      <div class="section-title" style="margin-bottom:6px;">Discovered Devices</div>
+      <div id="sd-list" style="display:grid; gap:6px;"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- NRG AI Advisor resilient init -->
+
+
+
+<script id="density-toggle-logic">
+(function(){
+  const root = document.documentElement;
+  const body = document.body;
+  const key  = 'density-mode';
+  const btn  = document.getElementById('density-toggle') || document.getElementById('densityToggle');
+  let badge  = document.getElementById('mode-badge');
+
+  function ensureBadge(){
+    if (!btn) return null;
+    if (!badge){
+      badge = document.createElement('span');
+      badge.id = 'mode-badge';
+      btn.insertAdjacentElement('afterend', badge);
+    }
+    return badge;
+  }
+
+  function setMode(state){
+    state = (state==='compact') ? 'compact' : 'comfort';
+    root.setAttribute('data-density', state);
+    root.classList.toggle('compact', state==='compact');
+    root.classList.toggle('comfort', state==='comfort');
+    body.classList.toggle('compact', state==='compact');
+    body.classList.toggle('comfort', state==='comfort');
+    localStorage.setItem(key, state);
+    updateUI(state);
+    if (typeof renderAll==='function'){ try{ renderAll(); }catch(e){} }
+  }
+
+  function currentMode(){
+    const a = root.getAttribute('data-density');
+    if (a) return a;
+    if (root.classList.contains('compact') || body.classList.contains('compact')) return 'compact';
+    if (root.classList.contains('comfort') || body.classList.contains('comfort')) return 'comfort';
+    return localStorage.getItem(key) || 'comfort';
+  }
+
+  function updateUI(state){
+    const b = ensureBadge();
+    if (btn){
+      btn.textContent = 'Mode: ' + (state==='compact' ? 'Compact' : 'Comfort');
+      btn.setAttribute('aria-pressed', state==='compact' ? 'true' : 'false');
+      btn.title = 'Click to switch to ' + (state==='compact' ? 'Comfort' : 'Compact');
+    }
+    if (b){ b.textContent = state; }
+  }
+
+  // Initialize from saved or default
+  setMode(localStorage.getItem(key) || 'comfort');
+
+  if (btn){
+    btn.addEventListener('click', ()=>{
+      setMode(currentMode()==='compact' ? 'comfort' : 'compact');
+    });
+  }
+})();
+</script>
+
+
+
+
+
+<!-- === Auto AI Tips v2: run advisor whenever devices change (idempotent) === -->
+<script>
+(function(){
+  if (window.__nrgAutoAITipsPatched) return;
+  window.__nrgAutoAITipsPatched = true;
+
+  function autoRunTips(){
+    try{
+      var btn = document.getElementById('ai-run');
+      var tips = document.getElementById('ai-tips');
+      if(!btn || !tips) return;
+      if (Array.isArray(window.devices) && window.devices.length > 0){
+        // Trigger the same logic as the "Generate Tips" button
+        btn.click();
+      } else {
+        tips.innerHTML = '<div class="ai-tip"><div class="ai-body">Add some devices to see tips here.</div></div>';
+      }
+    }catch(e){ /* noop */ }
+  }
+
+  function patchRenderAll(){
+    try{
+      if (typeof window.renderAll === 'function' && !window.__nrgRenderAllWrapped){
+        var _renderAll = window.renderAll;
+        window.renderAll = function(){
+          try { _renderAll.apply(this, arguments); } catch(e){ try{ _renderAll(); }catch(_e){} }
+          try { autoRunTips(); } catch(e){}
+        };
+        window.__nrgRenderAllWrapped = true;
+      }
+    }catch(e){ /* noop */ }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // Patch as soon as DOM is ready
+    patchRenderAll();
+    // Also try once shortly after initial paint for pages that fill devices async
+    setTimeout(function(){ patchRenderAll(); autoRunTips(); }, 100);
+  });
+
+  // Fallback: in case renderAll is defined later
+  var tries = 0;
+  var iv = setInterval(function(){
+    patchRenderAll();
+    tries++;
+    if (window.__nrgRenderAllWrapped || tries > 30){ clearInterval(iv); autoRunTips(); }
+  }, 200);
+})();
+</script>
+
+
+<!-- === Re-Inject Polish Pack Core === -->
+<script>
+(function(){
+  const $ = (s)=>document.querySelector(s);
+  const $$= (s)=>Array.from(document.querySelectorAll(s));
+
+  const ICONS = {'tv':'📺','fridge':'🧊','router':'📡','laptop':'💻','desktop':'🖥️','lamp':'💡','fan':'🌀','dryer':'🧺','washer':'🧼'};
+  function showToast(msg){
+    let t=document.createElement('div');t.textContent=msg;
+    t.style.cssText="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--txt);padding:8px 14px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.4);z-index:9999;";
+    document.body.appendChild(t); setTimeout(()=>t.remove(),1500);
+  }
+  function syncLegend(){
+    if (!window.donutChart) return;
+    donutChart.options.plugins.legend.onClick=(e,item,legend)=>{
+      const idx=item.index; const ci=legend.chart; const meta=ci.getDatasetMeta(0);
+      meta.data[idx].hidden=!meta.data[idx].hidden; ci.update();
+      if (window.barChart){ const mb=barChart.getDatasetMeta(0); if (mb.data[idx]) mb.data[idx].hidden=meta.data[idx].hidden; barChart.update(); }
+      const row=document.querySelectorAll('#comp-rows tr')[idx]; if (row) row.style.opacity = meta.data[idx].hidden?'0.3':'1';
+    };
+  }
+  function addFocusMode(){
+    if (document.getElementById('focus-mode')) return;
+    const btn=document.createElement('button'); btn.textContent="🔍 Focus"; btn.className="nrg-btn"; btn.id="focus-mode";
+    (document.querySelector('.extra-tools')||document.querySelector('.tr-head'))?.appendChild(btn);
+    btn.addEventListener('click', ()=>{ document.body.classList.toggle('focus-mode'); donutChart?.update(); barChart?.update(); });
+    const css=document.createElement('style'); css.textContent="body.focus-mode #donut{transform:scale(1.1);} body.focus-mode .big{font-size:22px;}";
+    document.head.appendChild(css);
+  }
+  function addKeyboardShortcuts(){
+    document.addEventListener('keydown', (e)=>{
+      if (e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA') return;
+      switch(e.key.toLowerCase()){
+        case 'a': document.getElementById('add-name')?.focus(); break;
+        case 's': document.getElementById('btn-save-prof')?.click(); break;
+        case 'l': document.getElementById('btn-load-prof')?.click(); break;
+        case 'd': document.getElementById('show-bar')?.click(); break;
+        case 'c': document.getElementById('density-toggle')?.click(); break;
+        case '?': alert('Shortcuts:\\nA=Add Custom, S=Save Profile, L=Load, D=Toggle Donut/Bar, C=Compact/Comfort'); break;
+      }
+    });
+  }
+  function addBundleExport(){
+    if (document.getElementById('btn-exp-bundle')) return;
+    const btn=document.createElement('button'); btn.textContent="Bundle Export"; btn.className="nrg-btn"; btn.id="btn-exp-bundle";
+    document.querySelector('.extra-tools')?.appendChild(btn);
+    btn.addEventListener('click', async ()=>{
+      try{
+        const canvases=[document.getElementById('donut'), document.getElementById('breakdownBar')];
+        canvases.forEach(c=>c.toDataURL("image/png"));
+        document.getElementById('btn-exp-csv')?.click();
+        showToast("Bundle Export triggered");
+      }catch(e){ alert("Export failed: "+e); }
+    });
+  }
+  function upgradeMiniIcons(){
+    const mini=document.getElementById('mini-list'); if (!mini) return;
+    const obs=new MutationObserver(()=>{
+      mini.querySelectorAll('.mini-row .mini-name').forEach(el=>{
+        if (el.__iconDone) return; el.__iconDone=true;
+        const name=(el.textContent||'').toLowerCase();
+        for (let k in ICONS){ if (name.includes(k)){ el.textContent = ICONS[k]+' '+el.textContent; break; } }
+      });
+    }); obs.observe(mini,{childList:true,subtree:true});
+  }
+  function hook(){
+    if (window.__nrgPolishReHook || typeof window.renderAll!=='function') return;
+    window.__nrgPolishReHook=true;
+    const _renderAll=window.renderAll;
+    window.renderAll=function(){ _renderAll(); syncLegend(); addFocusMode(); addKeyboardShortcuts(); addBundleExport(); upgradeMiniIcons(); };
+  }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    let tries=0; const iv=setInterval(()=>{hook(); tries++; if(tries>20) clearInterval(iv);}, 200);
+  });
+})();
+</script>
+
+
+<!-- === Compact Inputs + Top Contributors logic (v2) === -->
+<script>
+(function(){
+  function stepper(hostInput, min=0, max=Infinity, step=1){
+    if (!hostInput || hostInput.__stepped) return;
+    hostInput.__stepped = true;
+    const wrap = document.createElement('div');
+    wrap.className = 'nrg-stepper';
+    const dec = document.createElement('button'); dec.type='button'; dec.textContent = '–';
+    const inc = document.createElement('button'); inc.type='button'; inc.textContent = '+';
+    const inp = document.createElement('input'); inp.type='number'; inp.step=String(step); inp.min=min; inp.max=max;
+    inp.value = hostInput.value || '';
+    hostInput.parentElement.insertBefore(wrap, hostInput);
+    wrap.appendChild(dec); wrap.appendChild(inp); wrap.appendChild(inc);
+    function syncBack(){ hostInput.value = inp.value; hostInput.dispatchEvent(new Event('change',{bubbles:true})); }
+    dec.addEventListener('click', ()=>{ const v=parseFloat(inp.value||'0')||0; const n=Math.max(min, v-(+step)); inp.value = String(n); syncBack(); });
+    inc.addEventListener('click', ()=>{ const v=parseFloat(inp.value||'0')||0; const n=Math.min(max, v+(+step)); inp.value = String(n); syncBack(); });
+    inp.addEventListener('change', syncBack);
+  }
+  function attachAddFormSteppers(){
+    const w = document.getElementById('add-watts');
+    const h = document.getElementById('add-hours');
+    if (w) stepper(w, 0, 10000, 10);
+    if (h) stepper(h, 0, 24, 0.25);
+  }
+  function attachMiniSteppers(){
+    const mini = document.getElementById('mini-list');
+    if (!mini || mini.__stepObs) return;
+    mini.__stepObs = true;
+    const obs = new MutationObserver(()=>{
+      mini.querySelectorAll('.qe-w:not(.__stepped)').forEach(el=>{
+        const wrap = document.createElement('div');
+        wrap.className = 'nrg-stepper';
+        const dec = document.createElement('button'); dec.type='button'; dec.textContent='–';
+        const inc = document.createElement('button'); inc.type='button'; inc.textContent='+';
+        const inp = document.createElement('input'); inp.type='number'; inp.step='10'; inp.min='0'; inp.value = el.value || '';
+        el.style.display='none';
+        el.parentElement.appendChild(wrap);
+        wrap.appendChild(dec); wrap.appendChild(inp); wrap.appendChild(inc);
+        function syncBack(){ el.value = inp.value; el.dispatchEvent(new Event('change',{bubbles:true})); }
+        dec.addEventListener('click', ()=>{ const v=parseFloat(inp.value||'0')||0; inp.value = String(Math.max(0, v-10)); syncBack(); });
+        inc.addEventListener('click', ()=>{ const v=parseFloat(inp.value||'0')||0; inp.value = String(v+10); syncBack(); });
+        inp.addEventListener('change', syncBack);
+        el.classList.add('__stepped');
+      });
+      mini.querySelectorAll('.qe-h:not(.__stepped)').forEach(el=>{
+        const wrap = document.createElement('div');
+        wrap.className = 'nrg-stepper';
+        const dec = document.createElement('button'); dec.type='button'; dec.textContent='–';
+        const inc = document.createElement('button'); inc.type='button'; inc.textContent='+';
+        const inp = document.createElement('input'); inp.type='number'; inp.step='0.25'; inp.min='0'; inp.max='24'; inp.value = el.value || '';
+        el.style.display='none';
+        el.parentElement.appendChild(wrap);
+        wrap.appendChild(dec); wrap.appendChild(inp); wrap.appendChild(inc);
+        function syncBack(){ el.value = inp.value; el.dispatchEvent(new Event('change',{bubbles:true})); }
+        dec.addEventListener('click', ()=>{ const v=parseFloat(inp.value||'0')||0; inp.value = String(Math.max(0, v-0.25)); syncBack(); });
+        inc.addEventListener('click', ()=>{ const v=parseFloat(inp.value||'0')||0; inp.value = String(Math.min(24, v+0.25)); syncBack(); });
+        inp.addEventListener('change', syncBack);
+        el.classList.add('__stepped');
+      });
+    });
+    obs.observe(mini, {childList:true, subtree:true});
+  }
+  function renderTopContributors(){
+    const host = document.getElementById('tc-body');
+    if (!host) return;
+    try{
+      let labels=[], kwhs=[];
+      if (typeof currentPartsFiltered === 'function'){ const p = currentPartsFiltered(); labels=p.labels||[]; kwhs=p.kwhs||[]; }
+      else if (typeof currentParts === 'function'){ const p = currentParts(); labels=p.labels||[]; kwhs=p.kwhs||[]; }
+      const pairs = labels.map((n,i)=>({name:n, k:+(kwhs[i]||0)})).filter(x=>x.k>0);
+      pairs.sort((a,b)=> b.k - a.k);
+      const top = pairs.slice(0,3);
+      const max = top[0]?.k || 1;
+      host.innerHTML = '';
+      if (!top.length){ host.innerHTML = '<div class="tc-meta">Add devices to see contributors.</div>'; return; }
+      top.forEach(x=>{
+        const row = document.createElement('div');
+        row.className = 'tc-row';
+        const name = document.createElement('div'); name.textContent = x.name;
+        const val  = document.createElement('div'); val.className='tc-meta'; val.textContent = x.k.toFixed(2)+' kWh';
+        const bar  = document.createElement('div'); bar.className='tc-bar'; bar.style.setProperty('--tcw', (x.k/max*100).toFixed(1)+'%');
+        row.appendChild(name); row.appendChild(val);
+        host.appendChild(row);
+        host.appendChild(bar);
+      });
+    }catch(e){}
+  }
+  function hook(){
+    if (window.__nrgCompactV2Hook || typeof window.renderAll!=='function') return;
+    window.__nrgCompactV2Hook = true;
+    const _renderAll = window.renderAll;
+    window.renderAll = function(){
+      _renderAll();
+      attachAddFormSteppers();
+      attachMiniSteppers();
+      renderTopContributors();
+    };
+  }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    let tries=0; const iv=setInterval(()=>{ hook(); tries++; if(tries>25) clearInterval(iv); }, 160);
+  });
+})();
+</script>
+
+
+<!-- === Restore Donut % Labels (Chart.js plugin) === -->
+<script>
+(function(){
+  function registerDonutPlugin(){
+    if (!window.Chart) return;
+    if (!window.__nrgDonutLabelPlugin){
+      window.__nrgDonutLabelPlugin = {
+        id: 'nrgDonutLabels',
+        afterDatasetsDraw(chart, args, opts){
+          if (!chart || chart.config?.type !== 'doughnut') return;
+          const ds = chart.config.data?.datasets?.[0];
+          const meta = chart.getDatasetMeta(0);
+          if (!ds || !meta || !meta.data) return;
+          const data = (ds.data||[]).map(v=>+v||0);
+          const sum = data.reduce((a,b)=>a+b,0);
+          if (!sum) return;
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
+          const color = getComputedStyle(document.documentElement).getPropertyValue('--txt') || '#fff';
+          ctx.fillStyle = color || '#fff';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          meta.data.forEach((arc, i)=>{
+            const val = data[i]||0; if (!val) return;
+            const pct = val/sum*100;
+            if (pct < 4) return; // skip tiny slices to avoid clutter
+            const pos = arc.tooltipPosition();
+            ctx.fillText(pct.toFixed(0)+'%', pos.x, pos.y);
+          });
+          ctx.restore();
+        }
+      };
+    }
+    if (!Chart.registry.plugins.get('nrgDonutLabels')){
+      Chart.register(window.__nrgDonutLabelPlugin);
+    }
+  }
+
+  function ensureAfterRender(){
+    if (typeof window.renderAll !== 'function') return;
+    if (window.__nrgDonutLabelHooked) return;
+    window.__nrgDonutLabelHooked = true;
+    const _renderAll = window.renderAll;
+    window.renderAll = function(){
+      _renderAll();
+      try {
+        registerDonutPlugin();
+        if (window.donutChart) { window.donutChart.update(); }
+      } catch (e) {}
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    let tries = 0;
+    const iv = setInterval(function(){
+      registerDonutPlugin();
+      ensureAfterRender();
+      tries++;
+      if (tries > 30) clearInterval(iv);
+    }, 150);
+  });
+})();
+</script>
+
+
+<!-- NRG v31 Gridline Contrast Patch -->
+<script>
+(function(){
+  function gridColorForTheme(theme){
+    const darks = ["dark","ocean","sunburst","high-contrast"];
+    if (darks.includes(theme)){
+      return (theme === "high-contrast") ? "#ffffff" : "#00ffff"; // white for HC, cyan otherwise
+    } else {
+      return "#000000"; // black on light backgrounds (can look deep gray depending on opacity)
+    }
+  }
+  function applyGridColors(){
+    try{
+      const theme = document.documentElement.getAttribute("data-theme") || "light";
+      const barCanvas = document.getElementById("breakdownBar");
+      if (!barCanvas || typeof Chart === "undefined" || !Chart.getChart) return;
+      const chart = Chart.getChart(barCanvas);
+      if (!chart || !chart.options || !chart.options.scales) return;
+      const color = gridColorForTheme(theme);
+      ["x","y"].forEach(axis => {
+        if (chart.options.scales[axis] && chart.options.scales[axis].grid){
+          chart.options.scales[axis].grid.color = color;
+          chart.options.scales[axis].grid.lineWidth = 1.4;
+          // Ensure gridlines are shown
+          chart.options.scales[axis].grid.display = true;
+        }
+      });
+      chart.update("none");
+    }catch(e){ /* noop */ }
+  }
+  document.addEventListener("DOMContentLoaded", function(){
+    // Apply after charts initialize
+    setTimeout(applyGridColors, 120);
+    // Re-apply on theme changes
+    const obs = new MutationObserver(function(muts){
+      for (const m of muts){
+        if (m.type === "attributes" && m.attributeName === "data-theme"){
+          applyGridColors();
+        }
+      }
+    });
+    obs.observe(document.documentElement, { attributes:true, attributeFilter:["data-theme"] });
+    // Also re-apply when density mode or controls might reflow charts
+    window.addEventListener("resize", applyGridColors);
+  });
+})();
+</script>
+
+
+
+
+<!-- Theme-aware gridlines plugin -->
+<script>
+(function(){
+  function gridColorFromCSS(){
+    try{
+      const s = getComputedStyle(document.documentElement);
+      const c = s.getPropertyValue('--gridline').trim();
+      return c || 'rgba(255,255,255,0.35)';
+    }catch(e){
+      return 'rgba(255,255,255,0.35)';
+    }
+  }
+  const ThemeGridlines = {
+    id: 'themeGridlines',
+    beforeUpdate(chart){
+      const color = gridColorFromCSS();
+      const scales = chart.scales || {};
+      for (const key in scales){
+        const sc = scales[key];
+        if (!sc || !sc.options || !sc.options.grid) continue;
+        sc.options.grid.color = color;
+        sc.options.grid.lineWidth = 0.6;
+        sc.options.grid.drawBorder = true;
+        sc.options.grid.tickLength = 2;
+      }
+    }
+  };
+  if (window.Chart && typeof window.Chart.register === 'function'){
+    Chart.register(ThemeGridlines);
+    const rerender = () => {
+      ['donut','breakdownBar'].forEach(id=>{
+        const el = document.getElementById(id);
+        const ch = el && Chart.getChart ? Chart.getChart(el) : null;
+        if (ch) { try{ ch.update(); }catch(e){} }
+      });
+    };
+    // repaint on theme changes
+    new MutationObserver(rerender).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    window.addEventListener('load', rerender);
+  }
+})();
+</script>
+
+<!-- NRG Persist + Legend Patch START -->
+<script>
+(function(){
+  // -------- Persistence for theme, density, and chart sliders --------
+  const KEY = 'nrg_prefs_v1';
+  function loadPrefs(){
+    try{ return JSON.parse(localStorage.getItem(KEY) || '{}'); }catch(e){ return {}; }
+  }
+  function savePrefs(p){
+    try{
+      const cur = loadPrefs();
+      localStorage.setItem(KEY, JSON.stringify(Object.assign({}, cur, p)));
+    }catch(e){ /* ignore */ }
+  }
+
+  function applyTheme(theme){
+    if (!theme) return;
+    document.documentElement.setAttribute('data-theme', theme);
+    const s1 = document.getElementById('theme-status');
+    const s2 = document.getElementById('theme-status2');
+    if (s1) s1.textContent = 'Theme: ' + theme;
+    if (s2) s2.textContent = 'Theme: ' + theme;
+  }
+  function applyDensity(mode){
+    if (!mode) return;
+    document.documentElement.classList.remove('comfort','compact');
+    document.body.classList.remove('comfort','compact');
+    document.documentElement.classList.add(mode);
+    document.body.classList.add(mode);
+    const badge = document.getElementById('mode-badge');
+    if (badge) badge.textContent = mode;
+    const btn = document.getElementById('density-toggle');
+    if (btn) btn.textContent = (mode==='compact' ? 'Comfort' : 'Compact');
+    btn?.setAttribute('aria-pressed', String(mode==='compact'));
+  }
+  function applySliders(vals){
+    if (!vals) return;
+    const bt = document.getElementById('bar-thickness');
+    const bs = document.getElementById('bar-spacing');
+    const dc = document.getElementById('donut-cutout');
+    if (bt && vals.bt != null) bt.value = vals.bt;
+    if (bs && vals.bs != null) bs.value = vals.bs;
+    if (dc && vals.dc != null) dc.value = vals.dc;
+    // If chart instances exist, try to update them using the controls' existing listeners
+    try{
+      bt?.dispatchEvent(new Event('input',{bubbles:true}));
+      bs?.dispatchEvent(new Event('input',{bubbles:true}));
+      dc?.dispatchEvent(new Event('input',{bubbles:true}));
+    }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // Load + apply prefs on startup
+    const P = loadPrefs();
+    if (P.theme) applyTheme(P.theme);
+    if (P.density) applyDensity(P.density);
+    if (P.sliders) applySliders(P.sliders);
+
+    // Hook theme buttons
+    document.querySelectorAll('.theme-btn[data-theme]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const t = e.currentTarget.getAttribute('data-theme');
+        savePrefs({theme:t});
+      }, {capture:true}); // capture to persist even if other handlers stop propagation
+    });
+
+    // Hook density toggle
+    const dBtn = document.getElementById('density-toggle');
+    if (dBtn){
+      dBtn.addEventListener('click', ()=>{
+        // Inspect current mode from badge or class
+        const badge = document.getElementById('mode-badge');
+        const cur = (badge?.textContent||'comfort').trim();
+        const next = (cur === 'compact') ? 'comfort' : 'compact';
+        savePrefs({density: next});
+      }, {capture:true});
+    }
+
+    // Hook chart sliders
+    const bt = document.getElementById('bar-thickness');
+    const bs = document.getElementById('bar-spacing');
+    const dc = document.getElementById('donut-cutout');
+    const store = ()=> savePrefs({sliders:{
+      bt: bt ? bt.value : undefined,
+      bs: bs ? bs.value : undefined,
+      dc: dc ? dc.value : undefined
+    }});
+    bt?.addEventListener('input', store);
+    bs?.addEventListener('input', store);
+    dc?.addEventListener('input', store);
+  });
+
+  // -------- Legend percentages for the donut (doughnut) --------
+  // A plugin that overrides legend labels & tooltips for doughnut/pie charts to append percentage
+  const DonutLegendPercent = {
+    id: 'donutLegendPercent',
+    beforeInit(chart, args, opts){
+      if (chart.config.type !== 'doughnut' && chart.config.type !== 'pie') return;
+      // Inject tooltip callback if not present
+      chart.options.plugins = chart.options.plugins || {};
+      chart.options.plugins.tooltip = chart.options.plugins.tooltip || {};
+      const tip = chart.options.plugins.tooltip;
+      const origLabel = tip.callbacks && tip.callbacks.label;
+      tip.callbacks = tip.callbacks || {};
+      tip.callbacks.label = function(ctx){
+        const ds = ctx.dataset;
+        const data = (ds && ds.data) ? ds.data : [];
+        const total = data.reduce((a,b)=> a + (typeof b==='number'? b : (+b||0)), 0) || 0;
+        const val = typeof ctx.parsed === 'number' ? ctx.parsed : (+ctx.parsed||0);
+        const pct = total ? (val/total*100) : 0;
+        const base = (origLabel ? origLabel(ctx) : `${ctx.label}: ${val}`);
+        // Ensure base is string
+        const s = Array.isArray(base) ? base.join(' ') : String(base);
+        return `${s} (${pct.toFixed(1)}%)`;
+      };
+
+      // Override legend label generator
+      chart.options.plugins.legend = chart.options.plugins.legend || {};
+      const origGen = chart.options.plugins.legend.labels && chart.options.plugins.legend.labels.generateLabels;
+      chart.options.plugins.legend.labels = chart.options.plugins.legend.labels || {};
+      chart.options.plugins.legend.labels.generateLabels = function(ch){
+        const labels = (origGen ? origGen(ch) : Chart.defaults.plugins.legend.labels.generateLabels(ch));
+        try{
+          // Compute total from first visible dataset
+          const ds = ch.data.datasets && ch.data.datasets[0];
+          const data = (ds && ds.data) ? ds.data : [];
+          const total = data.reduce((a,b)=> a + (typeof b==='number'? b : (+b||0)), 0) || 0;
+          labels.forEach((lbl, i)=>{
+            const v = typeof data[i] === 'number' ? data[i] : (+data[i]||0);
+            const pct = total ? (v/total*100) : 0;
+            // Append percentage to label text
+            lbl.text = `${lbl.text} — ${pct.toFixed(1)}%`;
+          });
+          return labels;
+        }catch(e){
+          return labels;
+        }
+      };
+    }
+  };
+
+  if (window.Chart && typeof window.Chart.register === 'function'){
+    Chart.register(DonutLegendPercent);
+    // If donut already exists by the time we register, try to update it
+    window.addEventListener('load', function(){
+      const cv = document.getElementById('donut');
+      const ch = cv && Chart.getChart ? Chart.getChart(cv) : null;
+      if (ch && (ch.config.type==='doughnut' || ch.config.type==='pie')){
+        try{ ch.update(); }catch(e){}
+      }
+    });
+  }
+})();
+</script>
+<!-- NRG Persist + Legend Patch END -->
+
+<!-- Initial Focus Hint script -->
+<script>
+(function(){
+  function showInitialFocus(){
+    // Prefer a dedicated button if present, else fallback to density toggle
+    var el = document.querySelector('[data-autofocus]') || document.getElementById('density-toggle');
+    if (!el) return;
+    // Add a safe, non-overlaying ring class
+    el.classList.add('is-initial-focus');
+    // Try to move programmatic focus for accessibility without scrolling
+    try{ el.setAttribute('tabindex','0'); el.focus({preventScroll:true}); }catch(e){}
+
+    // Remove the hint on first real interaction
+    function clear(){
+      el.classList.remove('is-initial-focus');
+      window.removeEventListener('pointerdown', clear, {once:true});
+      window.removeEventListener('keydown', clear, {once:true});
+    }
+    window.addEventListener('pointerdown', clear, {once:true});
+    window.addEventListener('keydown', clear, {once:true});
+
+    // Safety timeout to auto-clear after a few seconds
+    setTimeout(clear, 4000);
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', showInitialFocus);
+  } else {
+    showInitialFocus();
+  }
+})();
+</script>
+
+<script>
+// === Advanced Chart Controls: live labels + details accessibility (v32) ===
+(function(){
+  const qs = (s)=>document.querySelector(s);
+  const $bt = qs('#bar-thickness');
+  const $bs = qs('#bar-spacing');
+  const $dc = qs('#donut-cutout');
+  const $btv= qs('#bar-thickness-val');
+  const $bsv= qs('#bar-spacing-val');
+  const $dcv= qs('#donut-cutout-val');
+  const $det = qs('#adv-toggle');
+
+  function setVal(el, out, fmt){
+    if (!el || !out) return;
+    let v = parseFloat(el.value);
+    if (isNaN(v)) v = 0;
+    if (fmt === 'pct') { out.textContent = Math.round(v) + '%'; }
+    else { out.textContent = v.toFixed(2); }
+  }
+
+  function init(){
+    setVal($bt, $btv);
+    setVal($bs, $bsv);
+    setVal($dc, $dcv, 'pct');
+  }
+
+  ['input','change'].forEach(evt=>{
+    $bt && $bt.addEventListener(evt, ()=> setVal($bt,$btv));
+    $bs && $bs.addEventListener(evt, ()=> setVal($bs,$bsv));
+    $dc && $dc.addEventListener(evt, ()=> setVal($dc,$dcv,'pct'));
+  });
+
+  // Details aria-expanded sync
+  if ($det){
+    $det.addEventListener('toggle', ()=>{
+      $det.querySelector('summary')?.setAttribute('aria-expanded', $det.open ? 'true' : 'false');
+    });
+  }
+
+  // Auto-collapse on very small screens to reduce clutter
+  if (window.matchMedia && window.matchMedia('(max-width: 700px)').matches){
+    const d = document.getElementById('adv-toggle');
+    if (d) d.open = false;
+  }
+
+  // Run once after content is ready
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<!-- NRG v32 — UI Polish (append-only, safe) -->
+<style>
+/* 1) Stronger, accessible focus rings (without changing your hover look) */
+.nrg-btn:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: none !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent) 70%, transparent),
+    0 0 0 4px color-mix(in srgb, var(--accent-2) 30%, transparent);
+  border-radius: var(--dens-radius, 10px);
+}
+
+/* 2) Subtle card hover to improve scannability (no layout shift) */
+.card-mini:hover,
+#top-contr:hover,
+.tr-charts .donut-wrap:hover,
+.tr-charts .bargrid-wrap:hover {
+  box-shadow: 0 2px 10px rgba(0,0,0,.25);
+}
+
+/* 3) Better details/summary affordance (Advanced Chart Controls) */
+.qa-summary {
+  position: relative;
+  padding-right: 28px;
+}
+.qa-summary::after{
+  content:"";
+  position:absolute; right:10px; top:50%; translate:0 -50%;
+  border:6px solid transparent; border-top-color: var(--txt);
+  opacity:.65; transition: transform .2s ease;
+}
+#adv-toggle[open] .qa-summary::after{ transform: rotate(180deg) translateY(50%); }
+
+/* 4) Tightened table readability without changing your density scales */
+#comp-table th, #comp-table td { line-height: 1.25; }
+#comp-table tbody tr:hover { background: rgba(255,255,255,0.06); }
+
+/* 5) Micro-contrast assist for high-contrast/low-vision users */
+@media (prefers-contrast: more) {
+  .nrg-card { border-color: color-mix(in srgb, var(--card-br) 80%, #fff); }
+  #comp-table th { color: var(--txt); }
+}
+
+/* 6) Make tiny close buttons (×) easier to hit, without growing the row */
+.mini-btn{
+  position:relative;
+}
+.mini-btn::after{
+  content:"";
+  position:absolute; inset:-6px; /* invisible hit area expansion */
+}
+
+/* 7) Clamped titles—prevents wrap spam on narrow screens */
+.section-title{
+  text-wrap: balance;
+}
+
+/* 8) Chart canvas rendering crispness (no size change) */
+.tr-charts canvas { image-rendering: -webkit-optimize-contrast; }
+
+/* 9) Mobile mini stats: keep numbers large and legible */
+@media (max-width:700px){
+  .card-mini .big{ font-size: clamp(18px, 5vw, 22px); }
+}
+
+/* 10) Density badge: auto text to current mode color tokens */
+#mode-badge{ border:1px solid var(--card-br); }
+
+/* 11) Keyboard focus cue for the Devices mini remove buttons */
+.mini-btn:focus-visible{
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* 12) Helpers for future (no-op until used) */
+.visually-hidden{
+  position:absolute !important; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+</style>
+
+<script>
+/* NRG v32 — Micro JS enhancements (append-only, safe) */
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) Reflect density state in badge text automatically (works with your existing toggle)
+  const badge = document.getElementById('mode-badge');
+  const setBadge = () => {
+    const compact = document.documentElement.classList.contains('compact') || document.body.classList.contains('compact') || document.documentElement.getAttribute('data-density') === 'compact';
+    badge && (badge.textContent = compact ? 'compact' : 'comfort');
+  };
+  setBadge();
+  const mo = new MutationObserver(setBadge);
+  mo.observe(document.documentElement, { attributes:true, attributeFilter:['class','data-density'] });
+  mo.observe(document.body, { attributes:true, attributeFilter:['class'] });
+
+  // 2) First actionable element gets a gentle focus cue for keyboard users only
+  const firstBtn = document.querySelector('#theme-toolbar .nrg-btn, .nrg-btn');
+  function keyboardPrimed(e){ if(e.key === 'Tab'){ firstBtn?.classList.add('is-initial-focus'); window.removeEventListener('keydown', keyboardPrimed); } }
+  window.addEventListener('keydown', keyboardPrimed, { once:true });
+
+  // 3) Keep Advanced controls summary ARIA state in sync
+  const adv = document.getElementById('adv-toggle');
+  const sum = adv?.querySelector('summary');
+  if (adv && sum){
+    const sync = () => sum.setAttribute('aria-expanded', adv.open ? 'true' : 'false');
+    adv.addEventListener('toggle', sync); sync();
+  }
+});
+</script>
+
+
+<script>
+(function(){
+  const meter = document.getElementById('donut-meter');
+  const modeSel = document.getElementById('meter-mode');
+  const donutWrap = document.querySelector('.donut-wrap');
+  if (!meter || !modeSel || !donutWrap) return;
+
+  modeSel.addEventListener('change', ()=>{
+    meter.className = modeSel.value;
+    if (modeSel.value === 'digital'){
+      updateDigital();
+    } else {
+      meter.textContent = '';
+    }
+  });
+
+  function updateDigital(){
+    try{
+      const daily = (devices||[]).reduce((s,d)=>{
+        const w=+d.watts||0, h=+d.hoursPerDay||0;
+        const duty=(+d.duty||100)/100, q=+d.quantity||1;
+        return s+(w*h*duty*q)/1000;
+      },0);
+      meter.textContent = daily.toFixed(2)+" kWh";
+    }catch(e){}
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  const cutout = document.getElementById('donut-cutout');
+  if (cutout){
+    cutout.addEventListener('input', ()=>{
+      const val = +cutout.value;
+      meter.style.display = (val < 70) ? 'block' : 'none';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateAnalog(daily){
+    const needle = document.querySelector('deg)`;
+  }
+
+  function updateMeter(){
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    if (meter.classList.contains('digital')){
+      meter.textContent = daily.toFixed(2)+" kWh";
+    } else if (meter.classList.contains('analog')){
+      // ensure needle exists
+      if (!meter.querySelector('.needle')){
+        const n = document.createElement('div');
+        n.className = 'needle';
+        meter.appendChild(n);
+      }
+      updateAnalog(daily);
+    }
+  }
+
+  // Hook into renderAll
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateMeter(); };
+
+  // Initial draw
+  document.addEventListener('DOMContentLoaded', updateMeter);
+})();
+</script>
+
+
+<script>
+(function(){
+  function buildAnalog(meter){
+    meter.innerHTML = '<div class="needle"></div><div class="cap"></div>';
+    const ticks = 5; // 0,2.5,5,7.5,10
+    for (let i=0;i<=ticks;i++){
+      const deg = (i/ticks)*180;
+      const t = document.createElement('div');
+      t.className = 'tick';
+      t.style.transform = `translateX(-50%) rotate(${deg}deg) translateY(-60px)`;
+      meter.appendChild(t);
+      if (i % 2 === 0){ // label every other tick
+        const lbl = document.createElement('div');
+        lbl.className = 'label';
+        const rad = (deg * Math.PI) / 180;
+        lbl.style.left = (50 + Math.cos(rad- Math.PI/2) * 45) + '%';
+        lbl.style.bottom = (Math.sin(rad) * 40 + 5) + 'px';
+        lbl.textContent = (i*2).toString();
+        meter.appendChild(lbl);
+      }
+    }
+  }
+
+  function updateAnalog(daily){
+    const needle = document.querySelector('deg)`;
+  }
+
+  function updateMeter(){
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    if (meter.classList.contains('digital')){
+      meter.textContent = daily.toFixed(2)+" kWh";
+    } else if (meter.classList.contains('analog')){
+      if (!meter.querySelector('.needle')){
+        buildAnalog(meter);
+      }
+      updateAnalog(daily);
+    }
+  }
+
+  // Hook into renderAll
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateMeter(); };
+
+  // Initial draw
+  document.addEventListener('DOMContentLoaded', updateMeter);
+})();
+</script>
+
+
+<script>
+(function(){
+  function buildSpinner(meter){
+    meter.innerHTML = '<div class="spinner"></div><div class="center-readout">0.00 kWh</div>';
+  }
+
+  function updateSpinner(daily){
+    const spinner = document.querySelector('
+
+  function updateMeter(){
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    if (meter.classList.contains('digital')){
+      meter.textContent = daily.toFixed(2)+" kWh";
+    } else if (meter.classList.contains('analog')){
+      // legacy analog still possible
+    } else if (meter.classList.contains('spinner')){
+      if (!meter.querySelector('.spinner')){
+        buildSpinner(meter);
+      }
+      updateSpinner(daily);
+    }
+  }
+
+  // Extend renderAll
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateMeter(); };
+
+  document.addEventListener('DOMContentLoaded', updateMeter);
+})();
+</script>
+
+
+<script>
+(function(){
+  function buildSpinner(meter){
+    meter.innerHTML = '<div class="spinner"></div><div class="center-readout">0.00 kWh</div>';
+  }
+
+  function updateSpinner(daily){
+    const spinner = document.querySelector('
+
+  function updateMeter(){
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    if (meter.classList.contains('digital')){
+      meter.textContent = daily.toFixed(2)+" kWh";
+    } else if (meter.classList.contains('spinner')){
+      if (!meter.querySelector('.spinner')){
+        buildSpinner(meter);
+      }
+      updateSpinner(daily);
+    }
+  }
+
+  // Hook into renderAll
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateMeter(); };
+
+  document.addEventListener('DOMContentLoaded', updateMeter);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+    meter.textContent = daily.toFixed(2)+" kWh";
+    meter.classList.add('visible');
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('rate');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    let text = "";
+    if (rate > 0){
+      const cost = daily * rate;
+      text = "$" + cost.toFixed(2) + " /day";
+    } else {
+      text = daily.toFixed(2) + " kWh/day";
+    }
+    meter.textContent = text;
+    meter.classList.add('visible');
+
+    // Update Daily Summary card (left panel)
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day @ $" + rate.toFixed(2) + "/kWh = $" + cost.toFixed(2);
+      } else {
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('ratePerKwh');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    let text = "";
+    if (rate > 0){
+      const cost = daily * rate;
+      text = "$" + cost.toFixed(2) + " /day";
+    } else {
+      text = daily.toFixed(2) + " kWh/day";
+    }
+    meter.textContent = text;
+    meter.classList.add('visible');
+
+    // Update Daily Summary card
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day @ $" + rate.toFixed(2) + "/kWh = $" + cost.toFixed(2);
+      } else {
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  // Listen to rate input changes
+  const rateInput = document.getElementById('ratePerKwh');
+  if (rateInput){
+    rateInput.addEventListener('input', updateDigital);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('ratePerKwh');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    if (rate > 0){
+      const cost = daily * rate;
+      meter.textContent = "$" + cost.toFixed(2) + " /day";
+    } else {
+      meter.textContent = daily.toFixed(2) + " kWh/day";
+    }
+    meter.classList.add('visible');
+
+    // Update Daily Summary card
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day @ $" + rate.toFixed(2) + "/kWh = $" + cost.toFixed(2);
+      } else {
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  // Listen to rate input changes (both input and change events)
+  const rateInput = document.getElementById('ratePerKwh');
+  if (rateInput){
+    rateInput.addEventListener('input', updateDigital);
+    rateInput.addEventListener('change', updateDigital);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('ratePerKwh');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    if (rate > 0){
+      const cost = daily * rate;
+      meter.textContent = "$" + cost.toFixed(2) + " /day";
+    } else {
+      meter.textContent = daily.toFixed(2) + " kWh/day";
+    }
+    meter.classList.add('visible');
+
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day @ $" + rate.toFixed(2) + "/kWh = $" + cost.toFixed(2);
+      } else {
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  // Hook into renderAll so meter always follows charts
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  // Fallback: poll ratePerKwh for changes every second
+  setInterval(updateDigital, 1000);
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('grid-rate');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    let text = "";
+    if (rate > 0){
+      const cost = daily * rate;
+      text = daily.toFixed(2) + " kWh/day = $" + cost.toFixed(2);
+    } else {
+      text = daily.toFixed(2) + " kWh/day";
+    }
+    meter.textContent = text;
+    meter.classList.add('visible');
+
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day @ $" + rate.toFixed(2) + "/kWh = $" + cost.toFixed(2);
+      } else {
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  // Hook into renderAll so meter always follows charts
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  // Listen to grid-rate input changes (both input and change)
+  const rateInput = document.getElementById('grid-rate');
+  if (rateInput){
+    rateInput.addEventListener('input', updateDigital);
+    rateInput.addEventListener('change', updateDigital);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('grid-rate');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    if (rate > 0){
+      const cost = daily * rate;
+      meter.innerHTML = daily.toFixed(2) + " kWh/day<br>$" + cost.toFixed(2) + " /day";
+    } else {
+      meter.textContent = daily.toFixed(2) + " kWh/day";
+    }
+    meter.classList.add('visible');
+
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day @ $" + rate.toFixed(2) + "/kWh = $" + cost.toFixed(2);
+      } else {
+        dailyBox.textContent = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  // Hook into renderAll so meter always follows charts
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  // Listen to grid-rate changes
+  const rateInput = document.getElementById('grid-rate');
+  if (rateInput){
+    rateInput.addEventListener('input', updateDigital);
+    rateInput.addEventListener('change', updateDigital);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('grid-rate');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    if (rate > 0){
+      const cost = daily * rate;
+      meter.innerHTML = daily.toFixed(2) + " kWh/day<br>$" + cost.toFixed(2) + " /day";
+    } else {
+      meter.innerHTML = daily.toFixed(2) + " kWh/day";
+    }
+    meter.classList.add('visible');
+
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.innerHTML = daily.toFixed(2) + " kWh/day<br>$" + cost.toFixed(2) + " /day";
+      } else {
+        dailyBox.innerHTML = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  // Hook into renderAll so meter always follows charts
+  const _renderAll = renderAll;
+  renderAll = function(){ _renderAll(); updateDigital(); };
+
+  // Listen to grid-rate changes
+  const rateInput = document.getElementById('grid-rate');
+  if (rateInput){
+    rateInput.addEventListener('input', updateDigital);
+    rateInput.addEventListener('change', updateDigital);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateDigital(){
+    const meter = document.getElementById('donut-meter');
+    if (!meter) return;
+    const rateInput = document.getElementById('grid-rate');
+    const rate = rateInput ? parseFloat(rateInput.value) || 0 : 0;
+
+    const daily = (devices||[]).reduce((s,d)=>{
+      const w=+d.watts||0, h=+d.hoursPerDay||0;
+      const duty=(+d.duty||100)/100, q=+d.quantity||1;
+      return s+(w*h*duty*q)/1000;
+    },0);
+
+    if (rate > 0){
+      const cost = daily * rate;
+      meter.innerHTML = daily.toFixed(2) + " kWh/day<br>$" + cost.toFixed(2) + " /day";
+    } else {
+      meter.innerHTML = daily.toFixed(2) + " kWh/day";
+    }
+    meter.classList.add('visible');
+
+    const dailyBox = document.querySelector('#daily-kwh-summary');
+    if (dailyBox){
+      if (rate > 0){
+        const cost = daily * rate;
+        dailyBox.innerHTML = daily.toFixed(2) + " kWh/day<br>$" + cost.toFixed(2) + " /day";
+      } else {
+        dailyBox.innerHTML = daily.toFixed(2) + " kWh/day";
+      }
+    }
+  }
+
+  // Hook into renderAll so meter always wins last
+  const _renderAll = renderAll;
+  renderAll = function(){
+    _renderAll();
+    setTimeout(updateDigital, 0); // ensure runs after all other updates
+  };
+
+  // Listen to grid-rate changes
+  const rateInput = document.getElementById('grid-rate');
+  if (rateInput){
+    rateInput.addEventListener('input', updateDigital);
+    rateInput.addEventListener('change', updateDigital);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateDigital);
+})();
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("intro-modal");
+  const closeBtn = document.getElementById("intro-close");
+  if (localStorage.getItem("nrg-welcome") === "seen") {
+    modal.style.display = "none";
+  }
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+    localStorage.setItem("nrg-welcome", "seen");
+  });
+});
+</script>
+
+</body>
+</html>
