@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>NRG v27 — Unified + Themes (Fixed)</title>
+<title>NRG v27.8 — Guided Setup Flow</title>
 <style>
 /* ======== ULTRA-CONTRAST v3 THEME TOKENS ======== */
 [data-theme="light"]{
@@ -119,6 +119,23 @@ label.bf-suite input{ margin-right: 6px; }
   .add-grid{grid-template-columns:1fr}
 }
 
+
+/* v27.3 Preset Clarity / Remove Guidance */
+.preset-notice{
+  margin-top:8px;
+  padding:10px 12px;
+  border:1px solid var(--card-br);
+  border-left:4px solid var(--accent);
+  border-radius:12px;
+  background:var(--input-bg);
+  color:var(--txt);
+  box-shadow:0 2px 10px rgba(0,0,0,.18);
+}
+.preset-notice strong{color:var(--txt);}
+.preset-notice .muted{color:var(--muted);}
+.preset-notice ul{margin:6px 0 0 18px; padding:0;}
+.preset-notice li{margin:3px 0;}
+
 /* Quick Add (Select + Add) */
 .qa-details{padding:10px}
 .qa-summary{list-style:none; cursor:pointer; background:var(--input-bg); border:1px solid var(--input-br); border-radius:8px; padding:8px 10px; font-weight:800}
@@ -190,14 +207,21 @@ select, input[type="number"], input[type="text"], input[type="range"]{
 
 
 /* Mini devices list styling */
-#mini-list .mini-row{ display:grid; grid-template-columns:1.4fr 1fr 1fr auto; gap:8px; align-items:center;
+#mini-list .mini-row{ display:grid; grid-template-columns:1.25fr 1fr 1fr 1fr auto auto; gap:8px; align-items:center;
   border:1px solid var(--card-br); border-radius:10px; padding:8px; background:var(--card); }
-#mini-list .mini-name{ font-weight:700; }
+#mini-list .mini-name{ font-weight:800; }
 #mini-list .mini-meta{ font-size:12px; color:var(--muted); }
-#mini-list .mini-btn{ min-width:36px; }
+#mini-list .mini-cost{ font-size:12px; font-weight:800; font-variant-numeric:tabular-nums; }
+#mini-list .mini-source{ display:inline-block; font-size:11px; font-weight:800; letter-spacing:.02em; padding:2px 7px; border:1px solid var(--card-br); border-radius:999px; background:rgba(255,255,255,.06); color:var(--muted); margin-top:3px; }
+#mini-list .mini-actions{ display:flex; gap:6px; justify-content:flex-end; }
+#mini-list .mini-btn{ min-width:58px; padding-inline:8px; }
+@media (max-width: 900px){
+  #mini-list .mini-row{ grid-template-columns:1fr 1fr auto; }
+  #mini-list .mini-meta:nth-of-type(3), #mini-list .mini-cost{ display:none; }
+}
 @media (max-width: 700px){
   #mini-list .mini-row{ grid-template-columns:1fr auto; }
-  #mini-list .mini-meta{ display:none; }
+  #mini-list .mini-meta, #mini-list .mini-cost{ display:none; }
 }
 
 
@@ -661,6 +685,102 @@ html[data-density="compact"]
 #code-dump-section,#code-dump{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
 </style>
 
+
+<style id="nrg-v276-schedule-style">
+/* NRG v27.6 — Device Schedule / Advanced Usage Details */
+.mini-schedule{display:block;margin-top:4px;color:var(--muted);font-size:11px;line-height:1.25;}
+.mini-btn.mini-schedule-btn{white-space:nowrap;}
+.schedule-badge{display:inline-block;margin-top:3px;padding:2px 7px;border:1px solid color-mix(in oklab, var(--accent), transparent 55%);border-radius:999px;background:color-mix(in oklab, var(--card), var(--accent) 8%);color:var(--txt);font-size:11px;}
+@media(max-width:760px){.mini-row{grid-template-columns:1fr!important}.mini-btn.mini-schedule-btn{width:100%;}}
+</style>
+
+
+<style id="nrg-v277-device-scroll-containment">
+/* NRG v27.7 — Device Scroll Containment
+   Keep Your Devices visually capped around three cards, then scroll internally. */
+#pane-devices-mini .mini-list{
+  max-height: clamp(310px, 38vh, 390px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px;
+  border: 1px solid color-mix(in oklab, var(--accent), transparent 58%);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--card), var(--accent) 7%), var(--card));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.035), inset 0 -18px 24px rgba(0,0,0,.10);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) color-mix(in oklab, var(--card), #000 12%);
+}
+#pane-devices-mini .mini-list::-webkit-scrollbar{ width: 10px; }
+#pane-devices-mini .mini-list::-webkit-scrollbar-track{
+  background: color-mix(in oklab, var(--card), #000 14%);
+  border-radius: 999px;
+}
+#pane-devices-mini .mini-list::-webkit-scrollbar-thumb{
+  background: linear-gradient(180deg, var(--accent), color-mix(in oklab, var(--accent), #000 26%));
+  border-radius: 999px;
+  border: 2px solid color-mix(in oklab, var(--card), #000 10%);
+}
+#pane-devices-mini .mini-list:empty{
+  min-height: 74px;
+  display: grid;
+  place-items: center;
+}
+#pane-devices-mini .mini-list:empty::before{
+  content: 'Preset or add devices to begin. Device cards will stay contained here.';
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  padding: 0 12px;
+}
+.device-scroll-hint{
+  display:none;
+  margin: 6px 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+#pane-devices-mini.device-list-scrollable .device-scroll-hint{ display:block; }
+#pane-devices-mini.device-list-scrollable .mini-list{
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), inset 0 -22px 28px rgba(0,0,0,.16);
+}
+@media(max-width:760px){
+  #pane-devices-mini .mini-list{ max-height: 360px; }
+}
+</style>
+
+<style id="nrg-v278-guided-setup-flow">
+/* NRG v27.8 — Guided Setup Flow / First-Use Clarity */
+.nrg-setup-guide{
+  margin:10px 0 12px;
+  padding:12px;
+  border:1px solid color-mix(in oklab, var(--accent), transparent 55%);
+  border-radius:14px;
+  background:linear-gradient(180deg, color-mix(in oklab, var(--card), var(--accent) 8%), var(--card));
+  color:var(--txt);
+  box-shadow:0 2px 12px rgba(0,0,0,.14);
+}
+.nrg-setup-guide strong{display:block;margin-bottom:8px;color:var(--txt);}
+.nrg-setup-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.nrg-setup-step{
+  padding:9px 10px;
+  border:1px solid color-mix(in oklab, var(--accent), transparent 68%);
+  border-radius:12px;
+  background:color-mix(in oklab, var(--input-bg), var(--accent) 5%);
+}
+.nrg-setup-step b{display:block;font-size:12px;margin-bottom:3px;color:var(--txt);}
+.nrg-setup-step span{display:block;font-size:12px;line-height:1.35;color:var(--muted);}
+.nrg-helper-line{
+  margin:7px 0 8px;
+  padding:8px 10px;
+  border-left:3px solid var(--accent);
+  border-radius:10px;
+  background:color-mix(in oklab, var(--card), var(--accent) 6%);
+  color:var(--muted);
+}
+@media(max-width:760px){.nrg-setup-steps{grid-template-columns:1fr;}}
+</style>
+
 </head>
 <body>
 
@@ -700,17 +820,26 @@ html[data-density="compact"]
         <span id="theme-status">Theme: sunburst</span><div style="flex:1"></div><button type="button" class="nrg-btn" id="btn-connect" title="Connect Smart Devices">Connect Smart Devices</button>
       </div>
 
+      <div class="nrg-setup-guide" role="note" aria-label="Guided setup flow">
+        <strong>Start here: build the home, then make it yours.</strong>
+        <div class="nrg-setup-steps">
+          <div class="nrg-setup-step"><b>1. Choose your home type</b><span>Use Basic Function to seed common built-in appliances and baseline lights.</span></div>
+          <div class="nrg-setup-step"><b>2. Review Your Devices</b><span>Remove anything that does not apply, then edit or schedule what remains.</span></div>
+          <div class="nrg-setup-step"><b>3. Add your real devices</b><span>Use Quick Add or Custom Device for TVs, laptops, routers, consoles, and other personal items.</span></div>
+        </div>
+      </div>
+
       <div id="basic-seed" class="section section-tight">
         <h3 class="section-title">Basic Function</h3>
+        <div class="nrg-helper-line small">Start with the space you live in. NRG adds common built-in usage first; your personal devices come next.</div>
         <div class="bf-grid">
           <label>Type
             <select id="bf-type">
               <option value="apartment">Apartment</option>
-              <option value="house">House</option>
-              <option value="townhouse">Townhouse</option>
               <option value="condo">Condo</option>
-              <option value="suite">Suite</option>
-              <option value="bachelor">Bachelor Apt</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="house">House</option>
+              <option value="custom">Custom / Start Empty</option>
             </select>
           </label>
           <label>Bedrooms
@@ -723,9 +852,15 @@ html[data-density="compact"]
           </label>
           <button class="nrg-btn bf-apply" id="bf-apply">Apply</button>
           <label class="bf-replace"><input type="checkbox" id="bf-replace" checked> Replace</label>
-          <label class="bf-suite"><input type="checkbox" id="bf-suite"> Add Suite Copy</label>
         </div>
-        <div class="muted small">Choose home → Apply to seed defaults. Add more below.</div>
+        <div class="preset-notice small" role="note" aria-label="Preset guidance">
+          <strong>Preset starting point:</strong> NRG adds common built-in appliances and baseline lights only.
+          <ul>
+            <li>Remove anything you do not have or do not use.</li>
+            <li>Empty receptacles/outlets are counted as 0 kWh until you add a plugged-in device.</li>
+            <li>TVs, laptops, routers, modems, consoles, and personal devices stay optional through Quick Add.</li>
+          </ul>
+        </div>
 
         <!-- Quick Add -->
         <div id="quick-add" class="nrg-card" style="margin-top:10px;">
@@ -744,6 +879,7 @@ html[data-density="compact"]
                   <option value="console">Game Console</option>
                   <option value="soundbar">Soundbar</option>
                   <option value="settop">Set‑top Box</option>
+                  <option value="stove">Electric Stove / Range</option>
                   <option value="microwave">Microwave</option>
                   <option value="kettle">Kettle</option>
                   <option value="coffee">Coffee Maker</option>
@@ -762,7 +898,7 @@ html[data-density="compact"]
               </label>
               <button id="qa-add" class="nrg-btn" type="button" disabled>Add</button>
             </div>
-            <div class="muted small">Pick a device, then press <b>Add</b>. For custom values, use <b>Add Custom Device</b> below.</div>
+            <div class="nrg-helper-line small">Add only the devices you actually own or use. Presets do not assume TVs, laptops, routers, modems, consoles, or personal electronics.</div>
           </div>
         </div>
       </div>
@@ -771,13 +907,15 @@ html[data-density="compact"]
 <section id="pane-devices-mini" class="nrg-card" style="margin-top:10px;">
   <div class="section">
     <h3 class="section-title">Your Devices & Instant Stats</h3>
+    <div class="nrg-helper-line small">This is your control list. Remove preset items that do not apply, edit quick corrections, or use Schedule for real usage timing.</div>
     <div class="mini-stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px;">
       <div class="card-mini"><div class="muted small">Total devices</div><div id="mini-count" class="big">0</div></div>
       <div class="card-mini"><div class="muted small">Daily kWh</div><div id="mini-kwh" class="big">0.00</div></div>
       <div class="card-mini"><div class="muted small">Est. Bill / month</div><div id="mini-bill" class="big">$0.00</div></div>
     </div>
+    <div class="device-scroll-hint" role="note">Device list is capped at about three cards. Scroll inside this panel to review extra preset or custom devices.</div>
     <div id="mini-list" class="mini-list" style="display:grid; gap:6px;"></div>
-    <div class="muted small">Tip: Use the × to remove a device quickly. Edits still happen in the table below.</div>
+    <div class="preset-notice small" role="note" aria-label="Device removal guidance"><strong>You stay in control:</strong> If a preset added something that does not apply, use Remove. Use Edit for quick corrections, or Schedule for real usage timing such as days/week and time of day.</div>
   </div>
 </section>
 
@@ -841,7 +979,7 @@ html[data-density="compact"]
         <div class="mobile-chart-toggle" style="display:none; gap:6px; margin-top:8px;"><button type="button" class="nrg-btn" id="show-donut">Donut</button><button type="button" class="nrg-btn" id="show-bar">Bar</button></div><div class="tr-charts">
           <div class="donut-wrap" style="position:relative;"><canvas id="donut"></canvas><div id="donut-center"><div id="donut-meter" class="digital">0.00 kWh</div>
   <div id="donut-cost" class="digital"></div></div></div>
-          <div class="bargrid-wrap"><canvas id="breakdownBar"></canvas></div>
+          <div class="bargrid-wrap"><canvas id="breakdownBar"></canvas><div class="chart-empty-state" aria-live="polite"></div></div>
         </div>
       </div>
       <div class="section">
@@ -1235,25 +1373,55 @@ html[data-density="compact"]
       if (miniKwh)   miniKwh.textContent   = daily.toFixed(2);
       if (miniBill)  miniBill.textContent  = '$' + bill.toFixed(2);
 
-      // Build list rows
+      // Build list rows with clear source, metrics, edit, and remove controls.
       miniList.innerHTML = '';
+      const inferSource = (d)=> d.source || (/(baseline|fridge|microwave|stove|washer|dryer|dehumidifier)/i.test(d.name||'') ? 'Preset' : 'User Added');
       (devices||[]).forEach((d, idx)=>{
         const row = document.createElement('div');
         row.className = 'mini-row';
-        const meta1 = `${(+d.watts||0)} W • ${(+d.hoursPerDay||0)} h/day`;
-        const meta2 = `Duty ${(+d.duty||100)}% • Qty ${(+d.quantity||1)}`;
+        const watts = +d.watts || 0;
+        const hours = +d.hoursPerDay || 0;
+        const duty = +d.duty || 100;
+        const qty = +d.quantity || 1;
+        const monthlyKwh = dKwh(d) * dim;
+        const monthlyCost = monthlyKwh * rate;
+        const source = inferSource(d);
         row.innerHTML = `
-          <div class="mini-name">${d.name||'Device'}</div>
-          <div class="mini-meta">${meta1}</div>
-          <div class="mini-meta">${meta2}</div>
-          <button type="button" class="nrg-btn mini-btn" data-idx="${idx}" title="Remove">×</button>
+          <div><div class="mini-name">${d.name||'Device'}</div><span class="mini-source">${source}</span></div>
+          <div class="mini-meta">${watts} W<br>${hours} h/day</div>
+          <div class="mini-meta">Duty ${duty}%<br>Qty ${qty}</div>
+          <div class="mini-cost">${monthlyKwh.toFixed(1)} kWh/mo<br>$${monthlyCost.toFixed(2)}/mo</div>
+          <button type="button" class="nrg-btn mini-btn mini-edit" data-idx="${idx}" title="Edit this device">Edit</button>
+          <button type="button" class="nrg-btn mini-btn mini-remove" data-idx="${idx}" title="Remove this device">Remove</button>
         `;
-        row.querySelector('button')?.addEventListener('click', (e)=>{
+        row.querySelector('.mini-remove')?.addEventListener('click', (e)=>{
           const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
           if (i>=0 && i < (devices||[]).length){
             devices.splice(i,1);
             renderAll(); // re-render everything including mini panel
           }
+        });
+        row.querySelector('.mini-edit')?.addEventListener('click', (e)=>{
+          const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
+          const item = (devices||[])[i];
+          if (!item) return;
+          const name = prompt('Device name', item.name || 'Device');
+          if (name === null) return;
+          const wattsVal = prompt('Watts', String(+item.watts || 0));
+          if (wattsVal === null) return;
+          const hoursVal = prompt('Hours per day', String(+item.hoursPerDay || 0));
+          if (hoursVal === null) return;
+          const dutyVal = prompt('Duty %', String(+item.duty || 100));
+          if (dutyVal === null) return;
+          const qtyVal = prompt('Quantity', String(+item.quantity || 1));
+          if (qtyVal === null) return;
+          item.name = (name || 'Device').trim();
+          item.watts = Math.max(0, parseFloat(wattsVal) || 0);
+          item.hoursPerDay = Math.max(0, parseFloat(hoursVal) || 0);
+          item.duty = Math.max(0, Math.min(100, parseFloat(dutyVal) || 100));
+          item.quantity = Math.max(1, parseInt(qtyVal, 10) || 1);
+          item.source = item.source || source;
+          renderAll();
         });
         miniList.appendChild(row);
       });
@@ -1435,6 +1603,7 @@ const QUICK_MAP = {
   'console':       {name:'Game Console',  watts:90,   hoursPerDay:2,  duty:100, quantity:1},
   'soundbar':      {name:'Soundbar',      watts:25,   hoursPerDay:3,  duty:100, quantity:1},
   'settop':        {name:'Set‑top Box',   watts:15,   hoursPerDay:4,  duty:100, quantity:1},
+  'stove':         {name:'Electric Stove', watts:2200, hoursPerDay:0.6,duty:70,  quantity:1},
   'microwave':     {name:'Microwave',     watts:1100, hoursPerDay:0.3,duty:100, quantity:1},
   'kettle':        {name:'Kettle',        watts:1800, hoursPerDay:0.2,duty:100, quantity:1},
   'coffee':        {name:'Coffee Maker',  watts:900,  hoursPerDay:0.3,duty:100, quantity:1},
@@ -1788,23 +1957,42 @@ function loadAdjustments(){
 // === Seeds ===
 function basicFunctionSeed(type, beds){
   const b = parseInt(beds||'1',10)||1;
-  const list = [
-    {name:'Router',        watts:12,  hoursPerDay:24, duty:100, quantity:1},
-    {name:'Cable Modem',   watts:9,   hoursPerDay:24, duty:100, quantity:1},
-    {name:'Fridge',        watts:160, hoursPerDay:24, duty:35,  quantity:1}
-  ];
-  // Lamps ~ 1 per room + living
-  list.push({name:'LED Lamp', watts:10, hoursPerDay:5, duty:100, quantity:Math.max(2,b+1)});
-  // Extras by type
-  if (type==='house' || type==='townhouse'){
-    list.push({name:'Washer', watts:500, hoursPerDay:0.5, duty:25, quantity:1});
-    list.push({name:'Dryer',  watts:2500,hoursPerDay:0.4, duty:50, quantity:1});
-    list.push({name:'Dehumidifier', watts:300, hoursPerDay:6, duty:60, quantity:1});
+  const list = [];
+  const add = (device)=> list.push({...device, source:'Preset'});
+  const fridge = {name:'Fridge', watts:160, hoursPerDay:24, duty:35, quantity:1};
+  const microwave = {name:'Microwave', watts:1100, hoursPerDay:0.25, duty:100, quantity:1};
+  const stove = {name:'Electric Stove', watts:2200, hoursPerDay:0.6, duty:70, quantity:1};
+  const washer = {name:'Washer', watts:500, hoursPerDay:0.5, duty:25, quantity:1};
+  const dryer = {name:'Dryer', watts:2500, hoursPerDay:0.4, duty:50, quantity:1};
+  const dehumidifier = {name:'Dehumidifier', watts:300, hoursPerDay:6, duty:60, quantity:1};
+
+  // Preset philosophy: seed what usually comes with the dwelling.
+  // Personal devices like modem/router/TV/laptop stay in Quick Add.
+  // Empty receptacles/outlets are assumed to draw 0 kWh until the user adds devices.
+  if (type === 'custom') return list;
+
+  const lightingQty = Math.max(4, Math.min(10, b + 3)); // bedrooms + kitchen + bathroom + living area, with a small practical cap
+  const lighting = {name:`Baseline LED Lighting (${lightingQty} fixtures)`, watts:9, hoursPerDay:4, duty:100, quantity:lightingQty};
+
+  add(lighting);
+  add(fridge);
+
+  if (type === 'apartment' || type === 'condo'){
+    if (b >= 1) add(microwave);
+    if (b >= 2) add(stove);
+  } else if (type === 'townhouse'){
+    add(microwave);
+    add(stove);
+    add(washer);
+    add(dryer);
+  } else if (type === 'house'){
+    add(microwave);
+    add(stove);
+    add(washer);
+    add(dryer);
+    add(dehumidifier);
   }
-  if (type==='condo' || type==='apartment' || type==='suite' || type==='bachelor'){
-    list.push({name:'TV', watts:120, hoursPerDay:3, duty:100, quantity:1});
-    list.push({name:'Laptop', watts:60, hoursPerDay:5, duty:60, quantity:1});
-  }
+
   return list;
 }
 
@@ -1819,11 +2007,6 @@ function wire(){
       const replace = document.getElementById('bf-replace').checked;
       let list = basicFunctionSeed(type, beds);
       if (!replace) list = (devices||[]).concat(list);
-      const addSuite = document.getElementById('bf-suite')?.checked;
-      if (addSuite){
-        const suiteList = basicFunctionSeed(type, beds).map(d=> ({...d, name: d.name+' (Suite)'}));
-        list = list.concat(suiteList);
-      }
       devices = list;
       renderAll();
     });
@@ -1838,7 +2021,7 @@ function wire(){
       const hours= parseFloat(document.getElementById('add-hours').value||'0')||0;
       const duty = parseFloat(document.getElementById('add-duty').value||'100')||100;
       const qty  = parseInt(document.getElementById('add-qty').value||'1',10)||1;
-      devices.push({ name, watts, hoursPerDay:hours, duty, quantity:qty });
+      devices.push({ name, watts, hoursPerDay:hours, duty, quantity:qty, source:'Custom' });
       document.getElementById('add-form').reset();
       document.getElementById('add-duty').value=100; document.getElementById('add-qty').value=1;
       renderAll();
@@ -1862,7 +2045,7 @@ function wire(){
     qaBtn.addEventListener('click', ()=>{
       const key = qaSel.value; if (!key || !QUICK_MAP[key]) return;
       const d = QUICK_MAP[key];
-      devices.push({ name:d.name, watts:d.watts, hoursPerDay:d.hoursPerDay, duty:d.duty, quantity:d.quantity });
+      devices.push({ name:d.name, watts:d.watts, hoursPerDay:d.hoursPerDay, duty:d.duty, quantity:d.quantity, source:'Quick Add' });
       qaSel.value=''; setQA();
       renderAll();
     });
@@ -2186,25 +2369,55 @@ document.addEventListener('DOMContentLoaded', ()=>{
       if (miniKwh)   miniKwh.textContent   = daily.toFixed(2);
       if (miniBill)  miniBill.textContent  = '$' + bill.toFixed(2);
 
-      // Build list rows
+      // Build list rows with clear source, metrics, edit, and remove controls.
       miniList.innerHTML = '';
+      const inferSource = (d)=> d.source || (/(baseline|fridge|microwave|stove|washer|dryer|dehumidifier)/i.test(d.name||'') ? 'Preset' : 'User Added');
       (devices||[]).forEach((d, idx)=>{
         const row = document.createElement('div');
         row.className = 'mini-row';
-        const meta1 = `${(+d.watts||0)} W • ${(+d.hoursPerDay||0)} h/day`;
-        const meta2 = `Duty ${(+d.duty||100)}% • Qty ${(+d.quantity||1)}`;
+        const watts = +d.watts || 0;
+        const hours = +d.hoursPerDay || 0;
+        const duty = +d.duty || 100;
+        const qty = +d.quantity || 1;
+        const monthlyKwh = dKwh(d) * dim;
+        const monthlyCost = monthlyKwh * rate;
+        const source = inferSource(d);
         row.innerHTML = `
-          <div class="mini-name">${d.name||'Device'}</div>
-          <div class="mini-meta">${meta1}</div>
-          <div class="mini-meta">${meta2}</div>
-          <button type="button" class="nrg-btn mini-btn" data-idx="${idx}" title="Remove">×</button>
+          <div><div class="mini-name">${d.name||'Device'}</div><span class="mini-source">${source}</span></div>
+          <div class="mini-meta">${watts} W<br>${hours} h/day</div>
+          <div class="mini-meta">Duty ${duty}%<br>Qty ${qty}</div>
+          <div class="mini-cost">${monthlyKwh.toFixed(1)} kWh/mo<br>$${monthlyCost.toFixed(2)}/mo</div>
+          <button type="button" class="nrg-btn mini-btn mini-edit" data-idx="${idx}" title="Edit this device">Edit</button>
+          <button type="button" class="nrg-btn mini-btn mini-remove" data-idx="${idx}" title="Remove this device">Remove</button>
         `;
-        row.querySelector('button')?.addEventListener('click', (e)=>{
+        row.querySelector('.mini-remove')?.addEventListener('click', (e)=>{
           const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
           if (i>=0 && i < (devices||[]).length){
             devices.splice(i,1);
             renderAll(); // re-render everything including mini panel
           }
+        });
+        row.querySelector('.mini-edit')?.addEventListener('click', (e)=>{
+          const i = parseInt(e.currentTarget.getAttribute('data-idx')||'-1', 10);
+          const item = (devices||[])[i];
+          if (!item) return;
+          const name = prompt('Device name', item.name || 'Device');
+          if (name === null) return;
+          const wattsVal = prompt('Watts', String(+item.watts || 0));
+          if (wattsVal === null) return;
+          const hoursVal = prompt('Hours per day', String(+item.hoursPerDay || 0));
+          if (hoursVal === null) return;
+          const dutyVal = prompt('Duty %', String(+item.duty || 100));
+          if (dutyVal === null) return;
+          const qtyVal = prompt('Quantity', String(+item.quantity || 1));
+          if (qtyVal === null) return;
+          item.name = (name || 'Device').trim();
+          item.watts = Math.max(0, parseFloat(wattsVal) || 0);
+          item.hoursPerDay = Math.max(0, parseFloat(hoursVal) || 0);
+          item.duty = Math.max(0, Math.min(100, parseFloat(dutyVal) || 100));
+          item.quantity = Math.max(1, parseInt(qtyVal, 10) || 1);
+          item.source = item.source || source;
+          renderAll();
         });
         miniList.appendChild(row);
       });
@@ -3129,6 +3342,37 @@ input:focus-visible {
   position:absolute !important; width:1px; height:1px;
   padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
+
+
+/* v27.4 Smart Chart Empty-State / Bar Softening */
+.bargrid-wrap{ position:relative; overflow:hidden; }
+.chart-empty-state{
+  display:none;
+  position:absolute;
+  inset:10px;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:14px;
+  border:1px dashed var(--card-br);
+  border-radius:12px;
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  color: var(--muted);
+  font-size:13px;
+  line-height:1.45;
+  pointer-events:none;
+}
+.chart-empty-state strong{ color:var(--text); display:block; margin-bottom:4px; }
+.bargrid-wrap.chart-empty canvas{ opacity:0.08; }
+.bargrid-wrap.chart-empty .chart-empty-state,
+.bargrid-wrap.chart-lite .chart-empty-state{ display:flex; }
+.bargrid-wrap.chart-lite .chart-empty-state{
+  top:auto;
+  min-height:42px;
+  font-size:12px;
+  background: color-mix(in srgb, var(--card) 72%, transparent);
+}
+.bargrid-wrap.chart-lite canvas{ opacity:0.72; }
 </style>
 
 <script>
@@ -3204,172 +3448,12 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
-<script>
-(function(){
-  function updateAnalog(daily){
-    const needle = document.querySelector('deg)`;
-  }
+<!-- v27.5: removed broken legacy analog/spinning meter remnant; digital meter remains. -->
 
-  function updateMeter(){
-    const daily = (devices||[]).reduce((s,d)=>{
-      const w=+d.watts||0, h=+d.hoursPerDay||0;
-      const duty=(+d.duty||100)/100, q=+d.quantity||1;
-      return s+(w*h*duty*q)/1000;
-    },0);
-    const meter = document.getElementById('donut-meter');
-    if (!meter) return;
-    if (meter.classList.contains('digital')){
-      meter.textContent = daily.toFixed(2)+" kWh";
-    } else if (meter.classList.contains('analog')){
-      // ensure needle exists
-      if (!meter.querySelector('.needle')){
-        const n = document.createElement('div');
-        n.className = 'needle';
-        meter.appendChild(n);
-      }
-      updateAnalog(daily);
-    }
-  }
+<!-- v27.5: removed broken legacy analog/spinning meter remnant; digital meter remains. -->
+<!-- v27.5: removed broken legacy spinner meter remnant; digital meter remains. -->
 
-  // Hook into renderAll
-  const _renderAll = renderAll;
-  renderAll = function(){ _renderAll(); updateMeter(); };
-
-  // Initial draw
-  document.addEventListener('DOMContentLoaded', updateMeter);
-})();
-</script>
-
-
-<script>
-(function(){
-  function buildAnalog(meter){
-    meter.innerHTML = '<div class="needle"></div><div class="cap"></div>';
-    const ticks = 5; // 0,2.5,5,7.5,10
-    for (let i=0;i<=ticks;i++){
-      const deg = (i/ticks)*180;
-      const t = document.createElement('div');
-      t.className = 'tick';
-      t.style.transform = `translateX(-50%) rotate(${deg}deg) translateY(-60px)`;
-      meter.appendChild(t);
-      if (i % 2 === 0){ // label every other tick
-        const lbl = document.createElement('div');
-        lbl.className = 'label';
-        const rad = (deg * Math.PI) / 180;
-        lbl.style.left = (50 + Math.cos(rad- Math.PI/2) * 45) + '%';
-        lbl.style.bottom = (Math.sin(rad) * 40 + 5) + 'px';
-        lbl.textContent = (i*2).toString();
-        meter.appendChild(lbl);
-      }
-    }
-  }
-
-  function updateAnalog(daily){
-    const needle = document.querySelector('deg)`;
-  }
-
-  function updateMeter(){
-    const daily = (devices||[]).reduce((s,d)=>{
-      const w=+d.watts||0, h=+d.hoursPerDay||0;
-      const duty=(+d.duty||100)/100, q=+d.quantity||1;
-      return s+(w*h*duty*q)/1000;
-    },0);
-    const meter = document.getElementById('donut-meter');
-    if (!meter) return;
-    if (meter.classList.contains('digital')){
-      meter.textContent = daily.toFixed(2)+" kWh";
-    } else if (meter.classList.contains('analog')){
-      if (!meter.querySelector('.needle')){
-        buildAnalog(meter);
-      }
-      updateAnalog(daily);
-    }
-  }
-
-  // Hook into renderAll
-  const _renderAll = renderAll;
-  renderAll = function(){ _renderAll(); updateMeter(); };
-
-  // Initial draw
-  document.addEventListener('DOMContentLoaded', updateMeter);
-})();
-</script>
-
-
-<script>
-(function(){
-  function buildSpinner(meter){
-    meter.innerHTML = '<div class="spinner"></div><div class="center-readout">0.00 kWh</div>';
-  }
-
-  function updateSpinner(daily){
-    const spinner = document.querySelector('
-
-  function updateMeter(){
-    const daily = (devices||[]).reduce((s,d)=>{
-      const w=+d.watts||0, h=+d.hoursPerDay||0;
-      const duty=(+d.duty||100)/100, q=+d.quantity||1;
-      return s+(w*h*duty*q)/1000;
-    },0);
-    const meter = document.getElementById('donut-meter');
-    if (!meter) return;
-    if (meter.classList.contains('digital')){
-      meter.textContent = daily.toFixed(2)+" kWh";
-    } else if (meter.classList.contains('analog')){
-      // legacy analog still possible
-    } else if (meter.classList.contains('spinner')){
-      if (!meter.querySelector('.spinner')){
-        buildSpinner(meter);
-      }
-      updateSpinner(daily);
-    }
-  }
-
-  // Extend renderAll
-  const _renderAll = renderAll;
-  renderAll = function(){ _renderAll(); updateMeter(); };
-
-  document.addEventListener('DOMContentLoaded', updateMeter);
-})();
-</script>
-
-
-<script>
-(function(){
-  function buildSpinner(meter){
-    meter.innerHTML = '<div class="spinner"></div><div class="center-readout">0.00 kWh</div>';
-  }
-
-  function updateSpinner(daily){
-    const spinner = document.querySelector('
-
-  function updateMeter(){
-    const daily = (devices||[]).reduce((s,d)=>{
-      const w=+d.watts||0, h=+d.hoursPerDay||0;
-      const duty=(+d.duty||100)/100, q=+d.quantity||1;
-      return s+(w*h*duty*q)/1000;
-    },0);
-    const meter = document.getElementById('donut-meter');
-    if (!meter) return;
-    if (meter.classList.contains('digital')){
-      meter.textContent = daily.toFixed(2)+" kWh";
-    } else if (meter.classList.contains('spinner')){
-      if (!meter.querySelector('.spinner')){
-        buildSpinner(meter);
-      }
-      updateSpinner(daily);
-    }
-  }
-
-  // Hook into renderAll
-  const _renderAll = renderAll;
-  renderAll = function(){ _renderAll(); updateMeter(); };
-
-  document.addEventListener('DOMContentLoaded', updateMeter);
-})();
-</script>
-
-
+<!-- v27.5: removed broken legacy spinner meter remnant; digital meter remains. -->
 <script>
 (function(){
   function updateDigital(){
@@ -3795,5 +3879,232 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+
+<script>
+// NRG v27.4 — Smart Chart Empty-State / Bar Softening
+(function(){
+  function deviceCount(){
+    try { return Array.isArray(devices) ? devices.length : 0; } catch(e){ return 0; }
+  }
+  function ensureBarStateNode(){
+    const wrap = document.querySelector('.bargrid-wrap');
+    if (!wrap) return null;
+    let node = wrap.querySelector('.chart-empty-state');
+    if (!node){
+      node = document.createElement('div');
+      node.className = 'chart-empty-state';
+      wrap.appendChild(node);
+    }
+    return node;
+  }
+  function updateSmartChartState(){
+    const wrap = document.querySelector('.bargrid-wrap');
+    const node = ensureBarStateNode();
+    if (!wrap || !node) return;
+    const count = deviceCount();
+    wrap.classList.remove('chart-empty','chart-lite','chart-ready');
+    if (count <= 0){
+      wrap.classList.add('chart-empty');
+      node.innerHTML = '<div><strong>Add devices to compare monthly use.</strong>NRG will show the bar comparison once your preset or custom devices are loaded.</div>';
+    } else if (count < 4){
+      wrap.classList.add('chart-lite');
+      node.innerHTML = '<div><strong>Bar chart will get stronger as you add devices.</strong>The donut is best for a quick share view; the bar comparison becomes more useful around 4+ devices.</div>';
+    } else {
+      wrap.classList.add('chart-ready');
+      node.innerHTML = '';
+    }
+  }
+  const previousRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (previousRenderAll && !window.__nrgV274ChartWrap){
+    window.__nrgV274ChartWrap = true;
+    renderAll = function(){
+      previousRenderAll.apply(this, arguments);
+      setTimeout(updateSmartChartState, 0);
+    };
+  }
+  document.addEventListener('DOMContentLoaded', updateSmartChartState);
+  setTimeout(updateSmartChartState, 80);
+})();
+</script>
+
+
+<script id="nrg-v276-device-schedule-details">
+// NRG v27.6 — Device Schedule / Advanced Usage Details
+// Optional scheduling stays additive: old hours/day behavior remains the fallback.
+(function(){
+  if (window.__nrgV276ScheduleDetails) return;
+  window.__nrgV276ScheduleDetails = true;
+
+  function cleanNum(v, fallback){
+    const n = parseFloat(v);
+    return Number.isFinite(n) ? n : fallback;
+  }
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+  function timeLabel(d){
+    return (d.timeOfDay || d.usageWindow || d.scheduleTime || 'Any time').toString();
+  }
+  function isWeeklyScheduled(d){
+    return d && d.scheduleMode === 'weekly' && cleanNum(d.usesPerWeek,0) > 0;
+  }
+  function calcDailyKwhV276(d){
+    const w = cleanNum(d && d.watts, 0);
+    const duty = clamp(cleanNum(d && d.duty, 100), 0, 100) / 100;
+    const q = Math.max(1, parseInt((d && d.quantity) || 1, 10) || 1);
+    if (isWeeklyScheduled(d)){
+      const hpu = Math.max(0, cleanNum(d.hoursPerUse, cleanNum(d.hoursPerDay,0)));
+      const upw = clamp(cleanNum(d.usesPerWeek,0), 0, 21);
+      return (w * hpu * upw * duty * q) / 1000 / 7;
+    }
+    const h = Math.max(0, cleanNum(d && d.hoursPerDay, 0));
+    return (w*h*duty*q)/1000;
+  }
+  // Override the global kWh helper used by summary/charts while preserving the same name.
+  try { dailyKwh = calcDailyKwhV276; } catch(e) {}
+  try { window.dailyKwh = calcDailyKwhV276; } catch(e) {}
+  try { window.nrgDailyKwhV276 = calcDailyKwhV276; } catch(e) {}
+
+  function monthlyKwh(d){
+    const now = new Date();
+    const dim = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+    return calcDailyKwhV276(d) * dim;
+  }
+  function scheduleText(d){
+    if (isWeeklyScheduled(d)){
+      const hpu = cleanNum(d.hoursPerUse, cleanNum(d.hoursPerDay,0));
+      const upw = cleanNum(d.usesPerWeek,0);
+      return `${hpu} h/use · ${upw} uses/week · ${timeLabel(d)}`;
+    }
+    return `${cleanNum(d.hoursPerDay,0)} h/day · ${timeLabel(d)}`;
+  }
+  function applySchedulePrompts(idx){
+    const item = (devices || [])[idx];
+    if (!item) return;
+    const mode = (prompt('Usage style for '+(item.name||'Device')+' — type daily or weekly', item.scheduleMode || 'daily') || '').trim().toLowerCase();
+    if (!mode) return;
+    if (mode.startsWith('w')){
+      const wattsVal = prompt('Watts for this device', String(cleanNum(item.watts,0)));
+      if (wattsVal === null) return;
+      const hpuVal = prompt('Hours per use/session', String(cleanNum(item.hoursPerUse, cleanNum(item.hoursPerDay, 1))));
+      if (hpuVal === null) return;
+      const upwVal = prompt('Uses per week', String(cleanNum(item.usesPerWeek, 3)));
+      if (upwVal === null) return;
+      const todVal = prompt('Typical time of day (Morning, Afternoon, Evening, Overnight, or exact time)', item.timeOfDay || 'Evening');
+      if (todVal === null) return;
+      item.scheduleMode = 'weekly';
+      item.watts = Math.max(0, cleanNum(wattsVal, item.watts||0));
+      item.hoursPerUse = Math.max(0, cleanNum(hpuVal, item.hoursPerUse || item.hoursPerDay || 0));
+      item.usesPerWeek = clamp(cleanNum(upwVal, item.usesPerWeek || 0), 0, 21);
+      item.timeOfDay = (todVal || 'Any time').trim();
+      // Keep hours/day as the daily average so older export/save views still make sense.
+      item.hoursPerDay = (item.hoursPerUse * item.usesPerWeek / 7);
+    } else {
+      const wattsVal = prompt('Watts for this device', String(cleanNum(item.watts,0)));
+      if (wattsVal === null) return;
+      const hpdVal = prompt('Hours per day', String(cleanNum(item.hoursPerDay,0)));
+      if (hpdVal === null) return;
+      const todVal = prompt('Typical time of day (Morning, Afternoon, Evening, Overnight, or exact time)', item.timeOfDay || 'Any time');
+      if (todVal === null) return;
+      item.scheduleMode = 'daily';
+      item.watts = Math.max(0, cleanNum(wattsVal, item.watts||0));
+      item.hoursPerDay = Math.max(0, cleanNum(hpdVal, item.hoursPerDay||0));
+      item.hoursPerUse = undefined;
+      item.usesPerWeek = undefined;
+      item.timeOfDay = (todVal || 'Any time').trim();
+    }
+    renderAll();
+  }
+  function enhanceDeviceRows(){
+    const list = document.getElementById('mini-list');
+    if (!list || !Array.isArray(devices)) return;
+    const rows = Array.from(list.querySelectorAll('.mini-row'));
+    rows.forEach((row, idx)=>{
+      const d = devices[idx];
+      if (!d) return;
+      const nameBlock = row.querySelector('.mini-name')?.parentElement || row.firstElementChild;
+      if (nameBlock && !nameBlock.querySelector('.mini-schedule')){
+        const span = document.createElement('span');
+        span.className = 'mini-schedule';
+        nameBlock.appendChild(span);
+      }
+      const sched = nameBlock?.querySelector('.mini-schedule');
+      if (sched){
+        sched.innerHTML = `Schedule: ${scheduleText(d)} <span class="schedule-badge">${isWeeklyScheduled(d)?'weekly':'daily'}</span>`;
+      }
+      // Update the kWh/cost display to use the schedule-aware calculation.
+      const costBox = row.querySelector('.mini-cost');
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const mk = monthlyKwh(d);
+      if (costBox){ costBox.innerHTML = `${mk.toFixed(1)} kWh/mo<br>$${(mk*rate).toFixed(2)}/mo`; }
+      if (!row.querySelector('.mini-schedule-btn')){
+        const ref = row.querySelector('.mini-remove') || row.lastElementChild;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nrg-btn mini-btn mini-schedule-btn';
+        btn.textContent = 'Schedule';
+        btn.title = 'Set days/week, time of day, and schedule details';
+        btn.dataset.idx = String(idx);
+        btn.addEventListener('click', (e)=>{
+          const i = parseInt(e.currentTarget.dataset.idx || '-1', 10);
+          applySchedulePrompts(i);
+        });
+        if (ref && ref.parentElement === row) row.insertBefore(btn, ref);
+        else row.appendChild(btn);
+      } else {
+        row.querySelector('.mini-schedule-btn').dataset.idx = String(idx);
+      }
+    });
+    // Refresh mini summary totals using schedule-aware daily math after the old mini panel runs.
+    try{
+      const rate = parseFloat(document.getElementById('grid-rate')?.value || '0.15') || 0.15;
+      const daily = devices.reduce((s,d)=>s+calcDailyKwhV276(d),0);
+      const now = new Date();
+      const dim = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+      const miniKwh = document.getElementById('mini-kwh');
+      const miniBill = document.getElementById('mini-bill');
+      if (miniKwh) miniKwh.textContent = daily.toFixed(2);
+      if (miniBill) miniBill.textContent = '$' + (daily*dim*rate).toFixed(2);
+    }catch(e){}
+  }
+
+  const previousRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (previousRenderAll){
+    renderAll = function(){
+      previousRenderAll.apply(this, arguments);
+      setTimeout(enhanceDeviceRows, 0);
+    };
+  }
+  document.addEventListener('DOMContentLoaded', ()=>setTimeout(enhanceDeviceRows, 80));
+  setTimeout(enhanceDeviceRows, 120);
+})();
+</script>
+
+
+<script id="nrg-v277-device-scroll-containment">
+// NRG v27.7 — Device Scroll Containment
+// Adds a theme-safe internal scroll card around Your Devices after the first few rows.
+(function(){
+  if (window.__nrgV277DeviceScrollContainment) return;
+  window.__nrgV277DeviceScrollContainment = true;
+
+  function updateDeviceScrollState(){
+    const pane = document.getElementById('pane-devices-mini');
+    const list = document.getElementById('mini-list');
+    if (!pane || !list) return;
+    const rowCount = list.querySelectorAll('.mini-row').length;
+    pane.classList.toggle('device-list-scrollable', rowCount > 3);
+    list.setAttribute('aria-label', rowCount > 3 ? 'Scrollable device list' : 'Device list');
+  }
+
+  const previousRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (previousRenderAll){
+    renderAll = function(){
+      previousRenderAll.apply(this, arguments);
+      setTimeout(updateDeviceScrollState, 0);
+    };
+  }
+  document.addEventListener('DOMContentLoaded', ()=>setTimeout(updateDeviceScrollState, 120));
+  setTimeout(updateDeviceScrollState, 160);
+})();
+</script>
 </body>
 </html>
