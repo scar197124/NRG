@@ -1,6 +1,6 @@
 <!-- 
-  NRG v32.1 — Unified Build
-  Surgery: merged Cleaned 2 + Themed Patched
+  NRG v27.8 Stable — GitHub Ready Build
+  Baseline: live v27.8 release line with viewport/device-control polish
   Result: Stable + Clean + GitHub-ready
 -->
 
@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>NRG v27.8 — Guided Setup Flow</title>
+<title>NRG v27.8 Stable — Guided Setup</title>
 <style>
 /* ======== ULTRA-CONTRAST v3 THEME TOKENS ======== */
 [data-theme="light"]{
@@ -529,6 +529,197 @@ button:hover {
   filter: brightness(1.1);
 }
 
+
+
+/* === v27.8.3 Vertical Control Strength Patch ===
+   Preserves the original layout while giving the Reset / Export / Save / Load tool buttons
+   stronger vertical presence when they wrap or stack in any theme. */
+.extra-tools{
+  align-items:stretch !important;
+  row-gap:8px !important;
+  padding:6px 0 2px 0;
+}
+.extra-tools > .nrg-btn,
+.extra-tools > button.nrg-btn{
+  min-height:42px !important;
+  padding-top:10px !important;
+  padding-bottom:10px !important;
+  line-height:1.15 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-top:1px solid color-mix(in srgb, var(--accent) 45%, var(--card-br)) !important;
+  border-bottom:2px solid color-mix(in srgb, var(--accent-2) 55%, var(--card-br)) !important;
+  box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 22%, transparent), 0 8px 18px rgba(0,0,0,.16) !important;
+}
+.extra-tools > .nrg-btn:hover,
+.extra-tools > button.nrg-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 0 color-mix(in srgb, var(--accent) 28%, transparent), 0 10px 22px rgba(0,0,0,.22) !important;
+}
+.extra-tools > div.nrg-btn{
+  gap:8px !important;
+  flex-wrap:wrap !important;
+}
+.extra-tools > div.nrg-btn > .nrg-btn{
+  min-height:32px !important;
+  padding-top:6px !important;
+  padding-bottom:6px !important;
+  box-shadow:none !important;
+}
+@media(max-width:760px){
+  .extra-tools > .nrg-btn,
+  .extra-tools > button.nrg-btn{
+    flex:1 1 145px;
+  }
+}
+
+/* === v27.8.4 Control Panel Organization Patch ===
+   Keeps the original dashboard layout, but groups Reset/Save, View, and Export actions
+   so the stacked controls use horizontal and vertical space more intentionally. */
+.nrg-control-panel{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(180px,1fr));
+  gap:8px !important;
+  width:100%;
+  align-items:stretch !important;
+}
+.nrg-control-group{
+  border:1px solid color-mix(in srgb, var(--accent) 32%, var(--card-br));
+  background:color-mix(in srgb, var(--card) 86%, var(--bg));
+  border-radius:14px;
+  padding:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+.nrg-control-label{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 6px 2px;
+}
+.nrg-control-row{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+}
+.nrg-control-row .nrg-btn{
+  width:100%;
+  min-height:40px !important;
+  white-space:normal;
+}
+#nrg-export-tools{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+#btn-exp-bundle{
+  grid-column:1 / -1;
+}
+#nrg-view-tools{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+#filter-all{
+  grid-column:1 / -1;
+}
+@media(max-width:980px){
+  .nrg-control-panel{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .nrg-control-panel{grid-template-columns:1fr;}
+}
+
+
+/* v27.8.5 Mobile / Narrow Desktop Viewport Containment */
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden !important;
+}
+.nrg-grid, .nrg-card, .section, .section-tight, .tr-charts, .summary-cards, .bf-grid, .add-grid, .add-head, .nrg-control-panel, .nrg-control-group, #comp-table{
+  max-width:100%;
+  min-width:0;
+}
+.nrg-card{overflow-wrap:anywhere;}
+.tr-head, .table-head, .qa-row{
+  flex-wrap:wrap;
+}
+.tr-charts{
+  overflow:hidden;
+}
+.tr-charts canvas{
+  max-width:100%;
+}
+#comp-table{
+  table-layout:fixed;
+}
+#comp-table th, #comp-table td{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.nrg-btn, button, select, input{
+  max-width:100%;
+}
+.nrg-control-row{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.nrg-control-row .nrg-btn{
+  min-width:0;
+}
+@media (max-width:760px){
+  .nrg-grid{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100%;
+    max-width:100vw;
+    padding:8px;
+    gap:8px;
+  }
+  #pane-tl,#pane-tr,#pane-bl,#pane-br{
+    width:100%;
+    overflow:visible;
+  }
+  .tr-head{
+    align-items:flex-start;
+  }
+  .rate-box input{
+    width:100%;
+  }
+  .tr-charts{
+    flex-direction:column;
+    min-height:0;
+  }
+  .tr-charts .donut-wrap, .tr-charts .bargrid-wrap{
+    flex:1 1 auto;
+    width:100%;
+    min-height:220px;
+  }
+  .nrg-control-panel{
+    grid-template-columns:1fr !important;
+  }
+  .nrg-control-row, #nrg-export-tools, #nrg-view-tools{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .add-head{
+    display:none !important;
+  }
+  .add-grid{
+    grid-template-columns:1fr !important;
+  }
+  .summary-cards{
+    grid-template-columns:1fr !important;
+  }
+}
+@media (max-width:420px){
+  .nrg-grid{padding:6px;}
+  .nrg-card{padding:8px;}
+  .nrg-control-row, #nrg-export-tools, #nrg-view-tools{
+    grid-template-columns:1fr !important;
+  }
+  #theme-toolbar .nrg-btn{
+    flex:1 1 44%;
+  }
+}
+
 </style>
 
 <style id="density-override">
@@ -781,6 +972,105 @@ html[data-density="compact"]
 @media(max-width:760px){.nrg-setup-steps{grid-template-columns:1fr;}}
 </style>
 
+
+
+<style id="nrg-v2786-device-button-viewport-stability">
+/* NRG v27.8.6 — Device Button / Status Card Viewport Stability
+   Keep Your Devices status cards and Edit/Schedule/Remove controls fully visible on narrow desktop and mobile. */
+#pane-devices-mini,
+#pane-devices-mini *{
+  box-sizing: border-box;
+}
+#pane-devices-mini{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+#pane-devices-mini .mini-stats{
+  max-width: 100%;
+  min-width: 0;
+}
+#pane-devices-mini .card-mini{
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#pane-devices-mini .card-mini .big{
+  font-size: clamp(1rem, 3.6vw, 1.65rem);
+  line-height: 1.05;
+}
+#mini-list .mini-row{
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  grid-template-columns:
+    minmax(145px, 1.35fr)
+    minmax(74px, .62fr)
+    minmax(74px, .62fr)
+    minmax(96px, .78fr)
+    minmax(68px, auto)
+    minmax(92px, auto)
+    minmax(82px, auto) !important;
+}
+#mini-list .mini-row > *{
+  min-width: 0;
+}
+#mini-list .mini-name{
+  overflow-wrap: anywhere;
+}
+#mini-list .mini-meta,
+#mini-list .mini-cost{
+  overflow-wrap: normal;
+}
+#mini-list .mini-btn{
+  min-width: 68px;
+  min-height: 38px;
+  padding: 8px 10px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+#mini-list .mini-schedule-btn{
+  min-width: 92px;
+}
+#mini-list .mini-remove{
+  min-width: 82px;
+}
+@media (max-width: 980px){
+  #mini-list .mini-row{
+    grid-template-columns: minmax(0, 1fr) repeat(3, minmax(74px, auto)) !important;
+  }
+  #mini-list .mini-row > div:first-child{
+    grid-column: 1 / -1;
+  }
+  #mini-list .mini-meta,
+  #mini-list .mini-cost{
+    display: none !important;
+  }
+  #mini-list .mini-edit,
+  #mini-list .mini-schedule-btn,
+  #mini-list .mini-remove{
+    width: 100%;
+    min-width: 0;
+  }
+}
+@media (max-width: 620px){
+  #pane-devices-mini .mini-stats{
+    grid-template-columns: 1fr !important;
+  }
+  #mini-list .mini-row{
+    grid-template-columns: 1fr !important;
+    gap: 7px;
+  }
+  #mini-list .mini-edit,
+  #mini-list .mini-schedule-btn,
+  #mini-list .mini-remove{
+    width: 100%;
+    min-height: 40px;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -952,18 +1242,31 @@ html[data-density="compact"]
       <div class="section">
         <div class="tr-head">
 
-<div class="extra-tools" style="display:flex;gap:6px;flex-wrap:wrap;">
-  <button type="button" class="nrg-btn" id="btn-reset">Reset Tweaks</button>
-  <button type="button" class="nrg-btn" id="btn-exp-donut">Export Donut PNG</button>
-  <button type="button" class="nrg-btn" id="btn-exp-bar">Export Bar PNG</button>
-  <button type="button" class="nrg-btn" id="btn-exp-csv">Export Table CSV</button>
-  <button type="button" class="nrg-btn" id="btn-save-prof">Save Profile</button>
-  <button type="button" class="nrg-btn" id="btn-load-prof">Load Profile</button>
-  <div class="nrg-btn" style="display:flex;gap:6px;align-items:center;">
-    View:
-    <button type="button" class="nrg-btn" id="filter-all">All</button>
-    <button type="button" class="nrg-btn" id="filter-main">Main</button>
-    <button type="button" class="nrg-btn" id="filter-suite">Suite</button>
+<div class="extra-tools nrg-control-panel" aria-label="NRG dashboard controls">
+  <div class="nrg-control-group" aria-label="Quick controls">
+    <div class="nrg-control-label">Quick Controls</div>
+    <div class="nrg-control-row">
+      <button type="button" class="nrg-btn" id="btn-reset">Reset Tweaks</button>
+      <button type="button" class="nrg-btn" id="btn-clear-devices">Clear Devices</button>
+      <button type="button" class="nrg-btn" id="btn-save-prof">Save Profile</button>
+      <button type="button" class="nrg-btn" id="btn-load-prof">Load Profile</button>
+    </div>
+  </div>
+  <div class="nrg-control-group" aria-label="View mode controls">
+    <div class="nrg-control-label">View Mode</div>
+    <div class="nrg-control-row" id="nrg-view-tools">
+      <button type="button" class="nrg-btn" id="filter-all">View All</button>
+      <button type="button" class="nrg-btn" id="filter-main">Main Suite</button>
+      <button type="button" class="nrg-btn" id="filter-suite">Suite</button>
+    </div>
+  </div>
+  <div class="nrg-control-group" aria-label="Export tools">
+    <div class="nrg-control-label">Export Tools</div>
+    <div class="nrg-control-row" id="nrg-export-tools">
+      <button type="button" class="nrg-btn" id="btn-exp-donut">Donut PNG</button>
+      <button type="button" class="nrg-btn" id="btn-exp-bar">Bar PNG</button>
+      <button type="button" class="nrg-btn" id="btn-exp-csv">Table CSV</button>
+    </div>
   </div>
 </div>
 
@@ -1653,10 +1956,10 @@ function totalDaily(){ return devices.reduce((s,d)=>s+dailyKwh(d),0); }
 function themePalette(){
   const t = document.documentElement.getAttribute('data-theme') || 'sunburst';
   const MAP = {
-    light:['#000000','#111827','#374151','#dc2626','#2563eb','#000000','#111827','#374151','#000000'],
-    dark:['#22d3ee','#f59e0b','#60a5fa','#5eead4','#f97316','#a78bfa','#34d399','#eab308','#22d3ee'],
-    ocean:['#00e5ff','#ffe566','#7dd3fc','#a5f3fc','#22d3ee','#38bdf8','#67e8f9','#fef08a','#00e5ff'],
-    solar:['#ffd54a','#ff7a00','#fde047','#fb7185','#f97316','#facc15','#22c55e','#f59e0b','#ffd54a'],
+    light:['#2563eb','#dc2626','#16a34a','#f59e0b','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c'],
+    dark:['#22d3ee','#f59e0b','#60a5fa','#5eead4','#f97316','#a78bfa','#34d399','#eab308','#f472b6'],
+    ocean:['#00e5ff','#ffe566','#38bdf8','#22c55e','#f97316','#a78bfa','#f472b6','#84cc16','#fb7185'],
+    solar:['#1d4ed8','#b91c1c','#15803d','#7c2d12','#6d28d9','#0f766e','#be123c','#4d7c0f','#c2410c'],
     sunburst:['#ffd166','#ff4d7a','#06d6a0','#118ab2','#ffd6a5','#9b5de5','#00bbf9','#f15bb5','#fee440'],
     'high-contrast':['#ffffff','#ffdd00','#00ffff','#ff00ff','#00ff00','#ff8800','#00aaff','#ff0044','#ffffff']
   };
@@ -1762,6 +2065,18 @@ function updateCharts(){
     }
     localStorage.removeItem('nrg-v28-adjust');
     updateCharts();
+  });
+
+  // Clear the current device list safely
+  id('btn-clear-devices')?.addEventListener('click', ()=>{
+    if(!Array.isArray(devices) || devices.length === 0){
+      alert('Your Devices is already empty.');
+      return;
+    }
+    if(confirm('Clear all devices from Your Devices? This keeps the app settings but removes the current device list.')){
+      devices = [];
+      renderAll();
+    }
   });
 
   // Export charts as PNG
@@ -2700,7 +3015,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function addFocusMode(){
     if (document.getElementById('focus-mode')) return;
     const btn=document.createElement('button'); btn.textContent="🔍 Focus"; btn.className="nrg-btn"; btn.id="focus-mode";
-    (document.querySelector('.extra-tools')||document.querySelector('.tr-head'))?.appendChild(btn);
+    (document.getElementById('nrg-view-tools') || document.querySelector('.extra-tools') || document.querySelector('.tr-head'))?.appendChild(btn);
     btn.addEventListener('click', ()=>{ document.body.classList.toggle('focus-mode'); donutChart?.update(); barChart?.update(); });
     const css=document.createElement('style'); css.textContent="body.focus-mode #donut{transform:scale(1.1);} body.focus-mode .big{font-size:22px;}";
     document.head.appendChild(css);
@@ -2721,7 +3036,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function addBundleExport(){
     if (document.getElementById('btn-exp-bundle')) return;
     const btn=document.createElement('button'); btn.textContent="Bundle Export"; btn.className="nrg-btn"; btn.id="btn-exp-bundle";
-    document.querySelector('.extra-tools')?.appendChild(btn);
+    (document.getElementById('nrg-export-tools') || document.querySelector('.extra-tools'))?.appendChild(btn);
     btn.addEventListener('click', async ()=>{
       try{
         const canvases=[document.getElementById('donut'), document.getElementById('breakdownBar')];
@@ -4106,5 +4421,41 @@ document.addEventListener("DOMContentLoaded", function() {
   setTimeout(updateDeviceScrollState, 160);
 })();
 </script>
+
+<!-- NRG v27.8.3 — Layout-preserved contrast polish only -->
+<style>
+/* Buttons: stronger visibility without changing original layout, spacing, or structure. */
+.nrg-btn{
+  font-weight:800;
+  border-color:color-mix(in srgb, var(--accent) 62%, var(--card-br));
+  box-shadow:0 2px 8px rgba(0,0,0,.28);
+}
+.nrg-btn:hover{
+  box-shadow:0 4px 14px rgba(0,0,0,.38), 0 0 0 1px color-mix(in srgb, var(--accent) 58%, transparent);
+}
+[data-theme="light"] .nrg-btn{
+  background:#0f172a;
+  color:#ffffff;
+  border-color:#2563eb;
+}
+[data-theme="light"] .nrg-btn:hover{
+  outline-color:#2563eb;
+}
+[data-theme="solar"] .nrg-btn{
+  background:#1f1300;
+  color:#ffffff;
+  border-color:#7c2d12;
+}
+/* Charts: stronger border/readability only; original chart layout remains untouched. */
+.tr-charts .donut-wrap,
+.tr-charts .bargrid-wrap{
+  border-color:color-mix(in srgb, var(--accent) 55%, var(--card-br));
+}
+[data-theme="light"] .tr-charts .donut-wrap,
+[data-theme="light"] .tr-charts .bargrid-wrap{
+  border-color:#2563eb;
+}
+</style>
+
 </body>
 </html>
