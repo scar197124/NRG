@@ -1,6 +1,6 @@
 {
-  "name": "NRG — Home Energy Simulator",
-  "short_name": "NRG",
+  "name": "NRG v27.8.13 \u2014 Home Energy Simulator",
+  "short_name": "NRG 27.8.13",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#070916",
@@ -16,5 +16,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "description": "NRG home energy simulator \u2014 v27.8.13 GitHub pre-push stability polish."
 }

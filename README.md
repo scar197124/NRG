@@ -1,14 +1,14 @@
-# NRG v27.8 Stable — GitHub Ready
+# NRG — Home Energy Simulator
 
-NRG is a home energy simulation dashboard for estimating household electricity use from dwelling presets and user-added devices.
+NRG is a home energy simulation dashboard for estimating household electricity use from common dwelling presets and user-added devices.
 
-## Current live baseline
+## Current GitHub-ready baseline
 
-**NRG v27.8 Stable — Guided Setup + Mobile Containment**
+**NRG v27.8.13 — GitHub Pre-Push Stability Polish**
 
-This is the clean GitHub-ready package. It is based on the working v27.8 line and includes the latest safe polish from v27.8.6.
+This is the recommended package to push to GitHub after testing. It keeps the current working device-card, schedule, and AI Advisor systems intact while adding final pre-push version/cache/containment polish.
 
-## Included files
+## What is included
 
 - `index.html` — main app
 - `manifest.json` — PWA manifest
@@ -17,38 +17,45 @@ This is the clean GitHub-ready package. It is based on the working v27.8 line an
 - `.nojekyll` — keeps GitHub Pages simple/static
 - `README.md` — this file
 
-## Preserved improvements
+## v27.8.13 update
 
-- Simplified home presets that do not assume personal electronics.
-- Baseline appliances and lights where appropriate.
-- Clear preset guidance: users can remove anything that does not apply.
-- Smart chart empty state for donut/bar chart area.
-- Clear device rows with Edit / Schedule / Remove controls.
-- Optional device scheduling for weekly use and time-of-day notes.
-- Scroll-contained device list.
-- Guided setup flow for first-time users.
-- Organized dashboard controls and export tools.
-- Mobile/narrow-desktop viewport containment.
-- Stable device buttons and status cards on smaller screens.
+- Adds a subtle visible **NRG v27.8.13** release chip so the live version is easy to confirm after deployment.
+- Updates the app title and manifest to v27.8.13.
+- Updates the service worker cache to `nrg-v27-8-13-cache`.
+- Adds final no-horizontal-overflow guards for the AI Advisor, device cards, edit panels, schedule panels, and minimized desktop/mobile layouts.
+- Keeps the existing engine and calculations unchanged.
+- Keeps the app local/offline-first: no cloud calls, no login, no API dependency.
+
+## Preserved v27.8 features
+
+- Editable device cards using a compact three-dot menu.
+- Edit / Schedule / Remove controls stay inside each card.
+- Contained Schedule Intelligence Preview inside each device card.
+- Local AI Advisor with visible inner borders, summary cards, status tags, Top 3 Energy Drivers, and device badges.
+- Theme-safe UI polish for Sunburst, Solar, Ocean, Dark, and Light.
+- Responsive containment for full desktop, minimized desktop, and mobile.
 
 ## GitHub Pages deployment
 
-Upload the files in this folder to the root of the NRG GitHub repository, replacing the previous live files.
+Upload the files inside this folder to the root of the NRG GitHub repository, replacing the previous live files.
 
 Recommended commit message:
 
 ```text
-Update NRG to v27.8 stable GitHub baseline
+Update NRG to v27.8.13 GitHub pre-push stability polish
 ```
 
-After publishing, test:
+## Final test checklist
 
-1. Choose each home preset.
-2. Confirm device cards stay scroll-contained.
-3. Test Edit / Schedule / Remove.
-4. Confirm donut and bar charts update.
-5. Check light mode and every theme for button/chart readability.
-6. Narrow the desktop window and confirm nothing goes off-screen.
-7. Test Save Profile / Load Profile and export buttons.
+1. Home preset loads devices.
+2. Device cards show the compact three-dot menu.
+3. Edit opens inside each card and stays contained.
+4. Schedule opens inside each card and shows preview values.
+5. Remove still works.
+6. AI Advisor shows summary cards, inner borders, Top 3 Energy Drivers, and device badges.
+7. Full screen, half/minimized desktop, and mobile preview have no horizontal side-scroll.
+8. Sunburst, Solar, Ocean, Dark, and Light themes remain readable.
+9. Donut/bar charts and monthly estimates still update.
+10. The bottom/right release chip shows **NRG v27.8.13** after deployment.
 
 © WePower / EZ (Eazzy E)

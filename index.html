@@ -1,6 +1,6 @@
 <!-- 
-  NRG v27.8 Stable — GitHub Ready Build
-  Baseline: live v27.8 release line with viewport/device-control polish
+  NRG v27.8.13 — GitHub Pre-Push Stability Polish
+  Surgery: merged Cleaned 2 + Themed Patched
   Result: Stable + Clean + GitHub-ready
 -->
 
@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>NRG v27.8 Stable — Guided Setup</title>
+<title>NRG v27.8.13 — GitHub Pre-Push Stability Polish</title>
 <style>
 /* ======== ULTRA-CONTRAST v3 THEME TOKENS ======== */
 [data-theme="light"]{
@@ -529,197 +529,6 @@ button:hover {
   filter: brightness(1.1);
 }
 
-
-
-/* === v27.8.3 Vertical Control Strength Patch ===
-   Preserves the original layout while giving the Reset / Export / Save / Load tool buttons
-   stronger vertical presence when they wrap or stack in any theme. */
-.extra-tools{
-  align-items:stretch !important;
-  row-gap:8px !important;
-  padding:6px 0 2px 0;
-}
-.extra-tools > .nrg-btn,
-.extra-tools > button.nrg-btn{
-  min-height:42px !important;
-  padding-top:10px !important;
-  padding-bottom:10px !important;
-  line-height:1.15 !important;
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  border-top:1px solid color-mix(in srgb, var(--accent) 45%, var(--card-br)) !important;
-  border-bottom:2px solid color-mix(in srgb, var(--accent-2) 55%, var(--card-br)) !important;
-  box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 22%, transparent), 0 8px 18px rgba(0,0,0,.16) !important;
-}
-.extra-tools > .nrg-btn:hover,
-.extra-tools > button.nrg-btn:hover{
-  transform:translateY(-1px);
-  box-shadow:0 4px 0 color-mix(in srgb, var(--accent) 28%, transparent), 0 10px 22px rgba(0,0,0,.22) !important;
-}
-.extra-tools > div.nrg-btn{
-  gap:8px !important;
-  flex-wrap:wrap !important;
-}
-.extra-tools > div.nrg-btn > .nrg-btn{
-  min-height:32px !important;
-  padding-top:6px !important;
-  padding-bottom:6px !important;
-  box-shadow:none !important;
-}
-@media(max-width:760px){
-  .extra-tools > .nrg-btn,
-  .extra-tools > button.nrg-btn{
-    flex:1 1 145px;
-  }
-}
-
-/* === v27.8.4 Control Panel Organization Patch ===
-   Keeps the original dashboard layout, but groups Reset/Save, View, and Export actions
-   so the stacked controls use horizontal and vertical space more intentionally. */
-.nrg-control-panel{
-  display:grid !important;
-  grid-template-columns:repeat(3,minmax(180px,1fr));
-  gap:8px !important;
-  width:100%;
-  align-items:stretch !important;
-}
-.nrg-control-group{
-  border:1px solid color-mix(in srgb, var(--accent) 32%, var(--card-br));
-  background:color-mix(in srgb, var(--card) 86%, var(--bg));
-  border-radius:14px;
-  padding:8px;
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
-}
-.nrg-control-label{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin:0 0 6px 2px;
-}
-.nrg-control-row{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:6px;
-}
-.nrg-control-row .nrg-btn{
-  width:100%;
-  min-height:40px !important;
-  white-space:normal;
-}
-#nrg-export-tools{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-#btn-exp-bundle{
-  grid-column:1 / -1;
-}
-#nrg-view-tools{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-#filter-all{
-  grid-column:1 / -1;
-}
-@media(max-width:980px){
-  .nrg-control-panel{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:640px){
-  .nrg-control-panel{grid-template-columns:1fr;}
-}
-
-
-/* v27.8.5 Mobile / Narrow Desktop Viewport Containment */
-html, body{
-  width:100%;
-  max-width:100%;
-  overflow-x:hidden !important;
-}
-.nrg-grid, .nrg-card, .section, .section-tight, .tr-charts, .summary-cards, .bf-grid, .add-grid, .add-head, .nrg-control-panel, .nrg-control-group, #comp-table{
-  max-width:100%;
-  min-width:0;
-}
-.nrg-card{overflow-wrap:anywhere;}
-.tr-head, .table-head, .qa-row{
-  flex-wrap:wrap;
-}
-.tr-charts{
-  overflow:hidden;
-}
-.tr-charts canvas{
-  max-width:100%;
-}
-#comp-table{
-  table-layout:fixed;
-}
-#comp-table th, #comp-table td{
-  overflow-wrap:anywhere;
-  word-break:normal;
-}
-.nrg-btn, button, select, input{
-  max-width:100%;
-}
-.nrg-control-row{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-.nrg-control-row .nrg-btn{
-  min-width:0;
-}
-@media (max-width:760px){
-  .nrg-grid{
-    display:flex !important;
-    flex-direction:column !important;
-    width:100%;
-    max-width:100vw;
-    padding:8px;
-    gap:8px;
-  }
-  #pane-tl,#pane-tr,#pane-bl,#pane-br{
-    width:100%;
-    overflow:visible;
-  }
-  .tr-head{
-    align-items:flex-start;
-  }
-  .rate-box input{
-    width:100%;
-  }
-  .tr-charts{
-    flex-direction:column;
-    min-height:0;
-  }
-  .tr-charts .donut-wrap, .tr-charts .bargrid-wrap{
-    flex:1 1 auto;
-    width:100%;
-    min-height:220px;
-  }
-  .nrg-control-panel{
-    grid-template-columns:1fr !important;
-  }
-  .nrg-control-row, #nrg-export-tools, #nrg-view-tools{
-    grid-template-columns:1fr 1fr !important;
-  }
-  .add-head{
-    display:none !important;
-  }
-  .add-grid{
-    grid-template-columns:1fr !important;
-  }
-  .summary-cards{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:420px){
-  .nrg-grid{padding:6px;}
-  .nrg-card{padding:8px;}
-  .nrg-control-row, #nrg-export-tools, #nrg-view-tools{
-    grid-template-columns:1fr !important;
-  }
-  #theme-toolbar .nrg-btn{
-    flex:1 1 44%;
-  }
-}
-
 </style>
 
 <style id="density-override">
@@ -972,105 +781,6 @@ html[data-density="compact"]
 @media(max-width:760px){.nrg-setup-steps{grid-template-columns:1fr;}}
 </style>
 
-
-
-<style id="nrg-v2786-device-button-viewport-stability">
-/* NRG v27.8.6 — Device Button / Status Card Viewport Stability
-   Keep Your Devices status cards and Edit/Schedule/Remove controls fully visible on narrow desktop and mobile. */
-#pane-devices-mini,
-#pane-devices-mini *{
-  box-sizing: border-box;
-}
-#pane-devices-mini{
-  max-width: 100%;
-  overflow-x: hidden;
-}
-#pane-devices-mini .mini-stats{
-  max-width: 100%;
-  min-width: 0;
-}
-#pane-devices-mini .card-mini{
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-#pane-devices-mini .card-mini .big{
-  font-size: clamp(1rem, 3.6vw, 1.65rem);
-  line-height: 1.05;
-}
-#mini-list .mini-row{
-  max-width: 100%;
-  min-width: 0;
-  overflow: hidden;
-  grid-template-columns:
-    minmax(145px, 1.35fr)
-    minmax(74px, .62fr)
-    minmax(74px, .62fr)
-    minmax(96px, .78fr)
-    minmax(68px, auto)
-    minmax(92px, auto)
-    minmax(82px, auto) !important;
-}
-#mini-list .mini-row > *{
-  min-width: 0;
-}
-#mini-list .mini-name{
-  overflow-wrap: anywhere;
-}
-#mini-list .mini-meta,
-#mini-list .mini-cost{
-  overflow-wrap: normal;
-}
-#mini-list .mini-btn{
-  min-width: 68px;
-  min-height: 38px;
-  padding: 8px 10px;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1.1;
-}
-#mini-list .mini-schedule-btn{
-  min-width: 92px;
-}
-#mini-list .mini-remove{
-  min-width: 82px;
-}
-@media (max-width: 980px){
-  #mini-list .mini-row{
-    grid-template-columns: minmax(0, 1fr) repeat(3, minmax(74px, auto)) !important;
-  }
-  #mini-list .mini-row > div:first-child{
-    grid-column: 1 / -1;
-  }
-  #mini-list .mini-meta,
-  #mini-list .mini-cost{
-    display: none !important;
-  }
-  #mini-list .mini-edit,
-  #mini-list .mini-schedule-btn,
-  #mini-list .mini-remove{
-    width: 100%;
-    min-width: 0;
-  }
-}
-@media (max-width: 620px){
-  #pane-devices-mini .mini-stats{
-    grid-template-columns: 1fr !important;
-  }
-  #mini-list .mini-row{
-    grid-template-columns: 1fr !important;
-    gap: 7px;
-  }
-  #mini-list .mini-edit,
-  #mini-list .mini-schedule-btn,
-  #mini-list .mini-remove{
-    width: 100%;
-    min-height: 40px;
-  }
-}
-</style>
-
 </head>
 <body>
 
@@ -1242,31 +952,18 @@ html[data-density="compact"]
       <div class="section">
         <div class="tr-head">
 
-<div class="extra-tools nrg-control-panel" aria-label="NRG dashboard controls">
-  <div class="nrg-control-group" aria-label="Quick controls">
-    <div class="nrg-control-label">Quick Controls</div>
-    <div class="nrg-control-row">
-      <button type="button" class="nrg-btn" id="btn-reset">Reset Tweaks</button>
-      <button type="button" class="nrg-btn" id="btn-clear-devices">Clear Devices</button>
-      <button type="button" class="nrg-btn" id="btn-save-prof">Save Profile</button>
-      <button type="button" class="nrg-btn" id="btn-load-prof">Load Profile</button>
-    </div>
-  </div>
-  <div class="nrg-control-group" aria-label="View mode controls">
-    <div class="nrg-control-label">View Mode</div>
-    <div class="nrg-control-row" id="nrg-view-tools">
-      <button type="button" class="nrg-btn" id="filter-all">View All</button>
-      <button type="button" class="nrg-btn" id="filter-main">Main Suite</button>
-      <button type="button" class="nrg-btn" id="filter-suite">Suite</button>
-    </div>
-  </div>
-  <div class="nrg-control-group" aria-label="Export tools">
-    <div class="nrg-control-label">Export Tools</div>
-    <div class="nrg-control-row" id="nrg-export-tools">
-      <button type="button" class="nrg-btn" id="btn-exp-donut">Donut PNG</button>
-      <button type="button" class="nrg-btn" id="btn-exp-bar">Bar PNG</button>
-      <button type="button" class="nrg-btn" id="btn-exp-csv">Table CSV</button>
-    </div>
+<div class="extra-tools" style="display:flex;gap:6px;flex-wrap:wrap;">
+  <button type="button" class="nrg-btn" id="btn-reset">Reset Tweaks</button>
+  <button type="button" class="nrg-btn" id="btn-exp-donut">Export Donut PNG</button>
+  <button type="button" class="nrg-btn" id="btn-exp-bar">Export Bar PNG</button>
+  <button type="button" class="nrg-btn" id="btn-exp-csv">Export Table CSV</button>
+  <button type="button" class="nrg-btn" id="btn-save-prof">Save Profile</button>
+  <button type="button" class="nrg-btn" id="btn-load-prof">Load Profile</button>
+  <div class="nrg-btn" style="display:flex;gap:6px;align-items:center;">
+    View:
+    <button type="button" class="nrg-btn" id="filter-all">All</button>
+    <button type="button" class="nrg-btn" id="filter-main">Main</button>
+    <button type="button" class="nrg-btn" id="filter-suite">Suite</button>
   </div>
 </div>
 
@@ -1956,10 +1653,10 @@ function totalDaily(){ return devices.reduce((s,d)=>s+dailyKwh(d),0); }
 function themePalette(){
   const t = document.documentElement.getAttribute('data-theme') || 'sunburst';
   const MAP = {
-    light:['#2563eb','#dc2626','#16a34a','#f59e0b','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c'],
-    dark:['#22d3ee','#f59e0b','#60a5fa','#5eead4','#f97316','#a78bfa','#34d399','#eab308','#f472b6'],
-    ocean:['#00e5ff','#ffe566','#38bdf8','#22c55e','#f97316','#a78bfa','#f472b6','#84cc16','#fb7185'],
-    solar:['#1d4ed8','#b91c1c','#15803d','#7c2d12','#6d28d9','#0f766e','#be123c','#4d7c0f','#c2410c'],
+    light:['#000000','#111827','#374151','#dc2626','#2563eb','#000000','#111827','#374151','#000000'],
+    dark:['#22d3ee','#f59e0b','#60a5fa','#5eead4','#f97316','#a78bfa','#34d399','#eab308','#22d3ee'],
+    ocean:['#00e5ff','#ffe566','#7dd3fc','#a5f3fc','#22d3ee','#38bdf8','#67e8f9','#fef08a','#00e5ff'],
+    solar:['#ffd54a','#ff7a00','#fde047','#fb7185','#f97316','#facc15','#22c55e','#f59e0b','#ffd54a'],
     sunburst:['#ffd166','#ff4d7a','#06d6a0','#118ab2','#ffd6a5','#9b5de5','#00bbf9','#f15bb5','#fee440'],
     'high-contrast':['#ffffff','#ffdd00','#00ffff','#ff00ff','#00ff00','#ff8800','#00aaff','#ff0044','#ffffff']
   };
@@ -2065,18 +1762,6 @@ function updateCharts(){
     }
     localStorage.removeItem('nrg-v28-adjust');
     updateCharts();
-  });
-
-  // Clear the current device list safely
-  id('btn-clear-devices')?.addEventListener('click', ()=>{
-    if(!Array.isArray(devices) || devices.length === 0){
-      alert('Your Devices is already empty.');
-      return;
-    }
-    if(confirm('Clear all devices from Your Devices? This keeps the app settings but removes the current device list.')){
-      devices = [];
-      renderAll();
-    }
   });
 
   // Export charts as PNG
@@ -3015,7 +2700,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function addFocusMode(){
     if (document.getElementById('focus-mode')) return;
     const btn=document.createElement('button'); btn.textContent="🔍 Focus"; btn.className="nrg-btn"; btn.id="focus-mode";
-    (document.getElementById('nrg-view-tools') || document.querySelector('.extra-tools') || document.querySelector('.tr-head'))?.appendChild(btn);
+    (document.querySelector('.extra-tools')||document.querySelector('.tr-head'))?.appendChild(btn);
     btn.addEventListener('click', ()=>{ document.body.classList.toggle('focus-mode'); donutChart?.update(); barChart?.update(); });
     const css=document.createElement('style'); css.textContent="body.focus-mode #donut{transform:scale(1.1);} body.focus-mode .big{font-size:22px;}";
     document.head.appendChild(css);
@@ -3036,7 +2721,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function addBundleExport(){
     if (document.getElementById('btn-exp-bundle')) return;
     const btn=document.createElement('button'); btn.textContent="Bundle Export"; btn.className="nrg-btn"; btn.id="btn-exp-bundle";
-    (document.getElementById('nrg-export-tools') || document.querySelector('.extra-tools'))?.appendChild(btn);
+    document.querySelector('.extra-tools')?.appendChild(btn);
     btn.addEventListener('click', async ()=>{
       try{
         const canvases=[document.getElementById('donut'), document.getElementById('breakdownBar')];
@@ -4422,40 +4107,2420 @@ document.addEventListener("DOMContentLoaded", function() {
 })();
 </script>
 
-<!-- NRG v27.8.3 — Layout-preserved contrast polish only -->
-<style>
-/* Buttons: stronger visibility without changing original layout, spacing, or structure. */
-.nrg-btn{
+
+<!-- NRG v27.8.1 — Editable Device Cards + No-Side-Scroll Desktop Containment -->
+<style id="nrg-v2781-editable-responsive-device-cards">
+/* Keep the full app inside the visible desktop/window width. */
+html, body{
+  max-width:100%;
+  overflow-x:hidden !important;
+}
+.nrg-grid,
+.nrg-card,
+.section,
+#pane-devices-mini,
+#pane-devices-mini *{
+  min-width:0;
+  max-width:100%;
+}
+.nrg-card{ overflow-wrap:anywhere; }
+.nrg-input, select, input, button{ max-width:100%; }
+
+/* Stats cards: stay readable instead of forcing sideways overflow. */
+#pane-devices-mini .mini-stats{
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+}
+#pane-devices-mini .card-mini{
+  min-width:0;
+  overflow:hidden;
+}
+#pane-devices-mini .card-mini .big{
+  font-size:clamp(17px, 2vw, 22px);
+  overflow-wrap:anywhere;
+}
+
+/* Device/appliance cards: flexible grid that can absorb Edit + Schedule + Remove without side-scroll. */
+#mini-list{
+  width:100%;
+  overflow-x:hidden !important;
+}
+#mini-list .mini-row{
+  width:100%;
+  min-width:0;
+  display:grid !important;
+  grid-template-columns:minmax(150px, 1.45fr) minmax(82px, .7fr) minmax(82px, .7fr) minmax(108px, .85fr) repeat(3, minmax(76px, auto)) !important;
+  gap:8px !important;
+  align-items:center;
+}
+#mini-list .mini-row > *{ min-width:0; }
+#mini-list .mini-name,
+#mini-list .mini-meta,
+#mini-list .mini-cost,
+#mini-list .mini-schedule{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+#mini-list .mini-btn{
+  white-space:normal !important;
+  min-width:0 !important;
+  width:auto;
+  line-height:1.15;
+}
+
+/* Inline editor panel injected per device card. */
+#mini-list .mini-inline-editor{
+  grid-column:1 / -1;
+  display:grid;
+  gap:10px;
+  padding:10px;
+  border:1px solid color-mix(in oklab, var(--accent), transparent 45%);
+  border-radius:12px;
+  background:color-mix(in oklab, var(--card), var(--accent) 7%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
+}
+#mini-list .mini-inline-editor-title{
+  font-weight:900;
+  font-size:13px;
+}
+#mini-list .mini-edit-grid{
+  display:grid;
+  grid-template-columns:2fr repeat(4, minmax(82px, 1fr));
+  gap:8px;
+  align-items:end;
+}
+#mini-list .mini-edit-field{
+  display:grid;
+  gap:4px;
+  min-width:0;
+}
+#mini-list .mini-edit-field span{
+  font-size:11px;
   font-weight:800;
-  border-color:color-mix(in srgb, var(--accent) 62%, var(--card-br));
-  box-shadow:0 2px 8px rgba(0,0,0,.28);
+  color:var(--muted);
 }
-.nrg-btn:hover{
-  box-shadow:0 4px 14px rgba(0,0,0,.38), 0 0 0 1px color-mix(in srgb, var(--accent) 58%, transparent);
+#mini-list .mini-edit-field input{
+  width:100%;
 }
-[data-theme="light"] .nrg-btn{
-  background:#0f172a;
-  color:#ffffff;
-  border-color:#2563eb;
+#mini-list .mini-edit-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
-[data-theme="light"] .nrg-btn:hover{
-  outline-color:#2563eb;
+
+/* Mid-size desktop / minimized desktop: switch to contained rows instead of overflowing. */
+@media (max-width:1180px){
+  .nrg-grid{ grid-template-columns:minmax(0,1fr) !important; }
+  #mini-list .mini-row{
+    grid-template-columns:minmax(0, 1.4fr) minmax(90px, .8fr) minmax(90px, .8fr) minmax(110px, .9fr) !important;
+  }
+  #mini-list .mini-row .mini-btn{
+    width:100%;
+  }
 }
-[data-theme="solar"] .nrg-btn{
-  background:#1f1300;
-  color:#ffffff;
-  border-color:#7c2d12;
+@media (max-width:820px){
+  #pane-devices-mini .mini-stats{ grid-template-columns:1fr !important; }
+  #mini-list .mini-row{
+    grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+  #mini-list .mini-row > div:first-child,
+  #mini-list .mini-inline-editor{
+    grid-column:1 / -1;
+  }
+  #mini-list .mini-edit-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
-/* Charts: stronger border/readability only; original chart layout remains untouched. */
-.tr-charts .donut-wrap,
-.tr-charts .bargrid-wrap{
-  border-color:color-mix(in srgb, var(--accent) 55%, var(--card-br));
-}
-[data-theme="light"] .tr-charts .donut-wrap,
-[data-theme="light"] .tr-charts .bargrid-wrap{
-  border-color:#2563eb;
+@media (max-width:560px){
+  #mini-list .mini-row,
+  #mini-list .mini-edit-grid{
+    grid-template-columns:1fr !important;
+  }
+  #mini-list .mini-btn,
+  #mini-list .mini-edit-actions .nrg-btn{ width:100%; }
 }
 </style>
 
+<script id="nrg-v2781-editable-responsive-device-cards">
+// NRG v27.8.1 — Inline per-device editing for preset and custom appliance cards.
+(function(){
+  if (window.__nrgV2781EditableResponsiveDeviceCards) return;
+  window.__nrgV2781EditableResponsiveDeviceCards = true;
+
+  let activeEditIndex = null;
+
+  function cleanNumber(value, fallback){
+    const n = parseFloat(value);
+    return Number.isFinite(n) ? n : fallback;
+  }
+  function cleanInt(value, fallback){
+    const n = parseInt(value, 10);
+    return Number.isFinite(n) ? n : fallback;
+  }
+  function escapeHtml(value){
+    return String(value ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  }
+
+  function findRowForIndex(idx){
+    const list = document.getElementById('mini-list');
+    if (!list) return null;
+    const editBtn = list.querySelector(`.mini-edit[data-idx="${idx}"]`);
+    return editBtn ? editBtn.closest('.mini-row') : null;
+  }
+
+  function closeInlineEditor(){
+    document.querySelectorAll('#mini-list .mini-inline-editor').forEach(el => el.remove());
+    activeEditIndex = null;
+  }
+
+  function openInlineEditor(idx){
+    const item = Array.isArray(window.devices) ? window.devices[idx] : (typeof devices !== 'undefined' ? devices[idx] : null);
+    const row = findRowForIndex(idx);
+    if (!item || !row) return;
+
+    document.querySelectorAll('#mini-list .mini-inline-editor').forEach(el => el.remove());
+    activeEditIndex = idx;
+
+    const editor = document.createElement('div');
+    editor.className = 'mini-inline-editor';
+    editor.dataset.idx = String(idx);
+    editor.innerHTML = `
+      <div class="mini-inline-editor-title">Edit this card individually</div>
+      <div class="mini-edit-grid">
+        <label class="mini-edit-field"><span>Name</span><input class="nrg-input mini-edit-name" type="text" value="${escapeHtml(item.name || 'Device')}"></label>
+        <label class="mini-edit-field"><span>Watts</span><input class="nrg-input mini-edit-watts" type="number" min="0" step="1" value="${escapeHtml(+item.watts || 0)}"></label>
+        <label class="mini-edit-field"><span>Hours/day</span><input class="nrg-input mini-edit-hours" type="number" min="0" step="0.05" value="${escapeHtml(+item.hoursPerDay || 0)}"></label>
+        <label class="mini-edit-field"><span>Duty %</span><input class="nrg-input mini-edit-duty" type="number" min="0" max="100" step="1" value="${escapeHtml(+item.duty || 100)}"></label>
+        <label class="mini-edit-field"><span>Quantity</span><input class="nrg-input mini-edit-qty" type="number" min="1" step="1" value="${escapeHtml(+item.quantity || 1)}"></label>
+      </div>
+      <div class="mini-edit-actions">
+        <button type="button" class="nrg-btn mini-inline-save">Save card</button>
+        <button type="button" class="nrg-btn mini-inline-cancel">Cancel</button>
+      </div>
+    `;
+    row.appendChild(editor);
+    editor.querySelector('.mini-edit-name')?.focus();
+  }
+
+  function saveInlineEditor(editor){
+    const idx = parseInt(editor?.dataset?.idx || '-1', 10);
+    const list = Array.isArray(window.devices) ? window.devices : (typeof devices !== 'undefined' ? devices : []);
+    const item = list[idx];
+    if (!item) return;
+
+    item.name = (editor.querySelector('.mini-edit-name')?.value || 'Device').trim() || 'Device';
+    item.watts = Math.max(0, cleanNumber(editor.querySelector('.mini-edit-watts')?.value, item.watts || 0));
+    item.hoursPerDay = Math.max(0, cleanNumber(editor.querySelector('.mini-edit-hours')?.value, item.hoursPerDay || 0));
+    item.duty = Math.max(0, Math.min(100, cleanNumber(editor.querySelector('.mini-edit-duty')?.value, item.duty || 100)));
+    item.quantity = Math.max(1, cleanInt(editor.querySelector('.mini-edit-qty')?.value, item.quantity || 1));
+    item.source = item.source || (/baseline|fridge|microwave|stove|washer|dryer|dehumidifier|lighting/i.test(item.name || '') ? 'Preset' : 'User Edited');
+
+    activeEditIndex = null;
+    if (typeof renderAll === 'function') renderAll();
+  }
+
+  // Capture the existing prompt-based Edit click and replace it with the inline editor.
+  document.addEventListener('click', function(e){
+    const editBtn = e.target.closest && e.target.closest('#mini-list .mini-edit');
+    if (editBtn){
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      const idx = parseInt(editBtn.getAttribute('data-idx') || '-1', 10);
+      if (idx >= 0) openInlineEditor(idx);
+      return;
+    }
+    const saveBtn = e.target.closest && e.target.closest('#mini-list .mini-inline-save');
+    if (saveBtn){
+      e.preventDefault();
+      const editor = saveBtn.closest('.mini-inline-editor');
+      saveInlineEditor(editor);
+      return;
+    }
+    const cancelBtn = e.target.closest && e.target.closest('#mini-list .mini-inline-cancel');
+    if (cancelBtn){
+      e.preventDefault();
+      closeInlineEditor();
+    }
+  }, true);
+
+  // Keep rows responsive after every app render, including after preset changes.
+  const previousRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (previousRenderAll){
+    renderAll = function(){
+      previousRenderAll.apply(this, arguments);
+      setTimeout(function(){
+        if (activeEditIndex !== null) openInlineEditor(activeEditIndex);
+      }, 0);
+    };
+  }
+})();
+</script>
+
+
+
+<!-- NRG v27.8.2 — Minimized Desktop Action Bar Containment Fix -->
+<style id="nrg-v2782-minimized-desktop-action-bar-fix">
+/*
+  Fix: at minimum desktop widths, Edit / Schedule / Remove must never be pushed
+  off the device card by stats columns. The buttons are grouped into one protected
+  action bar that can wrap before any horizontal overflow happens.
+*/
+#mini-list .mini-row{
+  overflow:hidden !important;
+  box-sizing:border-box;
+}
+#mini-list .mini-actions-bar{
+  min-width:0;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(72px, 1fr));
+  gap:6px;
+  align-items:stretch;
+}
+#mini-list .mini-actions-bar .mini-btn{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere;
+  text-align:center;
+}
+
+/* Full desktop: name + stats + action bar stay inside four contained zones. */
+#mini-list .mini-row.has-action-bar{
+  grid-template-columns:minmax(160px, 1.2fr) minmax(82px,.7fr) minmax(82px,.7fr) minmax(105px,.8fr) minmax(238px,.95fr) !important;
+}
+#mini-list .mini-row.has-action-bar .mini-actions-bar{
+  grid-column:auto;
+}
+
+/* Minimized desktop: action buttons get their own full-width row before clipping can occur. */
+@media (max-width:1280px){
+  #mini-list .mini-row.has-action-bar{
+    grid-template-columns:minmax(0,1.25fr) minmax(90px,.75fr) minmax(90px,.75fr) minmax(112px,.8fr) !important;
+  }
+  #mini-list .mini-row.has-action-bar .mini-actions-bar{
+    grid-column:1 / -1;
+  }
+}
+
+/* Narrow but still desktop/tablet: stack readable content first, then keep all controls visible. */
+@media (max-width:980px){
+  #mini-list .mini-row.has-action-bar{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  }
+  #mini-list .mini-row.has-action-bar > div:first-child,
+  #mini-list .mini-row.has-action-bar .mini-cost,
+  #mini-list .mini-row.has-action-bar .mini-actions-bar{
+    grid-column:1 / -1;
+  }
+}
+@media (max-width:560px){
+  #mini-list .mini-actions-bar{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+<script id="nrg-v2782-minimized-desktop-action-bar-fix">
+// NRG v27.8.2 — Keep Edit / Schedule / Remove inside every device card.
+(function(){
+  if (window.__nrgV2782MinimizedDesktopActionBarFix) return;
+  window.__nrgV2782MinimizedDesktopActionBarFix = true;
+
+  function groupDeviceActionButtons(){
+    const rows = document.querySelectorAll('#mini-list .mini-row');
+    rows.forEach((row)=>{
+      const edit = row.querySelector(':scope > .mini-edit');
+      const schedule = row.querySelector(':scope > .mini-schedule-btn');
+      const remove = row.querySelector(':scope > .mini-remove');
+      if (!edit && !schedule && !remove) return;
+
+      let bar = row.querySelector(':scope > .mini-actions-bar');
+      if (!bar){
+        bar = document.createElement('div');
+        bar.className = 'mini-actions-bar';
+        bar.setAttribute('aria-label', 'Device actions');
+      }
+
+      // Preserve button listeners by moving the actual button nodes, not recreating them.
+      [edit, schedule, remove].forEach((btn)=>{
+        if (btn && btn.parentElement !== bar) bar.appendChild(btn);
+      });
+
+      // Keep the editor after the action bar so opening Edit stays inside this same card.
+      const editor = row.querySelector(':scope > .mini-inline-editor');
+      if (editor) row.insertBefore(bar, editor);
+      else row.appendChild(bar);
+
+      row.classList.add('has-action-bar');
+    });
+  }
+
+  const priorRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (priorRenderAll){
+    renderAll = function(){
+      priorRenderAll.apply(this, arguments);
+      setTimeout(groupDeviceActionButtons, 0);
+      setTimeout(groupDeviceActionButtons, 80);
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(groupDeviceActionButtons, 80);
+    setTimeout(groupDeviceActionButtons, 220);
+  });
+  window.addEventListener('resize', ()=>setTimeout(groupDeviceActionButtons, 0));
+  setTimeout(groupDeviceActionButtons, 260);
+})();
+</script>
+
+
+
+<!-- NRG v27.8.3 — Compact Device Actions Dropdown Fix -->
+<style id="nrg-v2783-compact-device-actions">
+/*
+  Captain fix: three separate buttons were still too wide at minimum desktop size,
+  and Schedule/Remove could wrap into two lines. Keep one compact control visible
+  inside every device card, then let the user choose Edit / Schedule / Remove.
+*/
+#mini-list .mini-row{
+  overflow:hidden !important;
+}
+#mini-list .mini-row.has-compact-actions{
+  grid-template-columns:minmax(150px,1.25fr) minmax(82px,.7fr) minmax(82px,.7fr) minmax(105px,.8fr) minmax(138px,.55fr) !important;
+}
+#mini-list .mini-actions-bar{
+  display:none !important;
+}
+#mini-list .mini-compact-actions{
+  min-width:0;
+  width:100%;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+}
+#mini-list .mini-action-select{
+  width:100%;
+  min-width:112px;
+  max-width:150px;
+  height:36px;
+  padding:0 28px 0 10px;
+  border-radius:10px;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 25%);
+  background:var(--card);
+  color:var(--text);
+  font-weight:850;
+  font-size:12px;
+  line-height:1;
+  white-space:nowrap !important;
+  text-overflow:ellipsis;
+}
+#mini-list .mini-action-select option{
+  white-space:nowrap;
+}
+@media (max-width:1180px){
+  #mini-list .mini-row.has-compact-actions{
+    grid-template-columns:minmax(0,1.2fr) minmax(82px,.65fr) minmax(82px,.65fr) minmax(98px,.72fr) minmax(118px,.5fr) !important;
+    gap:7px !important;
+  }
+  #mini-list .mini-action-select{
+    min-width:104px;
+    max-width:132px;
+    font-size:11.5px;
+  }
+}
+@media (max-width:880px){
+  #mini-list .mini-row.has-compact-actions{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  }
+  #mini-list .mini-row.has-compact-actions > div:first-child,
+  #mini-list .mini-row.has-compact-actions .mini-cost,
+  #mini-list .mini-row.has-compact-actions .mini-compact-actions{
+    grid-column:1 / -1;
+  }
+  #mini-list .mini-compact-actions{
+    justify-content:stretch;
+  }
+  #mini-list .mini-action-select{
+    max-width:none;
+    width:100%;
+    min-width:0;
+  }
+}
+</style>
+
+<script id="nrg-v2783-compact-device-actions">
+// NRG v27.8.3 — Replace crowded Edit/Schedule/Remove buttons with one contained Actions select.
+(function(){
+  if (window.__nrgV2783CompactDeviceActions) return;
+  window.__nrgV2783CompactDeviceActions = true;
+
+  function ensureCompactActions(){
+    const rows = document.querySelectorAll('#mini-list .mini-row');
+    rows.forEach((row)=>{
+      const edit = row.querySelector('.mini-edit');
+      const schedule = row.querySelector('.mini-schedule-btn');
+      const remove = row.querySelector('.mini-remove');
+      if (!edit && !schedule && !remove) return;
+
+      let wrap = row.querySelector(':scope > .mini-compact-actions');
+      if (!wrap){
+        wrap = document.createElement('div');
+        wrap.className = 'mini-compact-actions';
+        wrap.setAttribute('aria-label', 'Device actions');
+        wrap.innerHTML = `
+          <select class="mini-action-select" aria-label="Choose device action">
+            <option value="">Actions</option>
+            <option value="edit">Edit</option>
+            <option value="schedule">Schedule</option>
+            <option value="remove">Remove</option>
+          </select>
+        `;
+        const select = wrap.querySelector('.mini-action-select');
+        select.addEventListener('change', function(){
+          const action = this.value;
+          this.value = '';
+          if (action === 'edit') row.querySelector('.mini-edit')?.click();
+          if (action === 'schedule') row.querySelector('.mini-schedule-btn')?.click();
+          if (action === 'remove') row.querySelector('.mini-remove')?.click();
+        });
+      }
+
+      const editor = row.querySelector(':scope > .mini-inline-editor');
+      if (editor) row.insertBefore(wrap, editor);
+      else row.appendChild(wrap);
+      row.classList.add('has-compact-actions');
+    });
+  }
+
+  const previousRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (previousRenderAll){
+    renderAll = function(){
+      previousRenderAll.apply(this, arguments);
+      setTimeout(ensureCompactActions, 0);
+      setTimeout(ensureCompactActions, 80);
+    };
+  }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(ensureCompactActions, 80);
+    setTimeout(ensureCompactActions, 220);
+  });
+  window.addEventListener('resize', ()=>setTimeout(ensureCompactActions, 0));
+  setTimeout(ensureCompactActions, 260);
+})();
+</script>
+
+
+<!-- NRG v27.8.4 — Dot Action Menu Containment Fix -->
+<style id="nrg-v2784-dot-action-menu-containment">
+/*
+  Final containment fix for minimized desktop: never place the word Actions,
+  Schedule, or Remove in the tight row. Use a tiny three-dot control that
+  cannot be clipped, then open full action buttons in a row inside the card.
+*/
+#mini-list,
+#mini-list .mini-row{
+  max-width:100% !important;
+  overflow-x:hidden !important;
+  box-sizing:border-box !important;
+}
+
+/* Retire the earlier select UI completely so the word Actions cannot be cut. */
+#mini-list .mini-compact-actions,
+#mini-list .mini-action-select{
+  display:none !important;
+}
+
+#mini-list .mini-row.has-dot-actions{
+  display:grid !important;
+  grid-template-columns:minmax(145px,1.25fr) minmax(74px,.55fr) minmax(74px,.55fr) minmax(96px,.7fr) 40px !important;
+  gap:7px !important;
+  align-items:center !important;
+  min-width:0 !important;
+}
+#mini-list .mini-row.has-dot-actions > *{
+  min-width:0 !important;
+  max-width:100% !important;
+}
+#mini-list .mini-dot-actions{
+  width:40px !important;
+  min-width:40px !important;
+  max-width:40px !important;
+  display:flex !important;
+  justify-content:flex-end !important;
+  align-items:center !important;
+  grid-column:auto !important;
+}
+#mini-list .mini-dot-btn{
+  width:36px !important;
+  min-width:36px !important;
+  max-width:36px !important;
+  height:36px !important;
+  padding:0 !important;
+  border-radius:12px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-size:20px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+}
+#mini-list .mini-dot-panel{
+  grid-column:1 / -1 !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  display:none;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:8px;
+  padding:8px;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 22%);
+  border-radius:12px;
+  background:color-mix(in oklab, var(--card), var(--accent) 5%);
+}
+#mini-list .mini-row.dot-open .mini-dot-panel{
+  display:grid !important;
+}
+#mini-list .mini-dot-panel .nrg-btn{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+}
+
+/* Minimized desktop: keep name + tiny dot on top, move all stats below inside card. */
+@media (max-width:1180px){
+  #mini-list .mini-row.has-dot-actions{
+    grid-template-columns:minmax(0, 1fr) 40px !important;
+  }
+  #mini-list .mini-row.has-dot-actions > div:first-child{
+    grid-column:1 / 2 !important;
+  }
+  #mini-list .mini-row.has-dot-actions .mini-dot-actions{
+    grid-column:2 / 3 !important;
+    grid-row:1 !important;
+  }
+  #mini-list .mini-row.has-dot-actions .mini-meta,
+  #mini-list .mini-row.has-dot-actions .mini-cost,
+  #mini-list .mini-row.has-dot-actions .mini-schedule{
+    grid-column:1 / -1 !important;
+  }
+}
+
+/* Mobile: action choices stack, never side-scroll. */
+@media (max-width:560px){
+  #mini-list .mini-dot-panel{
+    grid-template-columns:1fr !important;
+  }
+  #mini-list .mini-row.has-dot-actions{
+    gap:8px !important;
+  }
+}
+</style>
+
+<script id="nrg-v2784-dot-action-menu-containment">
+// NRG v27.8.4 — Three-dot action menu: Edit / Schedule / Remove stay inside card at every width.
+(function(){
+  if (window.__nrgV2784DotActionMenuContainment) return;
+  window.__nrgV2784DotActionMenuContainment = true;
+
+  function ensureDotActions(){
+    const rows = document.querySelectorAll('#mini-list .mini-row');
+    rows.forEach((row)=>{
+      const edit = row.querySelector('.mini-edit');
+      const schedule = row.querySelector('.mini-schedule-btn');
+      const remove = row.querySelector('.mini-remove');
+      if (!edit && !schedule && !remove) return;
+
+      // Remove the previous compact select wrapper if it exists.
+      row.querySelectorAll(':scope > .mini-compact-actions').forEach(el => el.remove());
+
+      let dotWrap = row.querySelector(':scope > .mini-dot-actions');
+      if (!dotWrap){
+        dotWrap = document.createElement('div');
+        dotWrap.className = 'mini-dot-actions';
+        dotWrap.innerHTML = '<button type="button" class="nrg-btn mini-dot-btn" title="Device actions" aria-label="Open device actions" aria-expanded="false">⋯</button>';
+        dotWrap.querySelector('.mini-dot-btn')?.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          const open = !row.classList.contains('dot-open');
+          document.querySelectorAll('#mini-list .mini-row.dot-open').forEach(r=>{
+            if (r !== row){
+              r.classList.remove('dot-open');
+              r.querySelector('.mini-dot-btn')?.setAttribute('aria-expanded','false');
+            }
+          });
+          row.classList.toggle('dot-open', open);
+          this.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      }
+
+      let panel = row.querySelector(':scope > .mini-dot-panel');
+      if (!panel){
+        panel = document.createElement('div');
+        panel.className = 'mini-dot-panel';
+        panel.setAttribute('aria-label', 'Device action choices');
+        panel.innerHTML = `
+          <button type="button" class="nrg-btn mini-dot-edit">Edit</button>
+          <button type="button" class="nrg-btn mini-dot-schedule">Schedule</button>
+          <button type="button" class="nrg-btn mini-dot-remove">Remove</button>
+        `;
+        panel.querySelector('.mini-dot-edit')?.addEventListener('click', (e)=>{
+          e.preventDefault();
+          row.classList.remove('dot-open');
+          row.querySelector('.mini-edit')?.click();
+        });
+        panel.querySelector('.mini-dot-schedule')?.addEventListener('click', (e)=>{
+          e.preventDefault();
+          row.classList.remove('dot-open');
+          row.querySelector('.mini-schedule-btn')?.click();
+        });
+        panel.querySelector('.mini-dot-remove')?.addEventListener('click', (e)=>{
+          e.preventDefault();
+          row.classList.remove('dot-open');
+          row.querySelector('.mini-remove')?.click();
+        });
+      }
+
+      const editor = row.querySelector(':scope > .mini-inline-editor');
+      if (!row.contains(dotWrap)) row.appendChild(dotWrap);
+      if (editor){
+        row.insertBefore(dotWrap, editor);
+        row.insertBefore(panel, editor);
+      } else {
+        row.appendChild(dotWrap);
+        row.appendChild(panel);
+      }
+      row.classList.add('has-dot-actions');
+    });
+  }
+
+  const priorRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (priorRenderAll){
+    renderAll = function(){
+      priorRenderAll.apply(this, arguments);
+      setTimeout(ensureDotActions, 0);
+      setTimeout(ensureDotActions, 80);
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    if (!e.target.closest || e.target.closest('#mini-list .mini-row')) return;
+    document.querySelectorAll('#mini-list .mini-row.dot-open').forEach(row=>{
+      row.classList.remove('dot-open');
+      row.querySelector('.mini-dot-btn')?.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(ensureDotActions, 80);
+    setTimeout(ensureDotActions, 220);
+  });
+  window.addEventListener('resize', ()=>setTimeout(ensureDotActions, 0));
+  setTimeout(ensureDotActions, 260);
+})();
+</script>
+
+
+<!-- NRG v27.8.5 — Edit Panel Containment Lock -->
+<style id="nrg-v2785-edit-panel-containment-lock">
+/*
+  Captain lock: once the three-dot menu opens Edit, the editor itself must never
+  overflow the device card. This keeps every input plus Save/Cancel contained
+  at full desktop, minimized desktop, tablet, and mobile widths.
+*/
+#mini-list .mini-row.has-dot-actions .mini-inline-editor{
+  grid-column:1 / -1 !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+}
+
+#mini-list .mini-inline-editor,
+#mini-list .mini-inline-editor *{
+  box-sizing:border-box !important;
+  min-width:0 !important;
+}
+
+#mini-list .mini-edit-grid{
+  width:100% !important;
+  max-width:100% !important;
+  display:grid !important;
+  grid-template-columns:repeat(auto-fit, minmax(118px, 1fr)) !important;
+  gap:8px !important;
+  align-items:end !important;
+}
+
+#mini-list .mini-edit-field{
+  width:100% !important;
+  max-width:100% !important;
+}
+
+#mini-list .mini-edit-field input{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+}
+
+#mini-list .mini-edit-actions{
+  width:100% !important;
+  max-width:100% !important;
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  gap:8px !important;
+  justify-content:stretch !important;
+}
+
+#mini-list .mini-edit-actions .nrg-btn{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+/* Minimized desktop: make the form breathe by using two clean columns. */
+@media (max-width:1180px){
+  #mini-list .mini-edit-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Mobile/small window: one input per row, no side-scroll, no clipped Save/Cancel. */
+@media (max-width:620px){
+  #mini-list .mini-inline-editor{
+    padding:9px !important;
+  }
+  #mini-list .mini-edit-grid,
+  #mini-list .mini-edit-actions{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
+
+<script id="nrg-v2785-edit-panel-containment-lock">
+// NRG v27.8.5 — Keep edit mode clean and contained after choosing Edit from the dot menu.
+(function(){
+  if (window.__nrgV2785EditPanelContainmentLock) return;
+  window.__nrgV2785EditPanelContainmentLock = true;
+
+  document.addEventListener('click', function(e){
+    const editChoice = e.target.closest && e.target.closest('#mini-list .mini-dot-edit');
+    if (!editChoice) return;
+    const row = editChoice.closest('.mini-row');
+    if (row){
+      row.classList.remove('dot-open');
+      row.classList.add('editing-contained');
+      row.querySelector('.mini-dot-btn')?.setAttribute('aria-expanded','false');
+    }
+  }, true);
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('#mini-list .mini-inline-save, #mini-list .mini-inline-cancel')){
+      document.querySelectorAll('#mini-list .mini-row.editing-contained').forEach(row=>row.classList.remove('editing-contained'));
+    }
+  }, true);
+})();
+</script>
+
+
+<!-- NRG v27.8.6 — Device Card Polish Lock -->
+<style id="nrg-v2786-device-card-polish-lock">
+/*
+  Captain polish lock: keep the working three-dot action model, then make the
+  selected/editing card feel intentional without adding new engine features.
+*/
+#mini-list .mini-row.has-dot-actions{
+  position:relative !important;
+  transition:border-color .18s ease, box-shadow .18s ease, background-color .18s ease, transform .18s ease;
+}
+
+#mini-list .mini-row.has-dot-actions.dot-open,
+#mini-list .mini-row.has-dot-actions.editing-contained{
+  border-color:color-mix(in oklab, var(--accent), white 12%) !important;
+  box-shadow:0 0 0 1px color-mix(in oklab, var(--accent), transparent 45%), 0 10px 28px rgba(0,0,0,.16) !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 4%) !important;
+}
+
+#mini-list .mini-card-helper{
+  display:block;
+  margin-top:4px;
+  font-size:10.5px;
+  line-height:1.25;
+  font-weight:750;
+  color:var(--muted);
+  opacity:.88;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+
+#mini-list .mini-row.dot-open .mini-card-helper,
+#mini-list .mini-row.editing-contained .mini-card-helper{
+  color:color-mix(in oklab, var(--accent), var(--muted) 45%);
+  opacity:1;
+}
+
+#mini-list .mini-dot-btn{
+  flex:0 0 36px !important;
+  cursor:pointer;
+}
+
+#mini-list .mini-dot-btn:focus-visible,
+#mini-list .mini-dot-panel .nrg-btn:focus-visible,
+#mini-list .mini-inline-editor input:focus{
+  outline:2px solid color-mix(in oklab, var(--accent), white 18%) !important;
+  outline-offset:2px !important;
+}
+
+#mini-list .mini-dot-panel{
+  animation:nrgDeviceMenuIn .14s ease-out;
+}
+
+@keyframes nrgDeviceMenuIn{
+  from{ opacity:.35; transform:translateY(-2px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+#mini-list .mini-dot-panel .nrg-btn{
+  min-height:36px !important;
+  font-size:12px !important;
+  letter-spacing:.01em;
+}
+
+#mini-list .mini-inline-editor{
+  animation:nrgDeviceEditorIn .14s ease-out;
+}
+
+@keyframes nrgDeviceEditorIn{
+  from{ opacity:.35; transform:translateY(-3px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+#mini-list .mini-inline-editor-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+#mini-list .mini-inline-editor-title::after{
+  content:'Contained';
+  font-size:10px;
+  line-height:1;
+  padding:5px 7px;
+  border-radius:999px;
+  color:var(--muted);
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 25%);
+  background:color-mix(in oklab, var(--card), var(--accent) 5%);
+}
+
+#mini-list .mini-meta,
+#mini-list .mini-cost{
+  font-size:12px;
+  line-height:1.3;
+}
+
+@media (max-width:1180px){
+  #mini-list .mini-card-helper{
+    font-size:10px;
+  }
+  #mini-list .mini-row.has-dot-actions .mini-meta,
+  #mini-list .mini-row.has-dot-actions .mini-cost,
+  #mini-list .mini-row.has-dot-actions .mini-schedule{
+    padding:7px 8px;
+    border-radius:10px;
+    border:1px solid color-mix(in oklab, var(--border), transparent 35%);
+    background:color-mix(in oklab, var(--card), var(--bg) 18%);
+  }
+}
+
+@media (max-width:560px){
+  #mini-list .mini-card-helper{
+    display:none;
+  }
+  #mini-list .mini-dot-panel{
+    padding:7px !important;
+  }
+}
+</style>
+
+<script id="nrg-v2786-device-card-polish-lock">
+// NRG v27.8.6 — Device Card Polish Lock: clarity, highlight, one-open-card discipline.
+(function(){
+  if (window.__nrgV2786DeviceCardPolishLock) return;
+  window.__nrgV2786DeviceCardPolishLock = true;
+
+  function polishDeviceRows(){
+    const rows = document.querySelectorAll('#mini-list .mini-row.has-dot-actions');
+    rows.forEach((row)=>{
+      const nameWrap = row.firstElementChild;
+      if (nameWrap && !nameWrap.querySelector('.mini-card-helper')){
+        const helper = document.createElement('span');
+        helper.className = 'mini-card-helper';
+        helper.textContent = 'Use ⋯ to edit, schedule, or remove';
+        nameWrap.appendChild(helper);
+      }
+      const btn = row.querySelector('.mini-dot-btn');
+      if (btn){
+        btn.title = 'Manage this device';
+        btn.setAttribute('aria-label','Manage this device');
+      }
+    });
+  }
+
+  // One card open/editing at a time keeps minimized desktop and mobile clean.
+  document.addEventListener('click', function(e){
+    const dot = e.target.closest && e.target.closest('#mini-list .mini-dot-btn');
+    if (dot){
+      const row = dot.closest('.mini-row');
+      document.querySelectorAll('#mini-list .mini-row.editing-contained').forEach(r=>{
+        if (r !== row) r.classList.remove('editing-contained');
+      });
+    }
+
+    const editChoice = e.target.closest && e.target.closest('#mini-list .mini-dot-edit');
+    if (editChoice){
+      const row = editChoice.closest('.mini-row');
+      document.querySelectorAll('#mini-list .mini-row.dot-open, #mini-list .mini-row.editing-contained').forEach(r=>{
+        if (r !== row){
+          r.classList.remove('dot-open','editing-contained');
+          r.querySelector('.mini-dot-btn')?.setAttribute('aria-expanded','false');
+          r.querySelector(':scope > .mini-inline-editor')?.remove();
+        }
+      });
+      if (row) row.classList.add('editing-contained');
+    }
+
+    const scheduleOrRemove = e.target.closest && e.target.closest('#mini-list .mini-dot-schedule, #mini-list .mini-dot-remove');
+    if (scheduleOrRemove){
+      const row = scheduleOrRemove.closest('.mini-row');
+      if (row){
+        row.classList.remove('dot-open');
+        row.querySelector('.mini-dot-btn')?.setAttribute('aria-expanded','false');
+      }
+    }
+  }, true);
+
+  const priorRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (priorRenderAll){
+    renderAll = function(){
+      priorRenderAll.apply(this, arguments);
+      setTimeout(polishDeviceRows, 0);
+      setTimeout(polishDeviceRows, 120);
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(polishDeviceRows, 120);
+    setTimeout(polishDeviceRows, 300);
+  });
+  window.addEventListener('resize', ()=>setTimeout(polishDeviceRows, 0));
+  setTimeout(polishDeviceRows, 300);
+})();
+</script>
+
+
+
+<!-- NRG v27.8.7 — AI Advisor Local Intelligence Pass -->
+<style id="nrg-v2787-ai-advisor-local-intelligence">
+/*
+  Local AI Advisor polish: no cloud/API calls. Uses the current device list only.
+  Goal: make the Advisor feel useful, contained, and responsive like the locked device cards.
+*/
+#pane-ai{
+  overflow:hidden !important;
+}
+#pane-ai .section > div:first-child{
+  min-width:0 !important;
+}
+#pane-ai .section-title{
+  min-width:0 !important;
+}
+#pane-ai .qa-col{
+  min-width:0 !important;
+}
+#pane-ai .nrg-input{
+  max-width:100% !important;
+}
+#pane-ai #ai-run{
+  white-space:nowrap !important;
+}
+#ai-tips{
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:hidden !important;
+  align-items:stretch !important;
+}
+#ai-tips:not(.empty){
+  max-height:none !important;
+}
+.ai-advisor-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:10px;
+  width:100%;
+  min-width:0;
+}
+.ai-tip.ai-card{
+  min-width:0;
+  overflow:hidden;
+  border-radius:14px;
+  background:color-mix(in oklab, var(--card), var(--bg) 10%);
+}
+.ai-card-kicker{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+  margin-bottom:6px;
+  min-width:0;
+}
+.ai-card-label{
+  font-size:10.5px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.ai-card-pill{
+  flex:0 0 auto;
+  font-size:10px;
+  line-height:1;
+  font-weight:850;
+  padding:5px 7px;
+  border-radius:999px;
+  color:var(--muted);
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 25%);
+  background:color-mix(in oklab, var(--card), var(--accent) 5%);
+  white-space:nowrap;
+}
+.ai-card-title{
+  font-weight:900;
+  font-size:15px;
+  line-height:1.25;
+  margin-bottom:6px;
+  overflow-wrap:anywhere;
+}
+.ai-card-body{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+.ai-card-metric{
+  margin-top:8px;
+  font-weight:900;
+  font-size:13px;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+.ai-advisor-summary{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+  gap:8px;
+  margin-bottom:10px;
+  width:100%;
+}
+.ai-summary-tile{
+  min-width:0;
+  padding:9px;
+  border:1px solid color-mix(in oklab, var(--border), transparent 25%);
+  border-radius:12px;
+  background:color-mix(in oklab, var(--card), var(--bg) 12%);
+}
+.ai-summary-tile .muted{
+  font-size:10px;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.ai-summary-tile .big{
+  font-size:16px;
+  font-weight:950;
+  line-height:1.2;
+  margin-top:3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.ai-contained-note{
+  margin-top:8px;
+  font-size:11.5px;
+  line-height:1.35;
+  color:var(--muted);
+}
+@media (max-width:1100px){
+  .ai-advisor-grid{
+    grid-template-columns:1fr;
+  }
+  .ai-advisor-summary{
+    grid-template-columns:repeat(2, minmax(0,1fr));
+  }
+  #pane-ai .section > div:first-child{
+    align-items:flex-start !important;
+  }
+  #pane-ai .section > div:first-child > div:last-child{
+    width:100% !important;
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+  #pane-ai .section > div:first-child > div:last-child label,
+  #pane-ai .section > div:first-child > div:last-child button{
+    width:100% !important;
+  }
+  #pane-ai #ai-run{
+    grid-column:1 / -1;
+  }
+}
+@media (max-width:620px){
+  #pane-ai .section > div:first-child > div:last-child,
+  .ai-advisor-summary{
+    grid-template-columns:1fr !important;
+  }
+  .ai-summary-tile .big{
+    white-space:normal;
+  }
+}
+</style>
+
+<script id="nrg-v2787-ai-advisor-local-intelligence">
+// NRG v27.8.10 — Local AI Advisor: clearer language + status tags from current on-page device data only.
+(function(){
+  if (window.__nrgV2787AIAdvisorLocalIntelligence) return;
+  window.__nrgV2787AIAdvisorLocalIntelligence = true;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+  function money(v){ return '$' + (Number(v)||0).toFixed(2); }
+  function one(v){ return (Number(v)||0).toFixed(1); }
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function getDevices(){
+    try { if (Array.isArray(devices)) return devices; } catch(e){}
+    try { if (Array.isArray(window.devices)) return window.devices; } catch(e){}
+    return [];
+  }
+  function rate(){ return parseFloat($('grid-rate')?.value || '0.15') || 0.15; }
+  function kwhDay(d){
+    const w=+d.watts||0, h=+d.hoursPerDay||0, duty=(+d.duty||100)/100, q=+d.quantity||1;
+    return Math.max(0, (w*h*duty*q)/1000);
+  }
+  function kwhMonth(d){ return kwhDay(d) * monthDays(); }
+  function isAlwaysOn(d){ return (+d.hoursPerDay||0) >= 20; }
+  function isHighWattLowDuty(d){ return (+d.watts||0) >= 700 && (+d.hoursPerDay||0) <= 2.5; }
+  function isLowWattLongRun(d){ return (+d.watts||0) <= 120 && (+d.hoursPerDay||0) >= 6; }
+  function nameOf(d){ return (d && d.name ? String(d.name) : 'Device').trim() || 'Device'; }
+  function card(label, title, body, metric, pill){
+    return `<div class="ai-tip ai-card">
+      <div class="ai-card-kicker"><span class="ai-card-label">${esc(label)}</span>${pill?`<span class="ai-card-pill">${esc(pill)}</span>`:''}</div>
+      <div class="ai-card-title">${esc(title)}</div>
+      <div class="ai-card-body">${esc(body)}</div>
+      ${metric?`<div class="ai-card-metric">${esc(metric)}</div>`:''}
+    </div>`;
+  }
+
+  function buildAdvisor(){
+    const box = $('ai-tips');
+    if (!box) return;
+    const list = getDevices().filter(Boolean);
+    box.classList.remove('empty');
+
+    if (!list.length){
+      box.innerHTML = `<div class="ai-tip ai-card"><div class="ai-card-title">Add devices to wake up the Advisor.</div><div class="ai-card-body">Once devices are added, NRG will identify the biggest energy driver, always-on loads, high-watt short-use items, and simple adjustment opportunities.</div></div>`;
+      return;
+    }
+
+    const dim = monthDays();
+    const r = rate();
+    const rows = list.map(d => ({ d, name:nameOf(d), kwh:kwhMonth(d), day:kwhDay(d), watts:+d.watts||0, hours:+d.hoursPerDay||0, duty:+d.duty||100, qty:+d.quantity||1 }))
+      .sort((a,b)=>b.kwh-a.kwh);
+    const totalKwh = rows.reduce((s,x)=>s+x.kwh,0);
+    const totalCost = totalKwh * r;
+    const top = rows[0];
+    const topShare = totalKwh > 0 ? (top.kwh / totalKwh * 100) : 0;
+    const always = rows.filter(x=>isAlwaysOn(x.d));
+    const highShort = rows.filter(x=>isHighWattLowDuty(x.d));
+    const lowLong = rows.filter(x=>isLowWattLongRun(x.d));
+
+    let watch = top;
+    let watchBody = `${top.name} is the current bill driver. This is not a warning by itself — it simply means changes to this card will move the monthly estimate more than the others.`;
+    let watchPill = 'top load';
+    if (always.length){
+      watch = always[0];
+      watchBody = `${watch.name} behaves like a baseline load. Because it runs for long hours, even moderate wattage can quietly shape the monthly bill.`;
+      watchPill = 'baseline';
+    }
+
+    let explainTitle = 'Your load pattern looks balanced';
+    let explainBody = 'NRG is not seeing one extreme pattern yet. Add real schedules or duty cycles to help the Advisor separate short bursts from steady background use.';
+    let explainMetric = '';
+    let explainPill = 'pattern';
+    if (highShort.length){
+      const x = highShort[0];
+      explainTitle = `${x.name} is high watt, but short-use`;
+      explainBody = 'High wattage can look dramatic, but short runtime often costs less than a smaller device that runs for many hours.';
+      explainMetric = `${Math.round(x.watts)}W × ${one(x.hours)}h/day ≈ ${one(x.kwh)} kWh/mo`;
+      explainPill = 'context';
+    } else if (lowLong.length){
+      const x = lowLong[0];
+      explainTitle = `${x.name} is low watt, but long-running`;
+      explainBody = 'Small devices can still matter when they run for many hours. This is where timers, schedules, and realistic duty cycles give NRG a better picture.';
+      explainMetric = `${Math.round(x.watts)}W × ${one(x.hours)}h/day ≈ ${one(x.kwh)} kWh/mo`;
+      explainPill = 'adds up';
+    }
+
+    const peak = parseFloat($('ai-peak')?.value || '0.22') || 0.22;
+    const off = parseFloat($('ai-off')?.value || '0.12') || 0.12;
+    const spread = Math.max(0, peak - off);
+    const shiftable = rows.filter(x => /(washer|dryer|dishwasher|microwave|kettle|toaster|stove|range|oven|heater|dehumidifier|humidifier|fan|lamp|light)/i.test(x.name));
+    const shiftKwh = shiftable.slice(0,3).reduce((s,x)=>s+x.kwh,0);
+    const shiftSave = shiftKwh * spread * 0.35;
+    const start = $('ai-start')?.value || '22';
+    const end = $('ai-end')?.value || '7';
+
+    let adjustmentTitle = 'Small adjustment: refine schedules';
+    let adjustmentBody = 'Use Schedule on the device cards to replace rough estimates with real timing. Better timing makes the bill projection and advice sharper.';
+    let adjustmentMetric = 'Accuracy boost, not just savings';
+    let adjustmentPill = 'next step';
+    if (shiftSave > 0.25){
+      adjustmentTitle = 'Possible off-peak opportunity';
+      adjustmentBody = `Flexible devices may cost less during ${start}:00 → ${end}:00 if your utility has off-peak pricing. Treat this as a planning clue, not a command.`;
+      adjustmentMetric = `Potential: about ${money(shiftSave)} / month`;
+      adjustmentPill = 'schedule';
+    } else if (top && totalKwh > 0){
+      const trim = top.kwh * 0.10 * r;
+      adjustmentTitle = `Try a 10% trim on ${top.name}`;
+      adjustmentBody = 'A small runtime or duty-cycle reduction on the biggest load usually has the cleanest impact because it targets the current top contributor.';
+      adjustmentMetric = `10% trim estimate: ${money(trim)} / month`;
+      adjustmentPill = 'simple';
+    }
+
+    box.innerHTML = `
+      <div class="ai-advisor-summary" aria-label="AI Advisor summary">
+        <div class="ai-summary-tile"><div class="muted">Devices</div><div class="big">${rows.length}</div></div>
+        <div class="ai-summary-tile"><div class="muted">Monthly kWh</div><div class="big">${one(totalKwh)}</div></div>
+        <div class="ai-summary-tile"><div class="muted">Est. Cost</div><div class="big">${money(totalCost)}</div></div>
+        <div class="ai-summary-tile"><div class="muted">Top Share</div><div class="big">${one(topShare)}%</div></div>
+      </div>
+      <div class="ai-advisor-grid">
+        ${card('Main Insight', `${top.name} leads the estimate`, `${top.name} is currently the largest contributor in this setup, accounting for about ${one(topShare)}% of the monthly kWh estimate.`, `${one(top.kwh)} kWh/mo at ${money(r)}/kWh`, 'driver')}
+        ${card('Watch Item', `${watch.name} deserves attention`, watchBody, `${one(watch.kwh)} kWh/mo`, watchPill)}
+        ${card('Usage Context', explainTitle, explainBody, explainMetric, explainPill)}
+        ${card('Possible Adjustment', adjustmentTitle, adjustmentBody, adjustmentMetric, adjustmentPill)}
+      </div>
+      <div class="ai-contained-note">Local Advisor only: this guidance is generated from your on-page NRG device data. No cloud call, no account, no outside AI API.</div>
+    `;
+  }
+
+  window.nrgRunLocalAdvisor = buildAdvisor;
+
+  function installButton(){
+    const oldBtn = $('ai-run');
+    if (!oldBtn || oldBtn.dataset.nrgV2787 === '1') return;
+    const btn = oldBtn.cloneNode(true);
+    btn.dataset.nrgV2787 = '1';
+    btn.textContent = 'Update Advisor';
+    btn.title = 'Update local energy advice from current devices';
+    oldBtn.replaceWith(btn);
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      buildAdvisor();
+    });
+  }
+
+  function wrapRenderAll(){
+    try{
+      if (typeof renderAll === 'function' && !window.__nrgV2787RenderWrapped){
+        const prior = renderAll;
+        renderAll = function(){
+          const result = prior.apply(this, arguments);
+          setTimeout(buildAdvisor, 0);
+          return result;
+        };
+        window.__nrgV2787RenderWrapped = true;
+      }
+    }catch(e){}
+  }
+
+  function init(){
+    installButton();
+    wrapRenderAll();
+    setTimeout(buildAdvisor, 60);
+    setTimeout(buildAdvisor, 350);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  ['input','change'].forEach(evt=>{
+    document.addEventListener(evt, function(e){
+      if (e.target && /^(grid-rate|ai-peak|ai-off|ai-start|ai-end)$/.test(e.target.id||'')){
+        setTimeout(buildAdvisor, 0);
+      }
+    });
+  });
+})();
+</script>
+
+
+
+<!-- NRG v27.8.8 — AI Advisor Summary Card Wrap Polish -->
+<style id="nrg-v2788-ai-advisor-summary-card-wrap">
+/*
+  Advisor summary card wrap polish.
+  Keeps Devices / Monthly kWh / Estimated Cost / Top Share inside matching theme-aware mini-cards.
+*/
+#pane-ai .ai-advisor-summary{
+  display:grid !important;
+  grid-template-columns:repeat(4, minmax(108px, 1fr)) !important;
+  gap:10px !important;
+  width:100% !important;
+  min-width:0 !important;
+  padding:10px !important;
+  margin:0 0 12px !important;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 18%) !important;
+  border-radius:18px !important;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--card), var(--accent) 5%), color-mix(in oklab, var(--card), var(--bg) 10%)) !important;
+  box-shadow:inset 0 1px 0 color-mix(in oklab, white, transparent 88%) !important;
+  overflow:hidden !important;
+}
+#pane-ai .ai-summary-tile{
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  gap:4px !important;
+  padding:11px 12px !important;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 28%) !important;
+  border-radius:15px !important;
+  background:color-mix(in oklab, var(--card), var(--bg) 6%) !important;
+  box-shadow:0 8px 22px color-mix(in oklab, black, transparent 92%) !important;
+  overflow:hidden !important;
+}
+#pane-ai .ai-summary-tile .muted{
+  max-width:100% !important;
+  color:var(--muted) !important;
+  font-size:10px !important;
+  line-height:1.1 !important;
+  font-weight:950 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.075em !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+#pane-ai .ai-summary-tile .big{
+  max-width:100% !important;
+  font-size:clamp(15px, 2vw, 18px) !important;
+  font-weight:950 !important;
+  line-height:1.1 !important;
+  color:var(--text) !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+#pane-ai .ai-advisor-grid{
+  align-items:stretch !important;
+}
+#pane-ai .ai-tip.ai-card{
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 18%) !important;
+}
+#pane-ai .ai-contained-note{
+  padding:9px 10px !important;
+  border:1px dashed color-mix(in oklab, var(--border), var(--accent) 20%) !important;
+  border-radius:12px !important;
+  background:color-mix(in oklab, var(--card), var(--bg) 10%) !important;
+}
+@media (max-width:1180px){
+  #pane-ai .ai-advisor-summary{
+    grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  }
+}
+@media (max-width:620px){
+  #pane-ai .ai-advisor-summary{
+    grid-template-columns:1fr !important;
+    padding:8px !important;
+  }
+  #pane-ai .ai-summary-tile{
+    padding:10px !important;
+  }
+  #pane-ai .ai-summary-tile .big{
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+}
+</style>
+
+
+
+
+<!-- NRG v27.8.11 — Schedule Intelligence Preview -->
+<style id="nrg-v27811-schedule-intelligence-preview">
+/*
+  Captain layer: the Schedule action now opens a contained mini-panel inside the
+  same device card. No prompt boxes, no overflow, no cloud/API calls.
+*/
+#mini-list .mini-schedule-panel{
+  grid-column:1 / -1 !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  display:block;
+  padding:10px;
+  border:1.5px solid color-mix(in oklab, var(--border), var(--accent) 34%);
+  border-radius:14px;
+  background:color-mix(in oklab, var(--card), var(--accent) 5%);
+  box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--card), white 4%);
+  animation:nrgSchedulePanelIn .14s ease-out;
+}
+#mini-list .mini-row.schedule-contained{
+  border-color:color-mix(in oklab, var(--accent), white 14%) !important;
+  box-shadow:0 0 0 1px color-mix(in oklab, var(--accent), transparent 42%), 0 10px 28px rgba(0,0,0,.14) !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 4%) !important;
+}
+@keyframes nrgSchedulePanelIn{
+  from{opacity:.35;transform:translateY(-3px)}
+  to{opacity:1;transform:translateY(0)}
+}
+#mini-list .mini-schedule-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:8px;
+  font-weight:950;
+  line-height:1.2;
+  min-width:0;
+}
+#mini-list .mini-schedule-title span:first-child{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#mini-list .mini-schedule-badge{
+  flex:0 0 auto;
+  font-size:10px;
+  line-height:1;
+  padding:5px 7px;
+  border-radius:999px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 30%);
+  background:color-mix(in oklab, var(--card), var(--accent) 7%);
+}
+#mini-list .mini-schedule-grid{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:8px;
+  width:100%;
+  min-width:0;
+}
+#mini-list .mini-schedule-field{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+#mini-list .mini-schedule-field span{
+  font-size:10.5px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+#mini-list .mini-schedule-field input,
+#mini-list .mini-schedule-field select{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+#mini-list .mini-schedule-preview{
+  margin-top:9px;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:8px;
+}
+#mini-list .mini-schedule-preview-card{
+  min-width:0;
+  padding:8px;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 24%);
+  border-radius:12px;
+  background:color-mix(in oklab, var(--card), var(--bg) 10%);
+}
+#mini-list .mini-schedule-preview-card .label{
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--muted);
+}
+#mini-list .mini-schedule-preview-card .value{
+  margin-top:3px;
+  font-size:13px;
+  line-height:1.25;
+  font-weight:950;
+  overflow-wrap:anywhere;
+}
+#mini-list .mini-schedule-note{
+  margin-top:9px;
+  padding:8px;
+  border-left:3px solid color-mix(in oklab, var(--accent), white 8%);
+  border-radius:10px;
+  background:color-mix(in oklab, var(--card), var(--accent) 4%);
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+#mini-list .mini-schedule-actions{
+  margin-top:9px;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:8px;
+}
+#mini-list .mini-schedule-actions .nrg-btn{
+  width:100% !important;
+  min-width:0 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+@media(max-width:1180px){
+  #mini-list .mini-schedule-grid{grid-template-columns:repeat(2, minmax(0, 1fr));}
+  #mini-list .mini-schedule-preview{grid-template-columns:1fr;}
+}
+@media(max-width:560px){
+  #mini-list .mini-schedule-grid,
+  #mini-list .mini-schedule-actions{grid-template-columns:1fr !important;}
+  #mini-list .mini-schedule-title{align-items:flex-start;flex-direction:column;}
+}
+</style>
+
+<script id="nrg-v27811-schedule-intelligence-preview">
+// NRG v27.8.11 — Contained Schedule Intelligence Preview for each device card.
+(function(){
+  if (window.__nrgV27811ScheduleIntelligencePreview) return;
+  window.__nrgV27811ScheduleIntelligencePreview = true;
+
+  function esc(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+  function num(v, fb){ const n=parseFloat(v); return Number.isFinite(n) ? n : fb; }
+  function int(v, fb){ const n=parseInt(v,10); return Number.isFinite(n) ? n : fb; }
+  function devicesList(){ try{ if(Array.isArray(window.devices)) return window.devices; }catch(e){} try{ if(Array.isArray(devices)) return devices; }catch(e){} return []; }
+  function daysInMonth(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function rate(){ return num(document.getElementById('grid-rate')?.value, .15); }
+  function money(v){ return '$' + (Number(v)||0).toFixed(2); }
+  function one(v){ return (Number(v)||0).toFixed(1); }
+  function nameOf(d){ return (d && d.name ? String(d.name) : 'Device').trim() || 'Device'; }
+  function modeOf(d){ return (d.scheduleMode || (d.usesPerWeek ? 'weekly' : 'daily')).toString().toLowerCase().startsWith('w') ? 'weekly' : 'daily'; }
+  function scheduledDailyKwh(d){
+    const watts = Math.max(0, num(d.watts, 0));
+    const qty = Math.max(1, num(d.quantity, 1));
+    const duty = Math.max(0, Math.min(100, num(d.duty, 100))) / 100;
+    if (modeOf(d) === 'weekly'){
+      const hpu = Math.max(0, num(d.hoursPerUse, num(d.hoursPerDay, 0)));
+      const upw = Math.max(0, num(d.usesPerWeek, 0));
+      return (watts * hpu * upw / 7 * duty * qty) / 1000;
+    }
+    return (watts * Math.max(0, num(d.hoursPerDay, 0)) * duty * qty) / 1000;
+  }
+  function scheduleImpactText(d){
+    const n = nameOf(d);
+    const hours = num(d.hoursPerDay,0);
+    const watts = num(d.watts,0);
+    const t = String(d.timeOfDay || '').toLowerCase();
+    if (hours >= 20) return `${n} appears always-on. Schedule this carefully; the preview is better for tracking baseline usage than turning it off.`;
+    if (/overnight|off|night|22|23|00|1|2|3|4|5|6/.test(t)) return `${n} is marked for a lower-demand window. This can support off-peak planning if your utility uses time-of-use rates.`;
+    if (watts >= 700 && hours <= 2.5) return `${n} is high-watt but short-use. Scheduling can organize usage, but monthly impact may stay modest because runtime is short.`;
+    if (watts <= 120 && hours >= 6) return `${n} is low-watt but long-running. A timer or realistic duty cycle can sharpen the estimate.`;
+    return `${n} has a normal schedule profile. Use this panel to keep timing, runtime, and expected cost visible inside the card.`;
+  }
+  function findIndexFromRow(row){
+    const source = row?.querySelector('.mini-schedule-btn, .mini-edit, .mini-remove');
+    return int(source?.getAttribute('data-idx'), -1);
+  }
+  function closeSchedules(except){
+    document.querySelectorAll('#mini-list .mini-schedule-panel').forEach(p=>{ if(p!==except) p.remove(); });
+    document.querySelectorAll('#mini-list .mini-row.schedule-contained').forEach(r=>{ if(!except || r!==except.closest('.mini-row')) r.classList.remove('schedule-contained'); });
+  }
+  function renderPreview(panel, d){
+    const monthly = scheduledDailyKwh(d) * daysInMonth();
+    const cost = monthly * rate();
+    const mode = modeOf(d);
+    const timing = d.timeOfDay || 'Any time';
+    panel.querySelector('.mini-schedule-preview').innerHTML = `
+      <div class="mini-schedule-preview-card"><div class="label">Mode</div><div class="value">${mode === 'weekly' ? 'Weekly usage' : 'Daily usage'}</div></div>
+      <div class="mini-schedule-preview-card"><div class="label">Projected</div><div class="value">${one(monthly)} kWh/mo</div></div>
+      <div class="mini-schedule-preview-card"><div class="label">Est. Cost</div><div class="value">${money(cost)}/mo</div></div>
+    `;
+    panel.querySelector('.mini-schedule-note').textContent = scheduleImpactText(d) + ` Current timing: ${timing}.`;
+  }
+  function openSchedulePanel(row){
+    const list = devicesList();
+    const idx = findIndexFromRow(row);
+    const d = list[idx];
+    if (!row || !d) return;
+    closeSchedules();
+    row.classList.remove('dot-open');
+    row.querySelector('.mini-dot-btn')?.setAttribute('aria-expanded','false');
+    row.querySelector(':scope > .mini-inline-editor')?.remove();
+    row.classList.remove('editing-contained');
+    row.classList.add('schedule-contained');
+
+    const mode = modeOf(d);
+    const panel = document.createElement('div');
+    panel.className = 'mini-schedule-panel';
+    panel.dataset.idx = String(idx);
+    panel.innerHTML = `
+      <div class="mini-schedule-title"><span>Schedule ${esc(nameOf(d))}</span><span class="mini-schedule-badge">Preview</span></div>
+      <div class="mini-schedule-grid">
+        <label class="mini-schedule-field"><span>Mode</span><select class="nrg-input mini-sch-mode"><option value="daily">Daily</option><option value="weekly">Weekly</option></select></label>
+        <label class="mini-schedule-field mini-sch-daily"><span>Hours/day</span><input class="nrg-input mini-sch-hours" type="number" min="0" step="0.05" value="${esc(num(d.hoursPerDay,0))}"></label>
+        <label class="mini-schedule-field mini-sch-weekly"><span>Hours/use</span><input class="nrg-input mini-sch-hpu" type="number" min="0" step="0.05" value="${esc(num(d.hoursPerUse, num(d.hoursPerDay,1)))}"></label>
+        <label class="mini-schedule-field mini-sch-weekly"><span>Uses/week</span><input class="nrg-input mini-sch-upw" type="number" min="0" step="1" value="${esc(num(d.usesPerWeek,3))}"></label>
+        <label class="mini-schedule-field"><span>Time</span><select class="nrg-input mini-sch-time">
+          ${['Any time','Morning','Afternoon','Evening','Overnight','Off-peak'].map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}
+        </select></label>
+      </div>
+      <div class="mini-schedule-preview" aria-label="Schedule estimate preview"></div>
+      <div class="mini-schedule-note"></div>
+      <div class="mini-schedule-actions">
+        <button type="button" class="nrg-btn mini-sch-save">Save schedule</button>
+        <button type="button" class="nrg-btn mini-sch-cancel">Cancel</button>
+      </div>
+    `;
+    row.appendChild(panel);
+    const modeInput = panel.querySelector('.mini-sch-mode');
+    const timeInput = panel.querySelector('.mini-sch-time');
+    modeInput.value = mode;
+    timeInput.value = ['Any time','Morning','Afternoon','Evening','Overnight','Off-peak'].includes(d.timeOfDay) ? d.timeOfDay : 'Any time';
+    function sync(){
+      const weekly = modeInput.value === 'weekly';
+      panel.querySelectorAll('.mini-sch-weekly').forEach(el=>el.style.display = weekly ? 'flex' : 'none');
+      panel.querySelectorAll('.mini-sch-daily').forEach(el=>el.style.display = weekly ? 'none' : 'flex');
+      const clone = Object.assign({}, d);
+      clone.scheduleMode = modeInput.value;
+      clone.hoursPerDay = num(panel.querySelector('.mini-sch-hours')?.value, d.hoursPerDay || 0);
+      clone.hoursPerUse = num(panel.querySelector('.mini-sch-hpu')?.value, d.hoursPerUse || d.hoursPerDay || 0);
+      clone.usesPerWeek = num(panel.querySelector('.mini-sch-upw')?.value, d.usesPerWeek || 0);
+      clone.timeOfDay = timeInput.value;
+      renderPreview(panel, clone);
+    }
+    panel.addEventListener('input', sync);
+    panel.addEventListener('change', sync);
+    panel.querySelector('.mini-sch-save').addEventListener('click', function(e){
+      e.preventDefault();
+      d.scheduleMode = modeInput.value;
+      d.timeOfDay = timeInput.value;
+      if (d.scheduleMode === 'weekly'){
+        d.hoursPerUse = Math.max(0, num(panel.querySelector('.mini-sch-hpu')?.value, d.hoursPerUse || d.hoursPerDay || 0));
+        d.usesPerWeek = Math.max(0, num(panel.querySelector('.mini-sch-upw')?.value, d.usesPerWeek || 0));
+        d.hoursPerDay = d.hoursPerUse * d.usesPerWeek / 7;
+      } else {
+        d.hoursPerDay = Math.max(0, num(panel.querySelector('.mini-sch-hours')?.value, d.hoursPerDay || 0));
+        d.hoursPerUse = undefined;
+        d.usesPerWeek = undefined;
+      }
+      if (typeof renderAll === 'function') renderAll();
+      setTimeout(()=>{ if (window.nrgRunLocalAdvisor) window.nrgRunLocalAdvisor(); }, 0);
+    });
+    panel.querySelector('.mini-sch-cancel').addEventListener('click', function(e){
+      e.preventDefault();
+      panel.remove();
+      row.classList.remove('schedule-contained');
+    });
+    sync();
+  }
+
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest && e.target.closest('#mini-list .mini-dot-schedule');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    openSchedulePanel(btn.closest('.mini-row'));
+  }, true);
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('#mini-list .mini-dot-btn, #mini-list .mini-dot-edit, #mini-list .mini-dot-remove')){
+      closeSchedules();
+    }
+  }, true);
+
+  const priorRenderAll = typeof renderAll === 'function' ? renderAll : null;
+  if (priorRenderAll){
+    renderAll = function(){
+      const result = priorRenderAll.apply(this, arguments);
+      setTimeout(closeSchedules, 0);
+      return result;
+    };
+  }
+})();
+</script>
+
 </body>
+
+
+<!-- NRG v27.8.13 — GitHub Pre-Push Stability Polish -->
+<style id="nrg-v27813-github-prepush-stability-polish">
+/*
+  Final pre-push polish only: version clarity, cache-safe release marker,
+  and containment guards. No engine changes, no cloud/API calls.
+*/
+:root{ --nrg-release-version:'v27.8.13'; }
+html, body{
+  max-width:100% !important;
+  overflow-x:hidden !important;
+}
+*, *::before, *::after{ box-sizing:border-box; }
+body, .app, main, section, .section, .nrg-card, #pane-ai, #mini-list, .mini-row{
+  min-width:0 !important;
+}
+#pane-ai, #pane-tr, #pane-bl, #pane-br, #mini-list, .right-breakdown, #tr-filler{
+  max-width:100% !important;
+  overflow-x:hidden !important;
+}
+#pane-ai .ai-advisor-summary,
+#pane-ai .ai-advisor-grid,
+#pane-ai .ai-top-drivers-list{
+  width:100% !important;
+  max-width:100% !important;
+}
+#pane-ai .ai-summary-tile,
+#pane-ai .ai-card,
+#pane-ai .ai-top-drivers-card,
+#pane-ai .ai-driver-tile,
+#mini-list .mini-row,
+#mini-list .mini-edit-panel,
+#mini-list .mini-schedule-panel,
+#mini-list .mini-action-panel{
+  max-width:100% !important;
+  min-width:0 !important;
+  overflow-wrap:anywhere !important;
+}
+#pane-ai .ai-driver-name,
+#pane-ai .ai-card-title,
+#pane-ai .ai-card-body,
+#pane-ai .ai-card-metric,
+#mini-list .mini-name,
+#mini-list .mini-meta,
+#mini-list .mini-stat{
+  min-width:0 !important;
+}
+#mini-list button,
+#mini-list input,
+#mini-list select,
+#mini-list textarea,
+#pane-ai button,
+#pane-ai input,
+#pane-ai select{
+  max-width:100% !important;
+}
+.nrg-version-chip{
+  position:fixed;
+  right:12px;
+  bottom:10px;
+  z-index:9999;
+  padding:5px 9px;
+  border:1px solid color-mix(in oklab, var(--border, rgba(255,255,255,.22)), var(--accent, #ffd166) 35%);
+  border-radius:999px;
+  background:color-mix(in oklab, var(--card, #111827), transparent 8%);
+  color:var(--text, #f7f7f7);
+  font:800 11px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.035em;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+  opacity:.82;
+  pointer-events:none;
+}
+@media(max-width:720px){
+  .nrg-version-chip{
+    right:8px;
+    bottom:8px;
+    padding:4px 7px;
+    font-size:10px;
+    opacity:.72;
+  }
+}
+@media(max-width:980px){
+  #pane-ai .ai-advisor-summary{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+}
+@media(max-width:520px){
+  #pane-ai .ai-advisor-summary{ grid-template-columns:1fr !important; }
+  #pane-ai .ai-card, #pane-ai .ai-top-drivers-card{ padding:9px !important; }
+}
+</style>
+<script id="nrg-v27813-github-prepush-stability-polish">
+// NRG v27.8.13 — final pre-push stability polish. UI containment/version marker only.
+(function(){
+  if (window.__nrgV27813GitHubPrePushStabilityPolish) return;
+  window.__nrgV27813GitHubPrePushStabilityPolish = true;
+  window.NRG_RELEASE_VERSION = 'v27.8.13';
+  function addVersionChip(){
+    try{
+      var existing = document.querySelector('.nrg-version-chip');
+      if (!existing){
+        var chip = document.createElement('div');
+        chip.className = 'nrg-version-chip';
+        chip.textContent = 'NRG v27.8.13';
+        chip.setAttribute('aria-hidden','true');
+        document.body.appendChild(chip);
+      } else {
+        existing.textContent = 'NRG v27.8.13';
+      }
+    }catch(e){}
+  }
+  function markRelease(){
+    try{ document.documentElement.setAttribute('data-nrg-release','v27.8.13'); }catch(e){}
+    addVersionChip();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', markRelease); else markRelease();
+})();
+</script>
+
 </html>
+
+
+<!-- NRG v27.8.9 — AI Advisor Visible Inner Borders Lock -->
+<style id="nrg-v2789-ai-advisor-visible-inner-borders">
+/*
+  AI Advisor visible inner borders polish.
+  Purpose: stop the Advisor from reading like one large text page by giving
+  the summary shell, stat tiles, insight cards, and local note clear theme-safe
+  card boundaries across Sunburst / Solar / Ocean / Dark / Light.
+*/
+#pane-ai{
+  --advisor-line: color-mix(in oklab, var(--border), var(--accent) 42%);
+  --advisor-line-strong: color-mix(in oklab, var(--border), var(--accent) 62%);
+  --advisor-fill: color-mix(in oklab, var(--card), var(--bg) 7%);
+  --advisor-fill-lift: color-mix(in oklab, var(--card), var(--accent) 7%);
+}
+
+/* Main Advisor output area */
+#pane-ai #ai-tips{
+  padding:10px !important;
+  border:1.5px solid var(--advisor-line) !important;
+  border-radius:20px !important;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--card), var(--accent) 4%), color-mix(in oklab, var(--card), var(--bg) 8%)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white, transparent 88%),
+    0 14px 32px color-mix(in oklab, black, transparent 92%) !important;
+}
+
+/* Summary wrapper and stat cards */
+#pane-ai .ai-advisor-summary{
+  border:1.5px solid var(--advisor-line-strong) !important;
+  background:linear-gradient(180deg, var(--advisor-fill-lift), var(--advisor-fill)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white, transparent 86%),
+    0 8px 22px color-mix(in oklab, black, transparent 93%) !important;
+}
+#pane-ai .ai-summary-tile{
+  border:1.5px solid var(--advisor-line) !important;
+  background:color-mix(in oklab, var(--card), var(--bg) 4%) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white, transparent 90%),
+    0 8px 18px color-mix(in oklab, black, transparent 93%) !important;
+}
+
+/* Main Insight / Watch Item / Usage Context / Possible Adjustment cards */
+#pane-ai .ai-advisor-grid{
+  gap:12px !important;
+}
+#pane-ai .ai-tip.ai-card{
+  position:relative !important;
+  padding:13px !important;
+  border:1.5px solid var(--advisor-line-strong) !important;
+  border-radius:18px !important;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--card), var(--accent) 5%), color-mix(in oklab, var(--card), var(--bg) 6%)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white, transparent 86%),
+    0 10px 24px color-mix(in oklab, black, transparent 92%) !important;
+}
+#pane-ai .ai-tip.ai-card::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:4px;
+  border-radius:18px 0 0 18px;
+  background:var(--accent);
+  opacity:.55;
+}
+#pane-ai .ai-card-kicker{
+  padding-bottom:7px !important;
+  margin-bottom:8px !important;
+  border-bottom:1px solid color-mix(in oklab, var(--advisor-line), transparent 28%) !important;
+}
+#pane-ai .ai-card-title{
+  color:var(--text) !important;
+}
+#pane-ai .ai-card-body{
+  color:color-mix(in oklab, var(--text), var(--muted) 45%) !important;
+}
+#pane-ai .ai-card-metric{
+  margin-top:10px !important;
+  padding:8px 9px !important;
+  border:1px solid color-mix(in oklab, var(--advisor-line), transparent 14%) !important;
+  border-radius:12px !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 5%) !important;
+}
+#pane-ai .ai-card-pill{
+  border:1px solid var(--advisor-line-strong) !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 10%) !important;
+}
+
+/* Local Advisor note */
+#pane-ai .ai-contained-note{
+  margin-top:12px !important;
+  border:1.5px dashed var(--advisor-line-strong) !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 5%) !important;
+}
+
+@media (max-width:1180px){
+  #pane-ai #ai-tips{
+    padding:9px !important;
+  }
+  #pane-ai .ai-tip.ai-card{
+    padding:12px !important;
+  }
+}
+@media (max-width:620px){
+  #pane-ai #ai-tips{
+    padding:8px !important;
+    border-radius:18px !important;
+  }
+  #pane-ai .ai-tip.ai-card{
+    border-radius:16px !important;
+  }
+  #pane-ai .ai-tip.ai-card::before{
+    width:3px;
+    border-radius:16px 0 0 16px;
+  }
+}
+</style>
+
+<!-- NRG v27.8.10 — AI Advisor Language + Status Tag Polish -->
+<style id="nrg-v27810-ai-advisor-language-status-tags">
+/*
+  Advisor-only polish. Adds stronger status labels and reading hierarchy
+  while preserving v27.8.9 card/border structure and local-only logic.
+*/
+#pane-ai .ai-card-kicker{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8px !important;
+  flex-wrap:wrap !important;
+}
+#pane-ai .ai-card-label{
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:24px !important;
+  padding:4px 9px !important;
+  border:1.5px solid var(--advisor-line-strong, var(--border)) !important;
+  border-radius:999px !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 12%) !important;
+  color:var(--text) !important;
+  font-size:.72rem !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  letter-spacing:.045em !important;
+  text-transform:uppercase !important;
+  white-space:nowrap !important;
+}
+#pane-ai .ai-card-pill{
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:24px !important;
+  padding:4px 9px !important;
+  font-size:.72rem !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.035em !important;
+  white-space:nowrap !important;
+}
+#pane-ai .ai-card-title{
+  margin-top:2px !important;
+  font-size:.98rem !important;
+  font-weight:850 !important;
+  line-height:1.22 !important;
+}
+#pane-ai .ai-card-body{
+  margin-top:7px !important;
+  line-height:1.45 !important;
+}
+#pane-ai .ai-card-metric{
+  font-weight:800 !important;
+  line-height:1.25 !important;
+}
+#pane-ai .ai-summary-tile .muted{
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+  font-weight:800 !important;
+}
+#pane-ai .ai-contained-note{
+  line-height:1.4 !important;
+}
+@media (max-width:620px){
+  #pane-ai .ai-card-label,
+  #pane-ai .ai-card-pill{
+    font-size:.68rem !important;
+    padding:4px 8px !important;
+  }
+  #pane-ai .ai-card-title{
+    font-size:.95rem !important;
+  }
+}
+</style>
+
+
+
+<!-- NRG v27.8.12 — Top 3 Energy Drivers + Device Badges -->
+<style id="nrg-v27812-top-drivers-device-badges">
+/*
+  Captain layer: keep the stable v27.8.11 structure, then make the data easier
+  to scan with a Top 3 Energy Drivers card and compact device badges.
+*/
+#pane-ai .ai-top-drivers-card{
+  margin:0 0 12px !important;
+  padding:11px !important;
+  border:1.5px solid var(--advisor-line-strong, color-mix(in oklab, var(--border), var(--accent) 55%)) !important;
+  border-radius:18px !important;
+  background:linear-gradient(180deg, color-mix(in oklab, var(--card), var(--accent) 6%), color-mix(in oklab, var(--card), var(--bg) 7%)) !important;
+  box-shadow:inset 0 1px 0 color-mix(in oklab, white, transparent 88%), 0 8px 22px color-mix(in oklab, black, transparent 93%) !important;
+  overflow:hidden !important;
+}
+#pane-ai .ai-top-drivers-head{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8px !important;
+  padding-bottom:8px !important;
+  margin-bottom:8px !important;
+  border-bottom:1px solid color-mix(in oklab, var(--border), var(--accent) 30%) !important;
+}
+#pane-ai .ai-top-drivers-title{
+  font-weight:950 !important;
+  font-size:.86rem !important;
+  line-height:1.15 !important;
+  color:var(--text) !important;
+}
+#pane-ai .ai-top-drivers-pill{
+  flex:0 0 auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:23px !important;
+  padding:4px 8px !important;
+  border:1.5px solid var(--advisor-line-strong, var(--border)) !important;
+  border-radius:999px !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 10%) !important;
+  color:var(--text) !important;
+  font-size:.68rem !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  letter-spacing:.04em !important;
+  text-transform:uppercase !important;
+  white-space:nowrap !important;
+}
+#pane-ai .ai-top-drivers-list{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+  gap:8px !important;
+  min-width:0 !important;
+}
+#pane-ai .ai-driver-tile{
+  min-width:0 !important;
+  padding:9px !important;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 36%) !important;
+  border-radius:14px !important;
+  background:color-mix(in oklab, var(--card), var(--bg) 5%) !important;
+  overflow:hidden !important;
+}
+#pane-ai .ai-driver-rank{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:24px !important;
+  height:24px !important;
+  border-radius:999px !important;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 42%) !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 12%) !important;
+  font-size:.72rem !important;
+  font-weight:950 !important;
+  margin-bottom:7px !important;
+}
+#pane-ai .ai-driver-name{
+  font-weight:900 !important;
+  font-size:.88rem !important;
+  line-height:1.18 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+#pane-ai .ai-driver-meta{
+  margin-top:4px !important;
+  color:var(--muted) !important;
+  font-size:.76rem !important;
+  line-height:1.3 !important;
+  overflow-wrap:anywhere !important;
+}
+#pane-ai .ai-driver-bar{
+  height:7px !important;
+  margin-top:8px !important;
+  border-radius:999px !important;
+  border:1px solid color-mix(in oklab, var(--border), transparent 20%) !important;
+  background:color-mix(in oklab, var(--border), var(--bg) 55%) !important;
+  overflow:hidden !important;
+}
+#pane-ai .ai-driver-bar > span{
+  display:block !important;
+  height:100% !important;
+  width:var(--pct, 0%) !important;
+  max-width:100% !important;
+  border-radius:999px !important;
+  background:var(--accent) !important;
+  opacity:.72 !important;
+}
+#mini-list .mini-device-badge{
+  display:inline-flex !important;
+  align-items:center !important;
+  width:max-content !important;
+  max-width:100% !important;
+  margin-top:4px !important;
+  padding:3px 7px !important;
+  border:1px solid color-mix(in oklab, var(--border), var(--accent) 32%) !important;
+  border-radius:999px !important;
+  background:color-mix(in oklab, var(--card), var(--accent) 7%) !important;
+  color:var(--text) !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  letter-spacing:.035em !important;
+  text-transform:uppercase !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+#mini-list .mini-device-badge.badge-high-load{ border-color:color-mix(in oklab, #ff8a3d, var(--border) 35%) !important; }
+#mini-list .mini-device-badge.badge-always-on{ border-color:color-mix(in oklab, var(--accent), white 10%) !important; }
+#mini-list .mini-device-badge.badge-short-burst{ border-color:color-mix(in oklab, #58a6ff, var(--border) 35%) !important; }
+#mini-list .mini-device-badge.badge-efficient{ opacity:.92 !important; }
+@media(max-width:1180px){
+  #pane-ai .ai-top-drivers-list{ grid-template-columns:1fr !important; }
+  #pane-ai .ai-driver-name{ white-space:normal !important; }
+}
+@media(max-width:620px){
+  #pane-ai .ai-top-drivers-head{ align-items:flex-start !important; flex-direction:column !important; }
+  #pane-ai .ai-top-drivers-card{ padding:9px !important; border-radius:16px !important; }
+}
+</style>
+
+<script id="nrg-v27812-top-drivers-device-badges">
+// NRG v27.8.12 — Top 3 Energy Drivers + compact device badges. Local/offline only.
+(function(){
+  if (window.__nrgV27812TopDriversDeviceBadges) return;
+  window.__nrgV27812TopDriversDeviceBadges = true;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+  function num(v, fb){ const n=parseFloat(v); return Number.isFinite(n) ? n : fb; }
+  function money(v){ return '$' + (Number(v)||0).toFixed(2); }
+  function one(v){ return (Number(v)||0).toFixed(1); }
+  function monthDays(){ const n=new Date(); return new Date(n.getFullYear(), n.getMonth()+1, 0).getDate(); }
+  function devicesList(){ try{ if(Array.isArray(window.devices)) return window.devices; }catch(e){} try{ if(Array.isArray(devices)) return devices; }catch(e){} return []; }
+  function rate(){ return num($('grid-rate')?.value, .15); }
+  function nameOf(d){ return (d && d.name ? String(d.name) : 'Device').trim() || 'Device'; }
+  function kwhDay(d){
+    const watts = Math.max(0, num(d.watts, 0));
+    const qty = Math.max(1, num(d.quantity, 1));
+    const duty = Math.max(0, Math.min(100, num(d.duty, 100))) / 100;
+    return (watts * Math.max(0, num(d.hoursPerDay, 0)) * duty * qty) / 1000;
+  }
+  function kwhMonth(d){ return kwhDay(d) * monthDays(); }
+  function rows(){
+    const r = rate();
+    return devicesList().filter(Boolean).map((d, idx)=>({
+      d, idx, name:nameOf(d), watts:num(d.watts,0), hours:num(d.hoursPerDay,0), duty:num(d.duty,100), qty:num(d.quantity,1), kwh:kwhMonth(d), cost:kwhMonth(d)*r
+    })).sort((a,b)=>b.kwh-a.kwh);
+  }
+  function badgeFor(d){
+    const watts = num(d.watts,0), hours = num(d.hoursPerDay,0), duty = num(d.duty,100), name = nameOf(d);
+    if (hours >= 20) return {label:'Always-On', cls:'badge-always-on'};
+    if (watts >= 900 && hours <= 2.5) return {label:'Short Burst', cls:'badge-short-burst'};
+    if (watts >= 700 || kwhMonth(d) >= 90) return {label:'High Load', cls:'badge-high-load'};
+    if (watts <= 120 && hours >= 6) return {label:'Long Run', cls:'badge-long-run'};
+    if (kwhMonth(d) <= 15 || duty <= 35 || /led|light|lamp/i.test(name)) return {label:'Efficient', cls:'badge-efficient'};
+    return {label:'Tracked', cls:'badge-tracked'};
+  }
+  function card(label, title, body, metric, pill){
+    return `<div class="ai-tip ai-card">
+      <div class="ai-card-kicker"><span class="ai-card-label">${esc(label)}</span>${pill?`<span class="ai-card-pill">${esc(pill)}</span>`:''}</div>
+      <div class="ai-card-title">${esc(title)}</div>
+      <div class="ai-card-body">${esc(body)}</div>
+      ${metric?`<div class="ai-card-metric">${esc(metric)}</div>`:''}
+    </div>`;
+  }
+  function topDriversCard(sorted, total){
+    const top3 = sorted.slice(0,3);
+    if (!top3.length) return '';
+    return `<div class="ai-top-drivers-card" aria-label="Top 3 energy drivers">
+      <div class="ai-top-drivers-head"><div class="ai-top-drivers-title">Top 3 Energy Drivers</div><div class="ai-top-drivers-pill">Monthly Impact</div></div>
+      <div class="ai-top-drivers-list">
+        ${top3.map((x,i)=>{
+          const share = total > 0 ? (x.kwh / total * 100) : 0;
+          return `<div class="ai-driver-tile">
+            <div class="ai-driver-rank">${i+1}</div>
+            <div class="ai-driver-name" title="${esc(x.name)}">${esc(x.name)}</div>
+            <div class="ai-driver-meta">${one(x.kwh)} kWh/mo • ${money(x.cost)} • ${one(share)}%</div>
+            <div class="ai-driver-bar" aria-hidden="true"><span style="--pct:${Math.max(2, Math.min(100, share)).toFixed(1)}%"></span></div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+  function renderAdvisor(){
+    const box = $('ai-tips');
+    if (!box) return;
+    const sorted = rows();
+    box.classList.remove('empty');
+    if (!sorted.length){
+      box.innerHTML = `<div class="ai-tip ai-card"><div class="ai-card-title">Add devices to wake up the Advisor.</div><div class="ai-card-body">Once devices are added, NRG will identify the top energy drivers and add compact badges to each device card.</div></div>`;
+      renderDeviceBadges();
+      return;
+    }
+    const r = rate();
+    const totalKwh = sorted.reduce((s,x)=>s+x.kwh,0);
+    const totalCost = totalKwh * r;
+    const top = sorted[0];
+    const topShare = totalKwh > 0 ? (top.kwh / totalKwh * 100) : 0;
+    const always = sorted.filter(x=>x.hours >= 20);
+    const highShort = sorted.filter(x=>x.watts >= 700 && x.hours <= 2.5);
+    const lowLong = sorted.filter(x=>x.watts <= 120 && x.hours >= 6);
+    const watch = always[0] || top;
+    const watchBody = always[0]
+      ? `${watch.name} behaves like a baseline load. Long runtime can quietly shape the monthly bill even when wattage is not extreme.`
+      : `${top.name} is the current bill driver. This simply means edits or schedules on this card will move the estimate the most.`;
+    let explainTitle = 'Your load pattern looks balanced';
+    let explainBody = 'NRG is not seeing one extreme pattern yet. Add schedules or realistic duty cycles to separate short bursts from steady background use.';
+    let explainMetric = 'Use badges to scan each card faster';
+    let explainPill = 'pattern';
+    if (highShort.length){
+      const x = highShort[0];
+      explainTitle = `${x.name} is high watt, but short-use`;
+      explainBody = 'High wattage looks dramatic, but short runtime can cost less than a smaller device running all day.';
+      explainMetric = `${Math.round(x.watts)}W × ${one(x.hours)}h/day ≈ ${one(x.kwh)} kWh/mo`;
+      explainPill = 'short burst';
+    } else if (lowLong.length){
+      const x = lowLong[0];
+      explainTitle = `${x.name} is low watt, but long-running`;
+      explainBody = 'Small devices can still matter when they run for many hours. This is where schedules and duty cycle tuning help.';
+      explainMetric = `${Math.round(x.watts)}W × ${one(x.hours)}h/day ≈ ${one(x.kwh)} kWh/mo`;
+      explainPill = 'long run';
+    }
+    const peak = num($('ai-peak')?.value, .22), off = num($('ai-off')?.value, .12);
+    const spread = Math.max(0, peak - off);
+    const shiftable = sorted.filter(x => /(washer|dryer|dishwasher|microwave|kettle|toaster|stove|range|oven|heater|dehumidifier|humidifier|fan|lamp|light)/i.test(x.name));
+    const shiftKwh = shiftable.slice(0,3).reduce((s,x)=>s+x.kwh,0);
+    const shiftSave = shiftKwh * spread * 0.35;
+    const start = $('ai-start')?.value || '22', end = $('ai-end')?.value || '7';
+    let adjTitle = 'Use Schedule on your top devices';
+    let adjBody = 'The Top 3 card shows where schedule edits matter most. Start with the highest driver before chasing tiny loads.';
+    let adjMetric = `Start with ${top.name}`;
+    let adjPill = 'next step';
+    if (shiftSave > .25){
+      adjTitle = 'Possible off-peak opportunity';
+      adjBody = `Flexible devices may cost less during ${start}:00 → ${end}:00 if your utility uses time-of-use rates.`;
+      adjMetric = `Potential: about ${money(shiftSave)} / month`;
+      adjPill = 'schedule';
+    }
+    box.innerHTML = `
+      <div class="ai-advisor-summary" aria-label="AI Advisor summary">
+        <div class="ai-summary-tile"><div class="muted">Devices</div><div class="big">${sorted.length}</div></div>
+        <div class="ai-summary-tile"><div class="muted">Monthly kWh</div><div class="big">${one(totalKwh)}</div></div>
+        <div class="ai-summary-tile"><div class="muted">Est. Cost</div><div class="big">${money(totalCost)}</div></div>
+        <div class="ai-summary-tile"><div class="muted">Top Share</div><div class="big">${one(topShare)}%</div></div>
+      </div>
+      ${topDriversCard(sorted, totalKwh)}
+      <div class="ai-advisor-grid">
+        ${card('Main Insight', `${top.name} leads the estimate`, `${top.name} currently accounts for about ${one(topShare)}% of the monthly kWh estimate.`, `${one(top.kwh)} kWh/mo at ${money(r)}/kWh`, 'driver')}
+        ${card('Watch Item', `${watch.name} deserves attention`, watchBody, `${one(watch.kwh)} kWh/mo`, always[0]?'baseline':'top load')}
+        ${card('Usage Context', explainTitle, explainBody, explainMetric, explainPill)}
+        ${card('Possible Adjustment', adjTitle, adjBody, adjMetric, adjPill)}
+      </div>
+      <div class="ai-contained-note">Local Advisor only: this guidance is generated from your on-page NRG device data. No cloud call, no account, no outside AI API.</div>
+    `;
+    renderDeviceBadges();
+  }
+  function findIndex(row){
+    const src = row?.querySelector('.mini-schedule-btn, .mini-edit, .mini-remove, .mini-dot-menu [data-idx]');
+    const raw = src?.getAttribute('data-idx');
+    const idx = parseInt(raw ?? '-1', 10);
+    return Number.isFinite(idx) ? idx : -1;
+  }
+  function renderDeviceBadges(){
+    const list = devicesList();
+    document.querySelectorAll('#mini-list .mini-row').forEach((row)=>{
+      const idx = findIndex(row);
+      const d = list[idx];
+      if (!d) return;
+      const host = row.querySelector('.mini-name')?.parentElement || row.firstElementChild;
+      if (!host) return;
+      let b = host.querySelector('.mini-device-badge');
+      if (!b){ b = document.createElement('span'); b.className = 'mini-device-badge'; host.appendChild(b); }
+      const info = badgeFor(d);
+      b.className = 'mini-device-badge ' + info.cls;
+      b.textContent = info.label;
+      b.title = 'NRG local label: ' + info.label;
+    });
+  }
+  window.nrgRunLocalAdvisor = renderAdvisor;
+  window.nrgRenderDeviceBadges = renderDeviceBadges;
+  function wrapRenderAll(){
+    try{
+      if (typeof renderAll === 'function' && !window.__nrgV27812RenderWrapped){
+        const prior = renderAll;
+        renderAll = function(){
+          const result = prior.apply(this, arguments);
+          setTimeout(()=>{ renderAdvisor(); renderDeviceBadges(); }, 0);
+          return result;
+        };
+        window.__nrgV27812RenderWrapped = true;
+      }
+    }catch(e){}
+  }
+  function init(){
+    wrapRenderAll();
+    const btn = $('ai-run');
+    if (btn && btn.dataset.nrgV27812 !== '1'){
+      btn.dataset.nrgV27812 = '1';
+      btn.textContent = 'Update Advisor';
+      btn.addEventListener('click', function(e){ e.preventDefault(); renderAdvisor(); }, true);
+    }
+    setTimeout(renderAdvisor, 80);
+    setTimeout(renderDeviceBadges, 120);
+    setTimeout(renderAdvisor, 450);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  ['input','change'].forEach(evt=>document.addEventListener(evt, function(e){
+    if (e.target && /^(grid-rate|ai-peak|ai-off|ai-start|ai-end)$/.test(e.target.id||'')) setTimeout(renderAdvisor, 0);
+  }));
+})();
+</script>
