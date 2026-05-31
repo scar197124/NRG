@@ -1,6 +1,6 @@
 {
-  "name": "NRG v27.8.13 \u2014 Home Energy Simulator",
-  "short_name": "NRG 27.8.13",
+  "name": "NRG v27.8.14 \u2014 Home Energy Simulator",
+  "short_name": "NRG 27.8.14",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#070916",
@@ -17,5 +17,5 @@
       "type": "image/png"
     }
   ],
-  "description": "NRG home energy simulator \u2014 v27.8.13 GitHub pre-push stability polish."
+  "description": "NRG home energy simulator \u2014 v27.8.14 Roadmap Trajectory Lock."
 }

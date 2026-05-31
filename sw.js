@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nrg-v27-8-13-cache';
+const CACHE_NAME = 'nrg-v27-8-14-cache';
 const ASSETS = [
   './',
   './index.html',

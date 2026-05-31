@@ -4,9 +4,9 @@ NRG is a home energy simulation dashboard for estimating household electricity u
 
 ## Current GitHub-ready baseline
 
-**NRG v27.8.13 — GitHub Pre-Push Stability Polish**
+**NRG v27.8.14 — Roadmap Trajectory Lock**
 
-This is the recommended package to push to GitHub after testing. It keeps the current working device-card, schedule, and AI Advisor systems intact while adding final pre-push version/cache/containment polish.
+This package continues from **v27.8.13 GitHub Pre-Push Stability Polish** and adds a visible roadmap/trajectory section inside the app, plus a dedicated roadmap file for future development.
 
 ## What is included
 
@@ -16,15 +16,16 @@ This is the recommended package to push to GitHub after testing. It keeps the cu
 - `icon-192.png` / `icon-512.png` — app icons
 - `.nojekyll` — keeps GitHub Pages simple/static
 - `README.md` — this file
+- `NRG_NEXT_STEPS_ROADMAP.md` — future development roadmap/protocol
 
-## v27.8.13 update
+## v27.8.14 update
 
-- Adds a subtle visible **NRG v27.8.13** release chip so the live version is easy to confirm after deployment.
-- Updates the app title and manifest to v27.8.13.
-- Updates the service worker cache to `nrg-v27-8-13-cache`.
-- Adds final no-horizontal-overflow guards for the AI Advisor, device cards, edit panels, schedule panels, and minimized desktop/mobile layouts.
-- Keeps the existing engine and calculations unchanged.
-- Keeps the app local/offline-first: no cloud calls, no login, no API dependency.
+- Adds a visible **NRG Roadmap / Trajectory** section inside the app for visitors.
+- Documents the future path: electricity rate API, weather API, smart plug/Matter support, AI API assistant, utility import, and appliance wattage lookup.
+- Preserves the required rule: NRG remains **Offline Mode by default** and any API/cloud feature must be optional through **Online Assist Mode**.
+- Updates the app title and manifest to v27.8.14.
+- Updates the service worker cache to `nrg-v27-8-14-cache`.
+- Keeps all v27.8.13 stable systems intact.
 
 ## Preserved v27.8 features
 
@@ -34,6 +35,7 @@ This is the recommended package to push to GitHub after testing. It keeps the cu
 - Local AI Advisor with visible inner borders, summary cards, status tags, Top 3 Energy Drivers, and device badges.
 - Theme-safe UI polish for Sunburst, Solar, Ocean, Dark, and Light.
 - Responsive containment for full desktop, minimized desktop, and mobile.
+- Local/offline-first behavior with no required login or API call.
 
 ## GitHub Pages deployment
 
@@ -42,7 +44,7 @@ Upload the files inside this folder to the root of the NRG GitHub repository, re
 Recommended commit message:
 
 ```text
-Update NRG to v27.8.13 GitHub pre-push stability polish
+Update NRG to v27.8.14 roadmap trajectory lock
 ```
 
 ## Final test checklist
@@ -53,9 +55,9 @@ Update NRG to v27.8.13 GitHub pre-push stability polish
 4. Schedule opens inside each card and shows preview values.
 5. Remove still works.
 6. AI Advisor shows summary cards, inner borders, Top 3 Energy Drivers, and device badges.
-7. Full screen, half/minimized desktop, and mobile preview have no horizontal side-scroll.
-8. Sunburst, Solar, Ocean, Dark, and Light themes remain readable.
-9. Donut/bar charts and monthly estimates still update.
-10. The bottom/right release chip shows **NRG v27.8.13** after deployment.
+7. The new Roadmap / Trajectory section appears near the bottom of the app.
+8. Full screen, half/minimized desktop, and mobile preview have no horizontal side-scroll.
+9. Sunburst, Solar, Ocean, Dark, and Light themes remain readable.
+10. The release chip shows **NRG v27.8.14** after deployment.
 
 © WePower / EZ (Eazzy E)
