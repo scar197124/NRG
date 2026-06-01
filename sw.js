@@ -1,7 +1,8 @@
-const CACHE_NAME = 'nrg-v27-8-14-cache';
+const CACHE_NAME = 'nrg-v27-9-2-homepage-contrast-borders';
 const ASSETS = [
   './',
   './index.html',
+  './app.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
@@ -16,10 +17,9 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.map(key => {
-      if (key !== CACHE_NAME) return caches.delete(key);
-      return Promise.resolve();
-    })))
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+    )
   );
   self.clients.claim();
 });
@@ -29,7 +29,13 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(event.request).then(response => {
         const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy)).catch(() => null);
+        caches.open(CACHE_NAME).then(cache => {
+          try {
+            const url = new URL(event.request.url);
+            const path = url.pathname.endsWith('/app.html') ? './app.html' : './index.html';
+            cache.put(path, copy).catch(() => null);
+          } catch (e) {}
+        }).catch(() => null);
         return response;
       }).catch(() => caches.match('./index.html'))
     );

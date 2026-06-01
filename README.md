@@ -1,3 +1,21 @@
+# NRG v27.9.1 — Homepage Theme Visibility Polish
+
+This package keeps the v27.8.14 NRG simulator engine intact, preserves the separate welcome/homepage flow, and fixes homepage theme visibility/background contrast.
+
+## Structure
+
+- `index.html` — NRG welcome / landing page
+- `app.html` — the existing NRG simulator
+- `sw.js` — caches both pages for PWA/offline behavior
+- `NRG_HOMEPAGE_NOTES.md` — notes for the landing-page pass
+- `NRG_THEME_VISIBILITY_NOTES.md` — notes for the homepage theme visibility polish
+
+## Push note
+
+Push the full contents of this folder to GitHub Pages/Vercel. The landing page is now the front door, and the simulator opens through the bottom `Enter →` button.
+
+---
+
 # NRG — Home Energy Simulator
 
 NRG is a home energy simulation dashboard for estimating household electricity use from common dwelling presets and user-added devices.
@@ -61,3 +79,8 @@ Update NRG to v27.8.14 roadmap trajectory lock
 10. The release chip shows **NRG v27.8.14** after deployment.
 
 © WePower / EZ (Eazzy E)
+
+
+## v27.9.2 Homepage Contrast + Border Lift
+
+Fixes homepage theme button visibility in Light mode and strengthens homepage borders so the welcome screen structure is clearer. Simulator engine unchanged.

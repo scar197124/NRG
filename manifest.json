@@ -1,7 +1,7 @@
 {
-  "name": "NRG v27.8.14 \u2014 Home Energy Simulator",
-  "short_name": "NRG 27.8.14",
-  "start_url": ".",
+  "name": "NRG v27.9.1 \u2014 Home Energy Simulator",
+  "short_name": "NRG",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#070916",
   "theme_color": "#ffd166",
@@ -17,5 +17,5 @@
       "type": "image/png"
     }
   ],
-  "description": "NRG home energy simulator \u2014 v27.8.14 Roadmap Trajectory Lock."
+  "description": "NRG home energy simulator with a separate welcome page and offline-first planning flow."
 }
